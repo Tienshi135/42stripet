@@ -60,6 +60,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	char	*cursor;
 
+	if (!s)
+		return (NULL);
 	cursor = (char *) s;
 	while (*cursor)
 	{
@@ -108,21 +110,24 @@ char	*line_extract(char **str)
 {
 	int		i;
 	char	*buffer;
+	void	*temp;
 
 	i = 0;
+	if (!str || !*str)
+		return (NULL);
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '\n')
 		{
 			buffer = ft_substr(*str, 0, i + 1);
-			*str = ft_strchr(*str, '\n'); //leaks on *str
-			(*str)++; //no leaks becase nothing was allocated which might be an issue ?
+			temp = (char *) *str;
+			*str = ft_substr(*str, i + 1, ft_strlen(*str) - (i + 1));
+			free(temp);
 			return (buffer);
 		}
 		i++;
 	}
 	buffer = *str;
-	free(*str);
 	*str = NULL;
 	return (buffer);
 }

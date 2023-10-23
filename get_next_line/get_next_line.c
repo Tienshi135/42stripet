@@ -15,19 +15,51 @@
 #include <stdlib.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 100
+# define BUFFER_SIZE 200
 #endif
+
+void	*ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*cursor;
+
+	i = 0;
+	cursor = s;
+	while (i < n)
+	{
+		cursor[i] = '\0';
+		i++;
+	}
+	return (s);
+}
+
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	char	*buffer;
+	size_t	s;
+
+	s = nmemb * size;
+	buffer = (char *) malloc(s);
+	if (!buffer)
+		return (NULL);
+	else
+	{
+		ft_bzero(buffer, s);
+		return (buffer);
+	}
+}
 
 char	*fd_read(int fd, char *str)
 {
 	char	*buffer;
 	int		r;
+	void	*temp;
 
-	r = 1;
-	buffer = (char *) malloc(sizeof(char) * BUFFER_SIZE + 1);
+	r = BUFFER_SIZE;
+	buffer = (char *) ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	while (r && !ft_strchr(buffer, '\n'))
+	while (r == BUFFER_SIZE && !ft_strchr(buffer, '\n'))
 	{
 		r = read(fd, buffer, BUFFER_SIZE);
 		if (r == -1)
@@ -35,7 +67,13 @@ char	*fd_read(int fd, char *str)
 			free(buffer);
 			return (NULL);
 		}
-		str = ft_strjoin(str, buffer);//leaks on str on recalls
+		temp = (char *) str;
+		if (r < BUFFER_SIZE) // reading too much and skipping EOF
+			buffer[r] = '\0';
+		if (r != 0) // end of file when reading 1 bytes at a time
+			str = ft_strjoin(str, buffer);
+		if (temp && temp != str)
+			free(temp);
 	}
 	free (buffer);
 	return (str);
@@ -49,11 +87,15 @@ char	*get_next_line(int fd)
 	if (fd == -1 || BUFFER_SIZE < 1)
 		return (NULL);
 	buffer = fd_read(fd, buffer);
+	if (!buffer)
+	{
+		buffer = NULL;
+		return (buffer);
+	}
 	if (!*buffer)
 	{
-		free(buffer);
 		buffer = NULL;
-		return (NULL);
+		return (buffer);
 	}
 	line = line_extract(&buffer);
 	return (line);

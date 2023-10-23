@@ -10,16 +10,29 @@ int main(void)
 	char	*buffer;
 
 	fd = open("test.txt", O_RDONLY);
-	buffer = get_next_line(fd);
+	buffer = get_next_line(5);
 	printf("%s", buffer);
-	buffer = get_next_line(fd);
+	/*while (buffer)
+	{
+		buffer = get_next_line(fd);
+		printf("%s", buffer);
+		free(buffer);
+	}*/
+		buffer = get_next_line(fd);
 	printf("%s", buffer);
-	buffer = get_next_line(fd);
+	free(buffer);
+		buffer = get_next_line(fd);
 	printf("%s", buffer);
-	buffer = get_next_line(fd);
+		free(buffer);
+		buffer = get_next_line(fd);
 	printf("%s", buffer);
-	buffer = get_next_line(fd);
+		free(buffer);
+		buffer = get_next_line(fd);
 	printf("%s", buffer);
+		free(buffer);
+		buffer = get_next_line(fd);
+	printf("%s", buffer);
+		free(buffer);
 	close(fd);
 	printf("File parssing finished !");
 	return (0);
