@@ -18,26 +18,27 @@
 # define BUFFER_SIZE 100
 #endif
 
-char	*fd_extract(int fd, const char *str)
+char	*fd_read(int fd, char *str)
 {
 	char	*buffer;
-	int		length;
+	int		r;
 
-	if (!str)
+	r = 1;
+	buffer = (char *) malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (!buffer)
+		return (NULL);
+	while (r && !ft_strchr(buffer, '\n'))
 	{
-		buffer = (char *) malloc(sizeof(char) * BUFFER_SIZE + 1);
-		if (!buffer)
-			return (NULL);
-		if (read(fd, buffer, BUFFER_SIZE) == -1 || !*buffer)
+		r = read(fd, buffer, BUFFER_SIZE);
+		if (r == -1)
 		{
 			free(buffer);
 			return (NULL);
 		}
-		length = ft_strlen(buffer);
-		buffer[length] = '\0';
-		return (buffer);
+		str = ft_strjoin(str, buffer);//leaks on str on recalls
 	}
-	return ((char *)str);
+	free (buffer);
+	return (str);
 }
 
 char	*get_next_line(int fd)
@@ -45,12 +46,13 @@ char	*get_next_line(int fd)
 	static char	*buffer;
 	char		*line;
 
-	if (fd < 0)
+	if (fd == -1 || BUFFER_SIZE < 1)
 		return (NULL);
-	buffer = fd_extract(fd, buffer);
-	if (!buffer)
+	buffer = fd_read(fd, buffer);
+	if (!*buffer)
 	{
 		free(buffer);
+		buffer = NULL;
 		return (NULL);
 	}
 	line = line_extract(&buffer);

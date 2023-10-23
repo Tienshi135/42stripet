@@ -18,12 +18,63 @@ int	ft_strlen(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i])
 	{
 		i++;
 	}
 	return (i);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*buffer;
+	int		i;
+	int		len[2];
+
+	len[0] = ft_strlen((char *)s1);
+	len[1] = ft_strlen((char *)s2);
+	buffer = (char *) malloc(sizeof(char) * (len[0] + len[1] + 1));
+	i = 0;
+	if (!buffer)
+		return (NULL);
+	while (s1 && *s1)
+	{
+		buffer[i] = *s1;
+		s1++;
+		i++;
+	}
+	while (s2 && *s2)
+	{
+		buffer[i] = *s2;
+		s2++;
+		i++;
+	}
+	buffer[i] = '\0';
+	return (buffer);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	char	*cursor;
+
+	cursor = (char *) s;
+	while (*cursor)
+	{
+		if (*cursor == (char) c)
+		{
+			return (cursor);
+		}
+		else
+		{
+			cursor++;
+		}
+	}
+	if ((char) c == '\0')
+		return (cursor);
+	return (NULL);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -53,44 +104,25 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (buffer);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	char	*cursor;
-
-	cursor = (char *) s;
-	while (*cursor)
-	{
-		if (*cursor == (char) c)
-		{
-			return (cursor);
-		}
-		else
-		{
-			cursor++;
-		}
-	}
-	if ((char) c == '\0')
-		return (cursor);
-	return (NULL);
-}
-
 char	*line_extract(char **str)
 {
 	int		i;
 	char	*buffer;
 
 	i = 0;
-	while (str[i])
+	while ((*str)[i])
 	{
-		if (*str[i] == '\n')
+		if ((*str)[i] == '\n')
 		{
 			buffer = ft_substr(*str, 0, i + 1);
-			*str = ft_strchr(*str, '\n');
+			*str = ft_strchr(*str, '\n'); //leaks on *str
+			(*str)++; //no leaks becase nothing was allocated which might be an issue ?
 			return (buffer);
 		}
 		i++;
 	}
 	buffer = *str;
+	free(*str);
 	*str = NULL;
 	return (buffer);
 }

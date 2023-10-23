@@ -9,7 +9,13 @@ int main(void)
 	int fd;
 	char	*buffer;
 
-	fd = open("/Users/stripet/Desktop/test.txt", O_RDONLY);
+	fd = open("test.txt", O_RDONLY);
+	buffer = get_next_line(fd);
+	printf("%s", buffer);
+	buffer = get_next_line(fd);
+	printf("%s", buffer);
+	buffer = get_next_line(fd);
+	printf("%s", buffer);
 	buffer = get_next_line(fd);
 	printf("%s", buffer);
 	buffer = get_next_line(fd);
