@@ -49,11 +49,23 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	}
 }
 
+void	line_process(int r, char **buffer, char **saved_str)
+{
+	void	*temp;
+
+	temp = (char *) *saved_str;
+	if (r < BUFFER_SIZE)
+			(*buffer)[r] = '\0';
+	if (r != 0)
+			*str = ft_strjoin(*str, *buffer);
+	if (temp && temp != *str)
+			free(temp);
+}
+
 char	*fd_read(int fd, char *str)
 {
 	char	*buffer;
 	int		r;
-	void	*temp;
 
 	r = BUFFER_SIZE;
 	buffer = (char *) ft_calloc(sizeof(char), BUFFER_SIZE + 1);
@@ -67,13 +79,7 @@ char	*fd_read(int fd, char *str)
 			free(buffer);
 			return (NULL);
 		}
-		temp = (char *) str;
-		if (r < BUFFER_SIZE) // reading too much and skipping EOF
-			buffer[r] = '\0';
-		if (r != 0) // end of file when reading 1 bytes at a time
-			str = ft_strjoin(str, buffer);
-		if (temp && temp != str)
-			free(temp);
+		line_process(r, &buffer, &str);
 	}
 	free (buffer);
 	return (str);
