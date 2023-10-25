@@ -55,11 +55,11 @@ void	line_process(int r, char **buffer, char **saved_str)
 
 	temp = (char *) *saved_str;
 	if (r < BUFFER_SIZE)
-			(*buffer)[r] = '\0';
+		(*buffer)[r] = '\0';
 	if (r != 0)
-			*str = ft_strjoin(*str, *buffer);
-	if (temp && temp != *str)
-			free(temp);
+		*saved_str = ft_strjoin(*saved_str, *buffer);
+	if (temp && temp != *saved_str)
+		free(temp);
 }
 
 char	*fd_read(int fd, char *str)
@@ -77,6 +77,8 @@ char	*fd_read(int fd, char *str)
 		if (r == -1)
 		{
 			free(buffer);
+			if (str)
+				free(str);
 			return (NULL);
 		}
 		line_process(r, &buffer, &str);
