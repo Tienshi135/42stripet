@@ -12,7 +12,6 @@
 
 #include "get_next_line_bonus.h"
 #include <unistd.h>
-#include <stdlib.h>
 
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 200
@@ -100,7 +99,7 @@ char	*get_next_line(int fd)
 		buffer[fd] = NULL;
 		return (buffer[fd]);
 	}
-	if (!(*buffer)[fd])
+	if (!*(buffer[fd]))
 	{
 		buffer[fd] = NULL;
 		return (buffer[fd]);
