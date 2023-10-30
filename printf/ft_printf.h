@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.c                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 10:12:43 by tienshi           #+#    #+#             */
-/*   Updated: 2023/10/18 11:16:20 by stripet          ###   ########.fr       */
+/*   Created: 2023/10/26 12:15:43 by stripet           #+#    #+#             */
+/*   Updated: 2023/10/26 12:15:43 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
-#include <stdarg.h>
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	ft_printf(const char *string, ...)
-{
-	va_list	arguments;
-	int		counter;
+# include <unistd.h>
+# include <stdarg.h>
 
-	counter = 0;
-	va_start(arguments, string);
-	return (counter);
-}
+int	ft_printf(const char *string, ...);
+int	conversation(va_list arguments, const char c);
+
+#endif

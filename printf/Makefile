@@ -14,15 +14,24 @@ CFLAGS = -Wall -Werror -Wextra
 
 NAME = libftprintf.a
 
-src =	printf.c\
-		
-	
+src =	ft_printf.c\
+		./ConversationFunctions/printchar.c\
+		./ConversationFunctions/printdecimal.c\
+		./ConversationFunctions/printhexadecimall.c\
+		./ConversationFunctions/printhexadecimalu.c\
+		./ConversationFunctions/printinteger.c\
+		./ConversationFunctions/printpointer.c\
+		./ConversationFunctions/printstring.c\
+		./ConversationFunctions/printunsigneddecimal.c\
+
 obj = $(src:%.c=%.o)
 
 all:$(NAME)
 
 $(NAME):$(obj)
-	ar rcs	$(NAME) $(obj)
+	make -C ./libft all
+	cp ./libft/libft.a $(NAME)
+	ar rcs	$(NAME) $(obj) 
 	
 clean:
 	rm -f $(obj)
@@ -31,14 +40,26 @@ fclean:
 	rm -f $(NAME)
 	make clean
 
+libftclean:
+	make -C ./libft clean
+
+libftfclean:
+	make -C ./libft fclean
+
+allclean:
+	make clean
+	make libftclean
+
+allfclean:
+	make fclean
+	make libftfclean
+
 re:
 	make fclean
 	make all
 	
 debug:
-	make fclean
-	gcc $(CFLAGS) -g -c $(src)
-	make $(NAME)
+	gcc -g *.c ./ConversationFunctions/*.c -L. ./libft/libft.a
 
-executable:$(NAME)
-	gcc $(CFLAGS) main.c -L. $(Name) -L. libft/libft.a
+executable:
+	gcc $(CFLAGS) main.c -L. libftprintf.a

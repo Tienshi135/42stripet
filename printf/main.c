@@ -10,13 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
+#include "./libft/libft.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 int	main(int argc, char **argv)
 {
 	if (argc != 0)
 	{
-		ft_printf(argv[1], ft_atoi(argv[2]), argv[3]);
+		ft_putnbr_fd(ft_printf("%x return value is :", 2147483647), 1);
+		printf("\n");
+		ft_putnbr_fd(printf("%x return value is :", 2147483647), 1);
 	}
 	return (0);
 }
