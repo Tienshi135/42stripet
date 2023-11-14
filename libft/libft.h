@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:41:56 by tienshi           #+#    #+#             */
-/*   Updated: 2023/10/13 15:38:43 by stripet          ###   ########.fr       */
+/*   Updated: 2023/11/14 08:35:05 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# include <stdlib.h>
+# include <stdarg.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
@@ -68,4 +71,17 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 int		ft_isspace(char c);
 int		ft_abs(int n);
+
+char	*get_next_line(int fd);
+char	*line_extract(char **str);
+
+int	    ft_printf(const char *string, ...);
+int		printchar(int c);
+int		printstring(char *str);
+int		printpointer(unsigned long long c);
+int		printdecimal(int c);
+int		printinteger(int c);
+int		printunsigneddecimal(unsigned int c);
+int		printhexadecimall(unsigned int c);
+int		printhexadecimalu(unsigned int c);
 #endif

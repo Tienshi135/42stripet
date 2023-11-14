@@ -66,6 +66,17 @@ Bonus = ft_lstnew.c\
 		
 Extra = ft_isspace.c\
 		ft_abs.c\
+		get_next_line_bonus.c\
+		get_next_line_utils_bonus.c\
+		ft_printf.c\
+		printchar.c\
+		printdecimal.c\
+		printhexadecimall.c\
+		printhexadecimalu.c\
+		printinteger.c\
+		printpointer.c\
+		printstring.c\
+		printunsigneddecimal.c\
 
 AllObj = $(BaseObj)\
 		$(BonusObj)\
