@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   errors_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:49:41 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 13:15:48 by stripet          ###   ########.fr       */
+/*   Updated: 2024/03/20 15:59:05 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#ifndef ERRORS_BONUS_H
+# define ERRORS_BONUS_H
 
 # include <stdio.h>
-# include "../includes/structures.h"
+# include "../../includes/bonus/structures_bonus.h"
 
 enum	e_errors{
 	opencreat_err = -1,

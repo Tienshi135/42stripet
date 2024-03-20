@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:13:10 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 13:12:05 by stripet          ###   ########.fr       */
+/*   Updated: 2024/03/20 15:59:33 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/utils.h"
-#include "../includes/errors.h"
+#include "../../includes/bonus/utils_bonus.h"
+#include "../../includes/bonus/errors_bonus.h"
 
 static char	*findpath(t_data data, char *cmd)
 {

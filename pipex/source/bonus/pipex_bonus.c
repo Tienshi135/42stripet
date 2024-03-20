@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:08:38 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 16:07:13 by stripet          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:11:42 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
-#include "../includes/utils.h"
-#include "../includes/structures.h"
-#include "../libft/libft.h"
-#include "../includes/errors.h"
+#include "../../includes/bonus/pipex_bonus.h"
+#include "../../includes/bonus/utils_bonus.h"
+#include "../../includes/bonus/structures_bonus.h"
+#include "../../libft/libft.h"
+#include "../../includes/bonus/errors_bonus.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -67,7 +67,7 @@ int	main(int argc, char**argv, char **envp)
 	t_data	data;
 
 	ft_bzero(&data, sizeof(t_data));
-	if (argc != 5)
+	if (argc < 5)
 		return (msg(data, badargs_err));
 	init(&data, argv, envp);
 	data.id1 = fork();

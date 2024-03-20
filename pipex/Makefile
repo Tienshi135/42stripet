@@ -1,27 +1,68 @@
 Name = pipex
-Flags = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 Libraries = -lft -L ./libft
 
-src =	./source/*.c
+src_dir = ./source
+bonus_dir = ./source/bonus
+src = $(src_dir)/errors.c\
+      $(src_dir)/pipex.c\
+      $(src_dir)/utils.c\
 
-all:$(Name)
+bonus_src = $(bonus_dir)/errors_bonus.c\
+			$(bonus_dir)/pipex_bonus.c\
+			$(bonus_dir)/utils_bonus.c\
 
-$(Name):
-	gcc $(Flags) $(Libraries) $(src) -o $(Name)
+obj = $(src:.c=.o)
+bonus_obj = $(bonus_src:.c=.o)
+
+all: $(Name)
+
+$(Name):$(obj)
+	gcc $(Libraries) $^ -o $@
+
+bonus:$(bonus_obj)
+	gcc $(Libraries) $^ -o $(Name)
 
 clean:
+	rm -f $(src_dir)/*.o
+	rm -f $(bonus_dir)/*.o
+
+fclean: clean
 	rm -f $(Name)
 
-fclean:
-	make clean
-	rm -rf $(Name:%=%.dSYM)
-
-re:
-	make clean
-	make $(Name)
+re: fclean all
 
 debug:
-	gcc $(Flags) -g $(Libraries) $(src) -o $(Name)
+	gcc -g $(CFLAGS) $(Libraries) $(src) -o $(Name)
 
 sanitize:
-	gcc $(Flags) -g -fsanitize=address $(Libraries) $(src) -o $(Name)
+	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(src) -o $(Name)
+
+test:
+	@make sanitize
+	@printf '\n'
+	-./$(Name)
+	@printf '\n'
+	-./$(Name) asdasd
+	@printf '\n'
+	-./$(Name) a s d a s d a s d
+
+	@printf '\n'
+	-./$(Name) "empty file" "cat" "hostname" "output.txt"
+	@printf '\n'
+	-./$(Name) "noperm.txt" "cat" "hostname" "noperm.txt"
+
+	@printf '\n\n\n\n\n\n\n\n\n'
+
+	@make re
+	@printf '\n'
+	-Leaks --atExit --quiet -- ./$(Name)
+	@printf '\n'
+	-Leaks --atExit --quiet -- ./$(Name) asdasd
+	@printf '\n'
+	-Leaks --atExit --quiet -- ./$(Name) a s d a s d a s d
+
+	@printf '\n'
+	-Leaks --atExit --quiet -- ./$(Name) "empty file" "cat" "hostname" "output.txt"
+	@printf '\n'
+	-Leaks --atExit --quiet -- ./$(Name) "noperm" "cat" "hostname" "noperm.txt"

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   errors_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:49:19 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 13:16:02 by stripet          ###   ########.fr       */
+/*   Updated: 2024/03/20 15:59:19 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/errors.h"
-#include "../libft/libft.h"
+#include "../../includes/bonus/errors_bonus.h"
+#include "../../libft/libft.h"
 #include <stdlib.h>
 
 int	msg(t_data data, int err)

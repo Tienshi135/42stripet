@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   utils_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/05 13:49:41 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 13:15:48 by stripet          ###   ########.fr       */
+/*   Created: 2024/03/05 10:13:26 by stripet           #+#    #+#             */
+/*   Updated: 2024/03/20 15:56:49 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#ifndef UTILS_BONUS_H
+# define UTILS_BONUS_H
 
+# include "../../includes/bonus/structures_bonus.h"
+# include <unistd.h>
+# include "../../libft/libft.h"
 # include <stdio.h>
-# include "../includes/structures.h"
 
-enum	e_errors{
-	opencreat_err = -1,
-	pipe_err = -2,
-	open_err = -3,
-	fork_err = -4,
-	dup_err = -5,
-	split_err = -6,
-	join_err = -7,
-	badargs_err = -8,
-	cmd_err = -9
-};
-
-int	msg(t_data data, int err);
+void	childpipexlast(t_data data, char *cmd);
+void	childpipexfirst(t_data data, char *cmd);
 
 #endif

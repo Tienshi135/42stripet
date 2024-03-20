@@ -6,11 +6,11 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:08:58 by stripet           #+#    #+#             */
-/*   Updated: 2024/02/22 10:09:13 by stripet          ###   ########.fr       */
+/*   Updated: 2024/03/20 16:09:37 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifdef PIPEX_H
+#ifndef PIPEX_H
 # define PIPEX_H
 
 #endif

@@ -72,6 +72,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 int		ft_isspace(char c);
 int		ft_abs(int n);
+void	ft_split_free(char **buffer);
 
 char	*get_next_line(int fd);
 char	*line_extract(char **str);
