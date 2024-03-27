@@ -32,12 +32,19 @@ fclean: clean
 
 re: fclean all
 
+bre: fclean bonus
+
 debug:
 	gcc -g $(CFLAGS) $(Libraries) $(src) -o $(Name)
+
+bdebug:
+	gcc -g $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
 
 sanitize:
 	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(src) -o $(Name)
 
+bsanitize:
+	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
 test:
 	@make sanitize
 	@printf '\n'
@@ -51,6 +58,8 @@ test:
 	-./$(Name) "empty file" "cat" "hostname" "output.txt"
 	@printf '\n'
 	-./$(Name) "noperm.txt" "cat" "hostname" "noperm.txt"
+	@printf '\n'
+	-./$(Name) "input.txt" "cat" "wc -c" "output.txt"
 
 	@printf '\n\n\n\n\n\n\n\n\n'
 
@@ -66,3 +75,5 @@ test:
 	-Leaks --atExit --quiet -- ./$(Name) "empty file" "cat" "hostname" "output.txt"
 	@printf '\n'
 	-Leaks --atExit --quiet -- ./$(Name) "noperm" "cat" "hostname" "noperm.txt"
+	@printf '\n'
+	-Leaks --atExit --quiet -- ./$(Name) "input.txt" "cat" "wc -c" "output.txt"
