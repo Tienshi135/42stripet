@@ -4,20 +4,13 @@
 	// For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
 	"version": "0.2.0",
 	"configurations": [
-	{
-		"type": "lldb",
-		"request": "attach",
-		"name": "Attach",
-		"pid": "${command:pickMyProcess}"
-	},
-	{
-		"type": "lldb",
-		"request": "launch",
-		"name": "Debug",
-		"program": "${workspaceFolder}/pipex",
-		"args": ["${workspaceFolder}/input.txt", "cat", "wc -c", "${workspaceFolder}/output.txt"],
-		"cwd": "${workspaceFolder}",
-	}
-	],
-
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Launch",
+			"program": "${workspaceFolder}/pipex",
+			"args": ["${workspaceFolder}/input.txt", "cat", "grep h", "wc -c", "${workspaceFolder}/output.txt"],
+			"cwd": "${workspaceFolder}",
+		}
+	]
 }

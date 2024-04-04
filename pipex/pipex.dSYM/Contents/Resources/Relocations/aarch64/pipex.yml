@@ -1,0 +1,15 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     pipex
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _msg, symObjAddr: 0x0, symBinAddr: 0x10000340C, symSize: 0x184 }
+  - { offsetInCU: 0x48, offset: 0x48, size: 0x8, addend: 0x0, symName: _msg, symObjAddr: 0x0, symBinAddr: 0x10000340C, symSize: 0x184 }
+  - { offsetInCU: 0x26, offset: 0xEE, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003590, symSize: 0x108 }
+  - { offsetInCU: 0x48, offset: 0x110, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100003590, symSize: 0x108 }
+  - { offsetInCU: 0xA8, offset: 0x170, size: 0x8, addend: 0x0, symName: _init, symObjAddr: 0x108, symBinAddr: 0x100003698, symSize: 0x174 }
+  - { offsetInCU: 0xF6, offset: 0x1BE, size: 0x8, addend: 0x0, symName: _find_path_envp, symObjAddr: 0x27C, symBinAddr: 0x10000380C, symSize: 0xF4 }
+  - { offsetInCU: 0x26, offset: 0x25F, size: 0x8, addend: 0x0, symName: _child_proccess, symObjAddr: 0x0, symBinAddr: 0x100003900, symSize: 0x218 }
+  - { offsetInCU: 0x48, offset: 0x281, size: 0x8, addend: 0x0, symName: _child_proccess, symObjAddr: 0x0, symBinAddr: 0x100003900, symSize: 0x218 }
+  - { offsetInCU: 0xB4, offset: 0x2ED, size: 0x8, addend: 0x0, symName: _findpath, symObjAddr: 0x218, symBinAddr: 0x100003B18, symSize: 0x108 }
+  - { offsetInCU: 0x115, offset: 0x34E, size: 0x8, addend: 0x0, symName: _last_cmd, symObjAddr: 0x320, symBinAddr: 0x100003C20, symSize: 0x154 }
+...
