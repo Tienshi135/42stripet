@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 13:49:19 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 13:16:02 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:44:18 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,8 @@ int	msg(t_data data, int err)
 	else if (err == cmd_err)
 		perror("Error with cmd ");
 	else if (err == badargs_err)
-	{
 		ft_printf("Bad number of arguments expected 4");
-		return (1);
-	}
-	free(data.paths);
+	if (data.paths)
+		free(data.paths);
 	exit (err);
 }

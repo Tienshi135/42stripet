@@ -6,7 +6,7 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:13:10 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/04 15:24:06 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:48:58 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static char	*findpath(t_data data, char *cmd)
 		if (access(path, X_OK) == 0)
 		{
 			free(cmd);
+			ft_split_free(paths);
 			return (path);
 		}
 		free(path);
@@ -57,7 +58,11 @@ void	child_proccess(t_data data, char *cmd)
 		args = ft_split(cmd, ' ');
 		path = findpath(data, args[0]);
 		if (!path)
+		{
+			if (args && *args != cmd)
+				free(args);
 			msg(data, cmd_err);
+		}
 		close (fd[0]);
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
 			msg(data, dup_err);

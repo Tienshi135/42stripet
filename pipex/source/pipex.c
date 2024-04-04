@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:08:38 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 16:07:13 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:43:08 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void	cleanup(t_data data)
 {
 	close(data.pipe[0]);
 	close(data.pipe[1]);
+	close(data.input);
+	close(data.output);
 	waitpid(data.id1, NULL, 0);
 	waitpid(data.id2, NULL, 0);
 	free(data.paths);

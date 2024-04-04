@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 10:13:10 by stripet           #+#    #+#             */
-/*   Updated: 2024/03/20 13:12:05 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/04 16:45:56 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static char	*findpath(t_data data, char *cmd)
 		if (access(path, X_OK) == 0)
 		{
 			free(cmd);
+			ft_split_free(paths);
 			return (path);
 		}
 		free(path);
@@ -40,30 +41,6 @@ static char	*findpath(t_data data, char *cmd)
 	return (NULL);
 }
 
-void	childpipexlast(t_data data, char *cmd)
-{
-	char	**args;
-	char	*path;
-
-	dup2(data.pipe[0], STDIN_FILENO);
-	dup2(data.output, STDOUT_FILENO);
-	close(data.pipe[1]);
-	close(data.pipe[0]);
-	close(data.output);
-	close(data.input);
-	args = ft_split(cmd, ' ');
-	path = findpath(data, args[0]);
-	if (path == NULL)
-	{
-		if (args && *args != cmd)
-			free(args);
-		exit (msg(data, cmd_err));
-	}
-	execve(path, args, NULL);
-	free(args);
-	free(path);
-}
-
 void	childpipexfirst(t_data data, char *cmd)
 {
 	char	*path;
@@ -72,18 +49,32 @@ void	childpipexfirst(t_data data, char *cmd)
 	dup2(data.pipe[1], STDOUT_FILENO);
 	dup2(data.input, STDIN_FILENO);
 	close(data.pipe[0]);
-	close(data.pipe[1]);
-	close(data.input);
-	close(data.output);
 	args = ft_split(cmd, ' ');
 	path = findpath(data, args[0]);
 	if (path == NULL)
 	{
 		if (args && *args != cmd)
 			free(args);
-		exit (msg(data, cmd_err));
+		msg(data, cmd_err);
 	}
 	execve(path, args, NULL);
-	free(args);
-	free(path);
+}
+
+void	childpipexlast(t_data data, char *cmd)
+{
+	char	**args;
+	char	*path;
+
+	dup2(data.pipe[0], STDIN_FILENO);
+	dup2(data.output, STDOUT_FILENO);
+	close(data.pipe[1]);
+	args = ft_split(cmd, ' ');
+	path = findpath(data, args[0]);
+	if (path == NULL)
+	{
+		if (args && *args != cmd)
+			free(args);
+		msg(data, cmd_err);
+	}
+	execve(path, args, NULL);
 }
