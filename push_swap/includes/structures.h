@@ -6,7 +6,7 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:50:00 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/05 09:29:36 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/05 11:06:05 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@ typedef struct stack
 	struct stack	*next;
 	struct stack	*previous;
 }	t_stack;
-
 
 #endif
