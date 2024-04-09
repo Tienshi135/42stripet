@@ -78,6 +78,7 @@ Extra = ft_isspace.c\
 		printstring.c\
 		printunsigneddecimal.c\
 		ft_split_free.c\
+		ft_isnum.c\
 
 AllObj = $(BaseObj)\
 		$(BonusObj)\

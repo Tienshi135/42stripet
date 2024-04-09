@@ -86,4 +86,6 @@ int		printinteger(int c);
 int		printunsigneddecimal(unsigned int c);
 int		printhexadecimall(unsigned int c);
 int		printhexadecimalu(unsigned int c);
+int		ft_isnum(char *str);
+
 #endif

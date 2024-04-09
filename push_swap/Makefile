@@ -10,6 +10,7 @@ src = $(src_dir)/push_swap.c\
 	  $(src_dir)/swap.c\
 	  $(src_dir)/push.c\
 	  $(src_dir)/utils.c\
+	  $(src_dir)/errors.c\
 
 bonus_src = $(bonus_dir)/errors_bonus.c\
 			$(bonus_dir)/pipex_bonus.c\

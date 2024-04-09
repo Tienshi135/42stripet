@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:07:21 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/05 11:15:33 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/09 15:37:47 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ int	pa(t_stack **a, t_stack **b)
 
 	if (!(*b))
 		return (-1);
-	temp = *b;
-	temp->next->previous = NULL;
-	*b = (*b)->next;
-	temp->next = *a;
-	temp->previous = NULL;
-	(*a)->previous = temp;
-	*a = temp;
+	temp = ps_lstlast(*b);
+	if (ps_lstsize(*b) == 1)
+		*b = NULL;
+	if (temp->previous)
+	{
+		temp->previous->next = NULL;
+		temp->previous = NULL;
+	}
+	ps_lstadd_front(a, temp);
 	return (0);
 }
 
@@ -44,12 +46,14 @@ int	pb(t_stack **a, t_stack **b)
 
 	if (!(*a))
 		return (-1);
-	temp = *a;
-	temp->next->previous = NULL;
-	*a = (*a)->next;
-	temp->next = *b;
-	temp->previous = NULL;
-	(*b)->previous = temp;
-	*b = temp;
+	temp = ps_lstlast(*a);
+	if (ps_lstsize(*a) == 1)
+		*a = NULL;
+	if (temp->previous)
+	{
+		temp->previous->next = NULL;
+		temp->previous = NULL;
+	}
+	ps_lstadd_front(b, temp);
 	return (0);
 }

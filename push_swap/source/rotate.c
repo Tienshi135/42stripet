@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:41:01 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/05 11:00:39 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/09 12:56:10 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int	ra(t_stack **a)
 
 	if (ps_lstsize(*a) < 2)
 		return (-1);
-	temp = *a;
-	cursor = ps_lstlast(*a);
-	cursor->next = temp;
-	temp->previous = cursor;
-	*a = (*a)->next;
-	(*a)->previous = NULL;
-	temp->next = NULL;
+	temp = ps_lstlast(*a);
+	cursor = *a;
+	temp->previous->next = NULL;
+	temp->previous = NULL;
+	temp->next = cursor;
+	cursor->previous = temp;
+	*a = temp;
 	return (0);
 }
 
@@ -45,13 +45,13 @@ int	rb(t_stack **b)
 
 	if (ps_lstsize(*b) < 2)
 		return (-1);
-	temp = *b;
-	cursor = ps_lstlast(*b);
-	cursor->next = temp;
-	temp->previous = cursor;
-	*b = (*b)->next;
-	(*b)->previous = NULL;
-	temp->next = NULL;
+	temp = ps_lstlast(*b);
+	cursor = *b;
+	temp->previous->next = NULL;
+	temp->previous = NULL;
+	temp->next = cursor;
+	cursor->previous = temp;
+	*b = temp;
 	return (0);
 }
 

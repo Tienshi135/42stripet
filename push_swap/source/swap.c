@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   swap.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:41:22 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/05 10:12:41 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/09 13:00:01 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,17 @@
 int	sa(t_stack **a)
 {
 	t_stack	*temp;
+	t_stack	*cursor;
 
 	if (ps_lstsize(*a) < 2)
 		return (-1);
-	temp = (*a)->next;
-	if (temp->next)
-	{
-		temp->next->previous = *a;
-		(*a)->next = temp->next;
-	}
-	else
-		(*a)->next = NULL;
-	(*a)->previous = temp;
-	temp->next = *a;
-	temp->previous = NULL;
-	*a = temp;
+	temp = ps_lstlast(*a);
+	cursor = temp->previous;
+	cursor->previous->next = temp;
+	temp->next = cursor;
+	temp->previous = cursor->previous;
+	cursor->previous = temp;
+	cursor->next = NULL;
 	return (1);
 }
 
@@ -42,21 +38,17 @@ int	sa(t_stack **a)
 int	sb(t_stack **b)
 {
 	t_stack	*temp;
+	t_stack	*cursor;
 
 	if (ps_lstsize(*b) < 2)
 		return (-1);
-	temp = (*b)->next;
-	if (temp->next)
-	{
-		temp->next->previous = *b;
-		(*b)->next = temp->next;
-	}
-	else
-		(*b)->next = NULL;
-	(*b)->previous = temp;
-	temp->next = *b;
-	temp->previous = NULL;
-	*b = temp;
+	temp = ps_lstlast(*b);
+	cursor = temp->previous;
+	cursor->previous->next = temp;
+	temp->next = cursor;
+	temp->previous = cursor->previous;
+	cursor->previous = temp;
+	cursor->next = NULL;
 	return (1);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   reverse.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:09:08 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/05 11:05:47 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/09 12:53:33 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ int	rra(t_stack **a)
 		return (-1);
 	temp = *a;
 	cursor = ps_lstlast(*a);
-	cursor->previous->next = NULL;
-	cursor->previous = NULL;
 	cursor->next = temp;
+	*a = temp->next;
+	(*a)->previous = NULL;
 	temp->previous = cursor;
-	*a = cursor;
+	temp->next = NULL;
 	return (0);
 }
 
@@ -47,11 +47,11 @@ int	rrb(t_stack **b)
 		return (-1);
 	temp = *b;
 	cursor = ps_lstlast(*b);
-	cursor->previous->next = NULL;
-	cursor->previous = NULL;
 	cursor->next = temp;
+	*b = temp->next;
+	(*b)->previous = NULL;
 	temp->previous = cursor;
-	*b = cursor;
+	temp->next = NULL;
 	return (0);
 }
 
