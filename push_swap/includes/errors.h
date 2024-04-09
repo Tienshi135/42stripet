@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structures.h                                       :+:      :+:    :+:   */
+/*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 18:50:00 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/09 09:27:33 by tienshi          ###   ########.fr       */
+/*   Created: 2024/04/09 09:20:20 by tienshi           #+#    #+#             */
+/*   Updated: 2024/04/09 09:28:40 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURES_H
-# define STRUCTURES_H
-# include <stdlib.h>
+#ifndef ERRORS_H
+# define ERRORS_H
 
-typedef struct stack
-{
-	int				content;
-	struct stack	*next;
-	struct stack	*previous;
-}	t_stack;
+enum	e_error{
+	bad_args = 1,
+	bad_lst = 2
+};
 
-typedef struct data {
-	t_stack	*a;
-	t_stack	*b;
-}	t_data;
+void	msg(int code);
 
 #endif
