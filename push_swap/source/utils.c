@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:39:15 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/09 15:45:09 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/10 10:11:39 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,15 @@ void	ps_lstadd_back(t_stack **lst, t_stack *new)
 
 void	ps_lstadd_front(t_stack **lst, t_stack *new)
 {
+	if (!lst || !new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
 	new->next = *lst;
-	if (*lst)
-		(*lst)->previous = new;
+	(*lst)->previous = new;
 	*lst = new;
 }
 

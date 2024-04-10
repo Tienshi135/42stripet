@@ -6,7 +6,7 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:20:20 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/09 09:28:40 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/10 10:30:48 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,6 @@ enum	e_error{
 };
 
 void	msg(int code);
+void	error(void);
 
 #endif

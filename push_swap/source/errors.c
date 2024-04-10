@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:20:53 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/09 10:52:19 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/10 10:31:21 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,10 @@ void	msg(int code)
 	if (code == bad_lst)
 		ft_printf(("List format is incorrect, expected unique positive ints\n"));
 	exit (code);
+}
+
+void	error(void)
+{
+	ft_printf("Error !\n");
+	exit (-1);
 }
