@@ -5,11 +5,23 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "(lldb) Launch",
+			"type": "cppdbg",
+			"request": "launch",
+			"program": "${workspaceFolder}/push_swap",
+			"args": ["\"1 2 3 4\""],
+			"stopAtEntry": false,
+			"cwd": "${fileDirname}",
+			"environment": [],
+			"externalConsole": false,
+			"MIMode": "lldb"
+		},
+		{
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/push_swap",
-			"args": ["1", "2", "3", "4", "5", "6"],
+			"args": ["1"],
 			"cwd": "${workspaceFolder}"
 		}
 	]

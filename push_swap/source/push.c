@@ -6,13 +6,12 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:07:21 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/09 15:37:47 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/10 13:28:49 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push.h"
 #include "../includes/utils.h"
-
 
 /// @brief Take the first element at the top of b and put it at the top of a.
 /// @param t_stack a 

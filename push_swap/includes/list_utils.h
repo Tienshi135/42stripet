@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isnum.c                                         :+:      :+:    :+:   */
+/*   list_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/09 10:41:31 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/09 10:41:37 by stripet          ###   ########.fr       */
+/*   Created: 2024/04/10 13:30:18 by stripet           #+#    #+#             */
+/*   Updated: 2024/04/10 13:33:10 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef LIST_UTILS_H
+# define LIST_UTILS_H
+# include "../includes/structures.h"
+# include "../libft/libft.h"
 
-int	ft_isnum(char *str)
-{
-	int	i;
+t_stack	*ps_lstlast(t_stack *lst);
+t_stack	*ps_lstnew(int value);
+void	ps_lstadd_back(t_stack **lst, t_stack *new);
+void	ps_lstadd_front(t_stack **lst, t_stack *new);
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] < 48 || str[i] > 57)
-			return (1);
-		i++;
-	}
-	return (0);
-}
+#endif

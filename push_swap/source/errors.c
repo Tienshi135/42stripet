@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 09:20:53 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/10 10:31:21 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/10 11:10:04 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	msg(int code)
 
 void	error(void)
 {
-	ft_printf("Error !\n");
+	write(STDERR_FILENO, "Error !\n", 8);
 	exit (-1);
 }

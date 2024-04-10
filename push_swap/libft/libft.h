@@ -73,6 +73,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_isspace(char c);
 int		ft_abs(int n);
 void	ft_split_free(char **buffer);
+int		ft_isint(char *str);
 
 char	*get_next_line(int fd);
 char	*line_extract(char **str);
@@ -86,6 +87,5 @@ int		printinteger(int c);
 int		printunsigneddecimal(unsigned int c);
 int		printhexadecimall(unsigned int c);
 int		printhexadecimalu(unsigned int c);
-int		ft_isnum(char *str);
 
 #endif
