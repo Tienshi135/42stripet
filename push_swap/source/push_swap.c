@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/12 10:23:55 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/12 15:47:11 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,52 @@
 #include "../includes/push.h"
 #include "../includes/errors.h"
 #include "../libft/libft.h"
+#include "../includes/math.h"
 
-void	print_list(t_stack *a)
+static void	print_list(t_data *data)
 {
-	t_stack	*cursor;
+	t_stack	*cursora;
+	t_stack	*cursorb;
 
-	cursor = a;
-	while (cursor)
+	cursora = ps_lstlast(data->a);
+	cursorb = ps_lstlast(data->b);
+	ft_printf("Stack before sorting :\na b\n⎻ ⎻\n");
+	while (cursora || cursorb)
 	{
-		ft_printf("%i\n", cursor->content);
-		cursor = cursor->next;
+		if (cursora && cursorb)
+		{
+			ft_printf("%i %i\n", cursora->content, cursorb->content);
+			cursora = cursora->previous;
+			cursorb = cursorb->previous;
+		}
+		else if (cursora)
+		{
+			ft_printf("%i NAN\n", cursora->content);
+			cursora = cursora->previous;
+		}
+		else if (cursorb)
+		{
+			ft_printf("NAN %i\n", cursorb->content);
+			cursorb = cursorb->previous;
+		}
 	}
 }
 
+static void	stack_sort(t_data *data)
+{
+	int	median;
+	median = (ps_min(data->a) + ps_max(data->a)) / 2;
+	while (ps_lstsize(data->b) + 1 < ps_lstsize(data->a))
+	{
+		if (ps_lstlast(data->a)->content > median)
+			pb(&(data->a), &(data->b));
+		else
+		{
+			ra(&(data->a));
+		}
+		print_list(data);
+	}
+}
 
 static void	stack_init(t_data *data, char *list)
 {
@@ -42,7 +75,7 @@ static void	stack_init(t_data *data, char *list)
 	{
 		if (buffer)
 			ft_split_free(buffer);
-		error();
+		error(data);
 	}
 	while (buffer[i])
 	{
@@ -50,19 +83,17 @@ static void	stack_init(t_data *data, char *list)
 			ps_lstadd_front(&(data->a), ps_lstnew(ft_atoi(buffer[i])));
 		else
 		{
-			data_cleanup(*data);
+			data_cleanup(data);
 			ft_split_free(buffer);
-			error();
+			error(data);
 		}
 		i++;
 	}
-	ft_printf("Finished stack allocation !\n");
 	ft_split_free(buffer);
 }
 
 static void	wait_prompt(t_data *data)
 {
-	char	*buffer;
 	char	*temp;
 
 	temp = NULL;
@@ -71,10 +102,12 @@ static void	wait_prompt(t_data *data)
 	{
 		temp = get_next_line(STDIN_FILENO);
 	}
-	buffer = ft_substr(temp, 0, ft_strlen(temp) - 1);
+	data->list = ft_strtrim(temp, "\n");
 	free (temp);
-	stack_init(&(*data), buffer);
-	free(buffer);
+	temp = data->list;
+	data->list = ft_strtrim(temp, "\"");
+	free(temp);
+	stack_init(&(*data), data->list);
 }
 
 int	main(int argc, char **argv)
@@ -89,7 +122,9 @@ int	main(int argc, char **argv)
 		data.list = ft_argv_to_str(argc, argv);
 		stack_init(&data, data.list);
 	}
-	print_list(data.a);
-	data_cleanup(data);
+	print_list(&data);
+	stack_sort(&data);
+	data_cleanup(&data);
+	free(data.list);
 	return (0);
 }

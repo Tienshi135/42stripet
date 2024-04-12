@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:39:15 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/10 16:20:29 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/12 11:35:03 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/utils.h"
 
-void	data_cleanup(t_data data)
+void	data_cleanup(t_data *data)
 {
-	if (data.a)
-		ps_lst_free(data.a);
-	if (data.b)
-		ps_lst_free(data.b);
+	if (data->a)
+		ps_lst_free(data->a);
+	if (data->b)
+		ps_lst_free(data->b);
 }
 
 int	ps_lstsize(t_stack *stack)
