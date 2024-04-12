@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_argv_to_str.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 17:38:58 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/10 16:20:45 by tienshi          ###   ########.fr       */
+/*   Created: 2024/04/10 16:20:11 by tienshi           #+#    #+#             */
+/*   Updated: 2024/04/12 10:20:44 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
-# include "../includes/structures.h"
-# include "../libft/libft.h"
-# include "../includes/list_utils.h"
+#include "libft.h"
 
-int		ps_lstsize(t_stack *stack);
-void	ps_lst_free(t_stack *tofree);
-int		is_valid(t_data *data, char *str);
-void	data_cleanup(t_data data);
+char	*ft_argv_to_str(int argc, char **argv)
+{
+	int		i;
+	char	*result;
+	char	*temp;
 
-#endif
+	i = 1;
+	result = NULL;
+	while (argv[i])
+	{
+		temp = result;
+		result = ft_strjoin(result, argv[i]);
+		if (temp)
+			free(temp);
+		if (i < argc && argv[i + 1])
+		{
+			temp = result;
+			result = ft_strjoin(result, " ");
+			free(temp);
+		}
+		i++;
+	}
+	return (result);
+}

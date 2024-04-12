@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:39:15 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/10 13:42:18 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/10 16:20:29 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,8 @@ void	ps_lst_free(t_stack *tofree)
 
 int	is_valid(t_data *data, char *str)
 {
-	int		i;
 	t_stack	*cursor;
 
-	i = 0;
 	cursor = data->a;
 	if (!ft_isint(str))
 		return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/10 14:40:44 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/12 10:23:55 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,28 +80,16 @@ static void	wait_prompt(t_data *data)
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	int		i;
 
 	ft_bzero(&data, sizeof(data));
 	if (argc < 2)
 		wait_prompt(&data);
-	else if (argc == 2)
-		stack_init(&data, argv[1]);
 	else
 	{
-		i = 1;
-		while (argv[i])
-		{
-			if (is_valid(&data, argv[i]))
-				ps_lstadd_front(&(data.a), ps_lstnew(ft_atoi(argv[i])));
-			else
-			{
-				data_cleanup(data);
-				error();
-			}
-			i++;
-		}
+		data.list = ft_argv_to_str(argc, argv);
+		stack_init(&data, data.list);
 	}
+	print_list(data.a);
 	data_cleanup(data);
 	return (0);
 }

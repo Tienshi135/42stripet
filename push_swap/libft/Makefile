@@ -79,6 +79,7 @@ Extra = ft_isspace.c\
 		printunsigneddecimal.c\
 		ft_split_free.c\
 		ft_isint.c\
+		ft_argv_to_str.c\
 
 AllObj = $(BaseObj)\
 		$(BonusObj)\

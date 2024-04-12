@@ -74,6 +74,7 @@ int		ft_isspace(char c);
 int		ft_abs(int n);
 void	ft_split_free(char **buffer);
 int		ft_isint(char *str);
+char	*ft_argv_to_str(int argc, char **argv);
 
 char	*get_next_line(int fd);
 char	*line_extract(char **str);
