@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/12 15:47:11 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/15 14:21:23 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include "../includes/errors.h"
 #include "../libft/libft.h"
 #include "../includes/math.h"
+#include "../includes/quick_sort.h"
 
 static void	print_list(t_data *data)
 {
@@ -50,18 +51,17 @@ static void	print_list(t_data *data)
 
 static void	stack_sort(t_data *data)
 {
-	int	median;
-	median = (ps_min(data->a) + ps_max(data->a)) / 2;
-	while (ps_lstsize(data->b) + 1 < ps_lstsize(data->a))
+	int	*array;
+
+	array = stack_dup_to_arr(data->a);
+	quicksort(array, 0, ps_lstsize(data->a) - 1);
+	ft_printf("Would be sorted list\n");
+	for (int i = 0; i < ps_lstsize(data->a); i++)
 	{
-		if (ps_lstlast(data->a)->content > median)
-			pb(&(data->a), &(data->b));
-		else
-		{
-			ra(&(data->a));
-		}
-		print_list(data);
+		ft_printf("%i\n", array[i]);
 	}
+	set_index(&(data->a), array);
+	free(array);
 }
 
 static void	stack_init(t_data *data, char *list)
