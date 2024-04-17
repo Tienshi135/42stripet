@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   structures.h                                       :+:      :+:    :+:   */
+/*   algorythm.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 18:50:00 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/17 13:33:04 by stripet          ###   ########.fr       */
+/*   Created: 2024/04/17 12:12:21 by stripet           #+#    #+#             */
+/*   Updated: 2024/04/17 12:25:07 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCTURES_H
-# define STRUCTURES_H
-# include <stdlib.h>
+#ifndef ALGORYTHM_H
+# define ALGORYTHM_H
+# include "../includes/structures.h"
+# include "../includes/list_utils.h"
+# include "../includes/push.h"
+# include "../includes/swap.h"
+# include "../includes/rotate.h"
+# include "../includes/reverse.h"
 
-typedef struct stack
-{
-	int				content;
-	struct stack	*next;
-	struct stack	*previous;
-	int				index;
-	int				moves;
-	int				size;
-	int				left;
-}	t_stack;
-
-typedef struct data {
-	t_stack	*a;
-	t_stack	*b;
-	char	*list;
-}	t_data;
+void	move_set(t_data *data);
 
 #endif

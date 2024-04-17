@@ -14,6 +14,7 @@ src = $(src_dir)/push_swap.c\
 	  $(src_dir)/list_utils.c\
 	  $(src_dir)/math.c\
 	  $(src_dir)/quick_sort.c\
+	  $(src_dir)/algorythm.c\
 
 bonus_src = $(bonus_dir)/errors_bonus.c\
 			$(bonus_dir)/pipex_bonus.c\

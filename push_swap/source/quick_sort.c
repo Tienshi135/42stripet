@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:46:23 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/15 14:24:35 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/17 13:42:29 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	set_index(t_stack **stack, int *array)
 	while (cursor)
 	{
 		i = 0;
-		while (array[i])
+		while (i < (*stack)->size)
 		{
 			if (array[i] == cursor->content)
 			{
