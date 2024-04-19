@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/17 14:19:45 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/19 10:22:48 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	stack_sort(t_data *data)
 	array = stack_dup_to_arr(data->a);
 	quicksort(array, 0, ps_lstsize(data->a) - 1);
 	set_index(&(data->a), array);
-	move_set(data);
+	prepare_stack(data);
 	print_list(data);
 	free(array);
 }
@@ -87,7 +87,6 @@ static void	stack_init(t_data *data, char *list)
 		}
 		i++;
 	}
-	data->a->size = i;
 	ft_split_free(buffer);
 }
 

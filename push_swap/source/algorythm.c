@@ -3,120 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   algorythm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:12:00 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/17 14:25:21 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/19 10:56:53 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/algorythm.h"
 #include "../includes/push_swap.h"
 
-static int	calculate_moves_to_top(t_data *data, t_stack *elem)
+static int	find_median(t_stack *a)
 {
 	t_stack	*cursor;
-	int		result[2];
 
-	result[0] = 1;
-	result[1] = 1;
-	cursor = elem;
-	if (cursor->next == ps_lstlast(data->a))
-		return (result[0]);
-	if (cursor == ps_lstlast(data->a))
+	cursor = ps_lstlast(a);
+	while (cursor)
+	{
+		if (cursor->sort_index == ps_lstsize(a) / 2)
+			return (cursor->content);
+		cursor = cursor->previous;
+	}
+	return (0);
+}
+
+static int	moves_counter(t_stack *stack, t_stack *start, int end)
+{
+	char	*buffer;
+
+	if (start->index == end)
 		return (0);
-	while (cursor)
-	{
-		result[0]++;
-		cursor = cursor->next;
-	}
-	cursor = elem;
-	while (cursor)
-	{
-		result[1]++;
-		cursor = cursor->previous;
-	}
-	if (result[0] < result[1])
-		return (result[0]);
-	elem->left = 1;
-	return (result[1]);
 }
 
-static void	get_to_top(t_data *data, t_stack *current)
-{
-	if (current->next == ps_lstlast(data->a))
-	{
-		sa(&(data->a));
-		return ;
-	}
-	else if (current->left == 1)
-	{
-		while (current->moves > 0)
-		{
-			rra(&(data->a));
-			current->moves--;
-		}
-	}
-	else
-	{
-		while (current->moves > 0)
-		{
-			ra(&(data->a));
-			current->moves--;
-		}
-	}
-}
-
-static void	exec_lowest_moves_to_top(t_data *data, int mid)
+void	prepare_stack(t_data *data)
 {
 	t_stack	*cursor;
-	int		lowest;
-	t_stack	*to_do;
+	t_stack	*to_push;
+	int		median;
+	int		temp;
 
-	cursor = ps_lstlast(data->a);
-	lowest = 7;
-	while (cursor)
-	{
-		if (cursor->index < mid)
-		{
-			if (cursor->moves <= lowest)
-			{
-				lowest = cursor->moves;
-				to_do = cursor;
-			}
-		}
-		cursor = cursor->previous;
-	}
-	if (to_do->moves != 0)
-		get_to_top(data, to_do);
-	pb(&(data->a), &(data->b));
-}
-
-static void	prepare_stacks(t_data *data)
-{
-	int		mid;
-	t_stack	*cursor;
-
-	mid = data->a->size / 2;
-	data->a->size -= mid;
-	while (ps_lstsize(data->b) != mid)
+	median = find_median(data->a);
+	temp = ps_lstsize(data->a) + 1;
+	while (ps_lstsize(data->a) >= ps_lstsize(data->b) + 1)
 	{
 		cursor = ps_lstlast(data->a);
 		while (cursor)
 		{
-			if (cursor->index < mid)
-				cursor->moves = calculate_moves_to_top(data, cursor);
+			if (cursor->content <= median)
+			{
+				if (moves_counter(data->a, cursor, 0) < temp)
+					to_push = cursor;
+			}
 			cursor = cursor->previous;
 		}
-		ft_printf("Before everything\n");
-		print_list(data);
-		exec_lowest_moves_to_top(data, mid);
-		ft_printf("after swap\n");
-		print_list(data);
+		//push to_push to b
 	}
-}
-
-void	move_set(t_data *data)
-{
-	prepare_stacks(data);
 }

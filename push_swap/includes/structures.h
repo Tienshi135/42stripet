@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:50:00 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/17 13:33:04 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/19 10:38:40 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,8 @@ typedef struct stack
 	struct stack	*next;
 	struct stack	*previous;
 	int				index;
-	int				moves;
-	int				size;
-	int				left;
+	int				sort_index;
+	char			*moves;
 }	t_stack;
 
 typedef struct data {

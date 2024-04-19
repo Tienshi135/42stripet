@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quick_sort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:46:23 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/17 13:42:29 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/19 10:28:35 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,24 @@ void	set_index(t_stack **stack, int *array)
 {
 	t_stack	*cursor;
 	int		i;
+	int		j;
 
-	cursor = *stack;
+	j = 0;
+	cursor = ps_lstlast(*stack);
 	while (cursor)
 	{
 		i = 0;
-		while (i < (*stack)->size)
+		while (i < ps_lstsize(*stack))
 		{
 			if (array[i] == cursor->content)
 			{
-				cursor->index = i;
+				cursor->sort_index = i;
 				break ;
 			}
 			i++;
 		}
-		cursor = cursor->next;
+		cursor->index = j;
+		cursor = cursor->previous;
+		j++;
 	}
 }
