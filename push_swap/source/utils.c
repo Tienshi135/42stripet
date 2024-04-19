@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:39:15 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/12 11:35:03 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/19 13:15:32 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ int	ps_lstsize(t_stack *stack)
 void	ps_lst_free(t_stack *tofree)
 {
 	t_stack	*cursor;
+	t_stack	*freeable;
 
 	cursor = tofree;
 	while (cursor)
 	{
-		free(cursor);
-		cursor = tofree->next;
-		tofree = cursor;
+		freeable = cursor;
+		cursor = cursor->next;
+		free(freeable);
 	}
 }
 
