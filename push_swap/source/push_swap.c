@@ -3,23 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/19 10:22:48 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:39:58 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-#include "../includes/swap.h"
-#include "../includes/rotate.h"
-#include "../includes/reverse.h"
-#include "../includes/push.h"
 #include "../includes/errors.h"
 #include "../libft/libft.h"
 #include "../includes/math.h"
 #include "../includes/quick_sort.h"
-#include "../includes/algorythm.h"
+#include "../includes/test.h"
 
 void	print_list(t_data *data)
 {
@@ -52,14 +48,15 @@ void	print_list(t_data *data)
 
 static void	stack_sort(t_data *data)
 {
-	int	*array;
+	// int	*array;
 
-	array = stack_dup_to_arr(data->a);
-	quicksort(array, 0, ps_lstsize(data->a) - 1);
-	set_index(&(data->a), array);
+	// array = stack_dup_to_arr(data->a);
+	// quicksort(array, 0, ps_lstsize(data->a) - 1);
+	// set_index(&(data->a), array);
+	// prepare_stack(data);
+	// print_list(data);
+	// free(array);
 	prepare_stack(data);
-	print_list(data);
-	free(array);
 }
 
 static void	stack_init(t_data *data, char *list)
