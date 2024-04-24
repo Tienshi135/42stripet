@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:15:43 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/24 14:06:09 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/24 14:14:43 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static int	arrange_middle(t_data *data, t_stack *element)
 
 	result = 0;
 	counter = 0;
-	// add_to_moves(&(element->moves), "rb ", &result);
 	cursor = ps_lstlast(data->b);
 	while (element->content < cursor->content)
 	{
@@ -124,6 +123,17 @@ static int	moves_to_b(t_data *data, t_stack *element)
 			add_to_moves(&(element->moves), "rb ", &steps);
 	}
 	return (steps);
+}
+
+static void	sort_3(t_stack **stack)
+{
+	t_stack	*nodes[3];
+
+	nodes[0] = ps_lstlast(*stack);
+	nodes[1] = nodes[0]->previous;
+	nodes[2] = *stack;
+
+	
 }
 
 void	ex_moves(t_data *data, t_stack *to_do)
@@ -177,14 +187,12 @@ static void	push_to_b(t_data *data)
 		cursor = ps_lstlast(data->a)->previous;
 		while (cursor)
 		{
-			free(to_push->moves);
-			to_push->moves = NULL;
+			reset_moves(data);
 			if (moves_to_b(data, cursor) < moves_to_b(data, to_push))
 				to_push = cursor;
 			cursor = cursor->previous;
 		}
 		ex_moves(data, to_push);
-		reset_moves(data);
 		
 		ft_printf("after one of the ex_moves");
 		print_list(data);
@@ -201,15 +209,6 @@ void	prepare_stack(t_data *data)
 			ra(&(data->a));
 		return ;
 	}
-	pb(&(data->a), &(data->b));
-	
-	ft_printf("after first pb");
-	print_list(data);
-	
-	pb(&(data->a), &(data->b));
-	
-	ft_printf("after second pb");
-	print_list(data);
-
 	push_to_b(data);
+	sort_3(&(data->a));
 }
