@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:41:01 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/09 12:56:10 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/29 13:26:42 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	ra(t_stack **a)
 	temp->next = cursor;
 	cursor->previous = temp;
 	*a = temp;
+	ft_printf("ra\n");
 	return (0);
 }
 
@@ -52,6 +53,7 @@ int	rb(t_stack **b)
 	temp->next = cursor;
 	cursor->previous = temp;
 	*b = temp;
+	ft_printf("rb\n");
 	return (0);
 }
 
@@ -64,5 +66,6 @@ int	rr(t_stack **a, t_stack **b)
 {
 	if ((ra (&(*a)) == -1) || ((rb (&(*b))) == -1))
 		return (-1);
+	ft_printf("rr\n");
 	return (1);
 }

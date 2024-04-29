@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/24 11:39:58 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/29 13:29:18 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int	main(int argc, char **argv)
 		data.list = ft_argv_to_str(argc, argv);
 		stack_init(&data, data.list);
 	}
-	print_list(&data);
 	stack_sort(&data);
 	data_cleanup(&data);
 	free(data.list);

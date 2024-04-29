@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:15:43 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/24 14:14:43 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/29 13:29:25 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,22 @@ static void	sort_3(t_stack **stack)
 	nodes[1] = nodes[0]->previous;
 	nodes[2] = *stack;
 
-	
+	while (!is_sorted(*stack))
+	{
+		if (nodes[0] > nodes[2])
+		{
+			ra(stack);
+			sa(stack);
+		}
+		if (nodes[0] > nodes[1])
+			sa(stack);
+		if (nodes[1] > nodes[2])
+		{
+			rra(stack);
+			sa(stack);
+		}
+	}
+
 }
 
 void	ex_moves(t_data *data, t_stack *to_do)
@@ -159,11 +174,28 @@ void	ex_moves(t_data *data, t_stack *to_do)
 			rrb(&(data->b));
 		i++;
 	}
-	if (to_do->content > data->biggest)
-		data->biggest = to_do->content;
-	if (to_do->content < data->smallest)
-		data->smallest = to_do->content;
 	ft_split_free(buffer);
+}
+
+static void	set_big_small(t_data *data)
+{
+	t_stack	*cursor;
+	int		big;
+	int		small;
+
+	small = ps_lstsize(data->b);
+	big = 0;
+	cursor = data->b;
+	while (cursor)
+	{
+		if (cursor->content > big)
+			big = cursor->content;
+		if (cursor->content < small)
+			small = cursor->content;
+		cursor = cursor->next;
+	}
+	data->biggest = big;
+	data->smallest = small;
 }
 
 static void	push_to_b(t_data *data)
@@ -171,31 +203,59 @@ static void	push_to_b(t_data *data)
 	t_stack	*to_push;
 	t_stack	*cursor;
 
-	if (data->b->content > data->b->next->content)
-	{
-		data->biggest = data->b->content;
-		data->smallest = data->b->next->content;
-	}
-	else
-	{
-		data->biggest = data->b->next->content;
-		data->smallest = data->b->content;
-	}
+	pb(&(data->a), &(data->b));
+	pb(&(data->a), &(data->b));
 	while (ps_lstsize(data->a) > 3)
 	{
 		to_push = ps_lstlast(data->a);
 		cursor = ps_lstlast(data->a)->previous;
 		while (cursor)
 		{
+			set_big_small(data);
 			reset_moves(data);
 			if (moves_to_b(data, cursor) < moves_to_b(data, to_push))
 				to_push = cursor;
 			cursor = cursor->previous;
 		}
 		ex_moves(data, to_push);
-		
-		ft_printf("after one of the ex_moves");
-		print_list(data);
+	}
+}
+
+static void	should_swap(t_data *data)
+{
+	t_stack	*cursor;
+	t_stack	*cursorb;
+
+	cursor = data->a;
+	cursorb = ps_lstlast(data->b);
+
+	if (cursorb->content < data->a->content
+		&& cursorb->content < ps_lstlast(data->a)->content)
+	{
+		while (cursor->content < ps_lstlast(data->a)->content
+			&& cursor->content > cursorb->content)
+		{
+			rra(&(data->a));
+			cursor = data->a;
+		}
+	}
+	else
+	{
+		while (cursor->content > cursorb->content)
+		{
+			rra(&(data->a));
+			cursor = data->a;
+		}
+	}
+}
+
+
+static void	push_to_a(t_data *data)
+{
+	while (ps_lstsize(data->b) > 0)
+	{
+		should_swap(data);
+		pa(&(data->a), &(data->b));
 	}
 }
 
@@ -211,4 +271,5 @@ void	prepare_stack(t_data *data)
 	}
 	push_to_b(data);
 	sort_3(&(data->a));
+	push_to_a(data);
 }

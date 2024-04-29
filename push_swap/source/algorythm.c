@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 12:12:00 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/19 13:21:55 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/29 13:28:29 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,4 @@ void	prepare_stack(t_data *data)
 		moves_free(data->a);
 		pb(&(data->a), &(data->b));
 	}
-	ft_printf("after prepare for stack : \n");
-	print_list(data);
 }

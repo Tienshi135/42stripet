@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:07:21 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/24 11:48:20 by stripet          ###   ########.fr       */
+/*   Updated: 2024/04/29 13:26:01 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	pa(t_stack **a, t_stack **b)
 		temp->previous = NULL;
 	}
 	ps_lstadd_back(a, temp);
+	ft_printf("pa\n");
 	return (0);
 }
 
@@ -54,5 +55,6 @@ int	pb(t_stack **a, t_stack **b)
 		temp->previous = NULL;
 	}
 	ps_lstadd_back(b, temp);
+	ft_printf("pb\n");
 	return (0);
 }

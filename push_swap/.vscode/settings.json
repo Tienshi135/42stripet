@@ -8,6 +8,7 @@
 		"sstream": "c",
 		"structures.h": "c",
 		"math.h": "c",
-		"quick_sort.h": "c"
+		"quick_sort.h": "c",
+		"algorithm": "c"
 	}
 }
