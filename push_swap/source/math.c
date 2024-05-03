@@ -6,28 +6,13 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:24:57 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/12 15:23:45 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/03 14:48:05 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/math.h"
 #include "../includes/list_utils.h"
 #include "../includes/utils.h"
-
-int	ps_average(t_stack *stack)
-{
-	int		result;
-	t_stack	*cursor;
-
-	cursor = stack;
-	result = 0;
-	while (cursor)
-	{
-		result += cursor->content;
-		cursor = cursor->next;
-	}
-	return (result / ps_lstsize(stack));
-}
 
 int	ps_max(t_stack *stack)
 {

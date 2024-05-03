@@ -5,128 +5,123 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 12:12:00 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/29 13:28:29 by stripet          ###   ########.fr       */
+/*   Created: 2024/04/24 10:15:43 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/03 17:54:42 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/algorythm.h"
+#include "../includes/math.h"
 #include "../includes/push_swap.h"
+#include "../includes/utils.h"
 
-static int	find_median(t_stack *a)
+static int	arrange_middle(t_data *data, t_stack *element)
 {
 	t_stack	*cursor;
-
-	cursor = ps_lstlast(a);
-	while (cursor)
-	{
-		if (cursor->sort_index == ps_lstsize(a) / 2)
-			return (cursor->content);
-		cursor = cursor->previous;
-	}
-	return (0);
-}
-
-void	moves_free(t_stack *tofree)
-{
-	t_stack	*cursor;
-
-	cursor = ps_lstlast(tofree);
-	while (cursor)
-	{
-		if (cursor->moves)
-			free(cursor->moves);
-		cursor = cursor->previous;
-	}
-}
-
-void	ex_moves(t_stack **stack, t_stack *to_do)
-{
-	char	**buffer;
-	int		i;
-
-	buffer = ft_split(to_do->moves, ' ');
-	i = 0;
-	while (buffer[i])
-	{
-		if (ft_strncmp(buffer[i], "ra", ft_strlen(buffer[i])) == 0)
-			ra(stack);
-		else if (ft_strncmp(buffer[i], "rra", ft_strlen(buffer[i])) == 0)
-			rra(stack);
-		i++;
-	}
-	ft_split_free(buffer);
-}
-
-// static int	moves_counter(t_stack *stack, t_stack *start, int end)
-// {
-// 	char	*buffer;
-// 	int		result;
-
-// 	buffer = NULL;
-// 	if (start->index == end)
-// 		return (0);
-// }
-
-static int	to_top_counter(t_stack *stack, t_stack *start)
-{
-	char	*temp;
 	int		result;
+	int		counter;
 
-	start->moves = NULL;
 	result = 0;
-	if (start->index == 0)
-		return (0);
-	if (ps_lstsize(stack) - start->index < start->index)
+	counter = 0;
+	cursor = ps_lstlast(data->b);
+	while (cursor && (element->content < cursor->content))
 	{
-		while (result < ps_lstsize(stack) - start->index)
-		{
-			temp = start->moves;
-			start->moves = ft_strjoin(temp, "rra ");
-			if (temp)
-				free(temp);
-			result++;
-		}
+		add_to_moves(&(element->moves), "rb ", &result);
+		cursor = cursor->previous;
+		counter++;
 	}
-	else
+	add_to_moves(&(element->moves), "pb ", &result);
+	while (counter > 0)
 	{
-		while (result < start->index)
-		{
-			temp = start->moves;
-			start->moves = ft_strjoin(temp, "ra ");
-			if (temp)
-				free(temp);
-			result++;
-		}
+		add_to_moves(&(element->moves), "rrb ", &result);
+		counter--;
 	}
 	return (result);
 }
 
-void	prepare_stack(t_data *data)
+static int	moves_to_b(t_data *data, t_stack *element)
 {
+	int		steps;
 	t_stack	*cursor;
-	t_stack	*to_push;
-	int		median;
-	int		temp;
-	int		ret_val;
 
-	median = find_median(data->a);
-	temp = ps_lstsize(data->a) + 1;
-	while (ps_lstsize(data->a) > ps_lstsize(data->b) + 1)
+	steps = 0;
+	cursor = element;
+	if (!is_rsorted(data->b) && ps_lstsize(data->b) == 2)
+		add_to_moves(&(element->moves), "rb ", &steps);
+	steps += get_to_top(element);
+	if (element->content > data->smallest
+		&& element->content < data->biggest)
+		steps += arrange_middle(data, element);
+	else
 	{
-		cursor = ps_lstlast(data->a);
+		add_to_moves(&(element->moves), "pb ", &steps);
+		if (element->content < data->smallest)
+			add_to_moves(&(element->moves), "rb ", &steps);
+	}
+	return (steps);
+}
+
+void	push_to_b(t_data *data)
+{
+	t_stack	*to_push;
+	t_stack	*cursor;
+
+	pb(&(data->a), &(data->b));
+	pb(&(data->a), &(data->b));
+	init_big_small(data);
+	while (ps_lstsize(data->a) > 3)
+	{
+		to_push = ps_lstlast(data->a);
+		cursor = ps_lstlast(data->a)->previous;
 		while (cursor)
 		{
-			if (cursor->content < median)
-			{
-				ret_val = to_top_counter(data->a, cursor);
-				if (ret_val < temp && ret_val != 0)
-					to_push = cursor;
-			}
+			set_big_small(data);
+			reset_moves(data);
+			if (moves_to_b(data, cursor) < moves_to_b(data, to_push))
+				to_push = cursor;
 			cursor = cursor->previous;
 		}
-		ex_moves(&(data->a), to_push);
-		moves_free(data->a);
-		pb(&(data->a), &(data->b));
+		ex_moves(data, to_push);
 	}
+}
+
+static void	insert_back(t_data *data)
+{
+	t_stack	*cursor;
+	t_stack	*cursorb;
+
+	cursor = data->a;
+	cursorb = ps_lstlast(data->b);
+	if (data->a->content < ps_lstlast(data->a)->content
+		&& data->a->content > cursorb->content)
+	{
+		while (data->a->content < ps_lstlast(data->a)->content
+			&& data->a->content > cursorb->content)
+			rra(&(data->a));
+	}
+	else if (cursorb->content > ps_lstlast(data->a)->content
+		&& data->a->content > cursorb->content)
+	{
+		while (cursorb->content > ps_lstlast(data->a)->content)
+			ra(&(data->a));
+	}
+	else if (data->a->content < ps_lstlast(data->a)->content
+		&& cursorb->content > ps_lstlast(data->a)->content)
+	{
+		while (data->a->content < ps_lstlast(data->a)->content)
+			rra(&(data->a));
+	}
+}
+
+void	push_to_a(t_data *data)
+{
+	while (ps_lstsize(data->b) > 0)
+	{
+		insert_back(data);
+		pa(&(data->a), &(data->b));
+	}
+	while (data->a->content < ps_lstlast(data->a)->content)
+		rra(&(data->a));
+	while (ps_lstlast(data->a)->content > data->a->content)
+		ra(&(data->a));
 }

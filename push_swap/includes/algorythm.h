@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   algorythm.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 12:12:21 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/19 10:24:58 by tienshi          ###   ########.fr       */
+/*   Created: 2024/04/24 10:15:25 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/03 16:11:10 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ALGORYTHM_H
 # define ALGORYTHM_H
 # include "../includes/structures.h"
-# include "../includes/list_utils.h"
-# include "../includes/push.h"
 # include "../includes/swap.h"
 # include "../includes/rotate.h"
 # include "../includes/reverse.h"
+# include "../includes/push.h"
 
-void	prepare_stack(t_data *data);
+void	push_to_a(t_data *data);
+void	push_to_b(t_data *data);
 
 #endif

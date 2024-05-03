@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/29 13:29:18 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/03 16:47:37 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 #include "../includes/errors.h"
 #include "../libft/libft.h"
 #include "../includes/math.h"
-#include "../includes/quick_sort.h"
-#include "../includes/test.h"
+#include "../includes/algorythm.h"
+#include "../includes/reverse.h"
 
 void	print_list(t_data *data)
 {
@@ -44,19 +44,6 @@ void	print_list(t_data *data)
 			cursorb = cursorb->previous;
 		}
 	}
-}
-
-static void	stack_sort(t_data *data)
-{
-	// int	*array;
-
-	// array = stack_dup_to_arr(data->a);
-	// quicksort(array, 0, ps_lstsize(data->a) - 1);
-	// set_index(&(data->a), array);
-	// prepare_stack(data);
-	// print_list(data);
-	// free(array);
-	prepare_stack(data);
 }
 
 static void	stack_init(t_data *data, char *list)
@@ -105,6 +92,15 @@ static void	wait_prompt(t_data *data)
 	stack_init(&(*data), data->list);
 }
 
+void	sort_stack(t_data *data)
+{
+	if (ps_lstsize(data->a) == 1 || is_sorted(data->a))
+		return ;
+	push_to_b(data);
+	sort_3(&(data->a));
+	push_to_a(data);
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
@@ -117,7 +113,7 @@ int	main(int argc, char **argv)
 		data.list = ft_argv_to_str(argc, argv);
 		stack_init(&data, data.list);
 	}
-	stack_sort(&data);
+	sort_stack(&data);
 	data_cleanup(&data);
 	free(data.list);
 	return (0);

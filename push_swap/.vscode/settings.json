@@ -9,6 +9,7 @@
 		"structures.h": "c",
 		"math.h": "c",
 		"quick_sort.h": "c",
-		"algorithm": "c"
+		"algorithm": "c",
+		"sort_utils.h": "c"
 	}
 }

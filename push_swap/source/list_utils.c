@@ -6,11 +6,24 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 13:30:02 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/10 13:34:09 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/03 15:50:36 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/list_utils.h"
+
+int	ps_lstsize(t_stack *stack)
+{
+	int		i;
+
+	i = 0;
+	while (stack)
+	{
+		stack = stack->next;
+		i++;
+	}
+	return (i);
+}
 
 t_stack	*ps_lstlast(t_stack *lst)
 {

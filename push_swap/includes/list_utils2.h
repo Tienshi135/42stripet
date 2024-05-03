@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   list_utils2.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 10:15:25 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/24 11:40:49 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/03 15:46:21 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/03 15:57:18 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#ifndef LIST_UTILS2_H
+# define LIST_UTILS2_H
 # include "../includes/structures.h"
+# include "../libft/libft.h"
 # include "../includes/swap.h"
 # include "../includes/rotate.h"
 # include "../includes/reverse.h"
 # include "../includes/push.h"
 
-void	prepare_stack(t_data *data);
+void	set_big_small(t_data *data);
+void	reset_moves(t_data *data);
+void	add_to_moves(char **moves, char *instruction, int *steps);
+void	ex_moves(t_data *data, t_stack *to_do);
+int		get_to_top(t_stack *element);
 
 #endif
