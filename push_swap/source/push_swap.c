@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/03 16:47:37 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/06 17:37:40 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../includes/math.h"
 #include "../includes/algorythm.h"
 #include "../includes/reverse.h"
+#include "../includes/utils.h"
 
 void	print_list(t_data *data)
 {
@@ -113,7 +114,10 @@ int	main(int argc, char **argv)
 		data.list = ft_argv_to_str(argc, argv);
 		stack_init(&data, data.list);
 	}
-	sort_stack(&data);
+	if (ps_lstsize(data.a) < 5)
+		sort_small_stack(&data);
+	else
+		sort_stack(&data);
 	data_cleanup(&data);
 	free(data.list);
 	return (0);

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.h                                             :+:      :+:    :+:   */
+/*   push_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 18:41:32 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/06 13:39:09 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/06 11:13:14 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/06 13:33:03 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SWAP_H
-# define SWAP_H
-# include "../includes/structures.h"
-# include "../libft/libft.h"
-# include "../includes/utils.h"
+#ifndef PUSH_BONUS_H
+# define PUSH_BONUS_H
 
-int	sa(t_stack **a);
-int	sb(t_stack **b);
-int	ss(t_stack **a, t_stack **b);
+# include "../includes/structures.h"
+
+int	pa_bonus(t_stack **a, t_stack **b);
+int	pb_bonus(t_stack **a, t_stack **b);
 
 #endif

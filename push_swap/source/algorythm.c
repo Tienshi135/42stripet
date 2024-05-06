@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:15:43 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/03 17:54:42 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/06 17:45:06 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ static int	moves_to_b(t_data *data, t_stack *element)
 
 	steps = 0;
 	cursor = element;
-	if (!is_rsorted(data->b) && ps_lstsize(data->b) == 2)
-		add_to_moves(&(element->moves), "rb ", &steps);
 	steps += get_to_top(element);
 	if (element->content > data->smallest
 		&& element->content < data->biggest)
@@ -69,6 +67,8 @@ void	push_to_b(t_data *data)
 	pb(&(data->a), &(data->b));
 	pb(&(data->a), &(data->b));
 	init_big_small(data);
+	if (!is_rsorted(data->b) && ps_lstsize(data->b) == 2)
+		rb(&(data->b));
 	while (ps_lstsize(data->a) > 3)
 	{
 		to_push = ps_lstlast(data->a);
@@ -85,7 +85,7 @@ void	push_to_b(t_data *data)
 	}
 }
 
-static void	insert_back(t_data *data)
+void	insert_back(t_data *data)
 {
 	t_stack	*cursor;
 	t_stack	*cursorb;

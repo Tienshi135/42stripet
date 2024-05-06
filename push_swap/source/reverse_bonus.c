@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reverse.c                                          :+:      :+:    :+:   */
+/*   reverse_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 18:09:08 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/06 11:25:28 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/06 11:15:00 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/06 11:17:24 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/reverse.h"
+#include "../includes/reverse_bonus.h"
 #include "../includes/utils.h"
 
 /// @brief Shift down all elements of stack a by 1.
 /// The last element becomes the first one.
 /// @param t_stack a
 /// @return 1 on success -1 on failure
-int	rra(t_stack **a)
+int	rra_bonus(t_stack **a)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -31,7 +31,6 @@ int	rra(t_stack **a)
 	(*a)->previous = NULL;
 	temp->previous = cursor;
 	temp->next = NULL;
-	ft_printf("rra\n");
 	return (0);
 }
 
@@ -39,7 +38,7 @@ int	rra(t_stack **a)
 /// The last element becomes the first one.
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	rrb(t_stack **b)
+int	rrb_bonus(t_stack **b)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -53,7 +52,6 @@ int	rrb(t_stack **b)
 	(*b)->previous = NULL;
 	temp->previous = cursor;
 	temp->next = NULL;
-	ft_printf("rrb\n");
 	return (0);
 }
 
@@ -62,10 +60,9 @@ int	rrb(t_stack **b)
 /// @param t_stack a 
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	rrr(t_stack **a, t_stack **b)
+int	rrr_bonus(t_stack **a, t_stack **b)
 {
-	if ((rra (&(*a)) == -1) || ((rrb (&(*b))) == -1))
+	if ((rra_bonus (&(*a)) == -1) || ((rrb_bonus (&(*b))) == -1))
 		return (-1);
-	ft_printf("rrr\n");
 	return (1);
 }

@@ -6,21 +6,23 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:59:43 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/03 16:04:20 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/06 17:46:08 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sort_utils.h"
+#include "../includes/push_swap.h"
+#include "../includes/algorythm.h"
 
 void	sort_3(t_stack **stack)
 {
 	t_stack	*nodes[3];
 
-	nodes[0] = ps_lstlast(*stack);
-	nodes[1] = nodes[0]->previous;
-	nodes[2] = *stack;
 	while (!is_sorted(*stack))
 	{
+		nodes[0] = ps_lstlast(*stack);
+		nodes[1] = nodes[0]->previous;
+		nodes[2] = *stack;
 		if (nodes[0]->content > nodes[2]->content)
 		{
 			ra(stack);
@@ -33,5 +35,19 @@ void	sort_3(t_stack **stack)
 			rra(stack);
 			sa(stack);
 		}
+	}
+}
+
+void	sort_small_stack(t_data *data)
+{
+	if (ps_lstsize(data->a) == 2 && !is_sorted(data->a))
+		sa(&(data->a));
+	else if (ps_lstsize(data->a) == 3)
+		sort_3(&(data->a));
+	else if (ps_lstsize(data->a) == 4)
+	{
+		pb(&(data->a), &(data->b));
+		sort_3(&(data->a));
+		push_to_a(data);
 	}
 }

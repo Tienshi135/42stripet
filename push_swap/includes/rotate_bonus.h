@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.h                                             :+:      :+:    :+:   */
+/*   rotate_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/04 18:41:32 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/06 13:39:09 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/06 11:19:44 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/06 13:33:19 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SWAP_H
-# define SWAP_H
+#ifndef ROTATE_BONUS_H
+# define ROTATE_BONUS_H
 # include "../includes/structures.h"
-# include "../libft/libft.h"
-# include "../includes/utils.h"
 
-int	sa(t_stack **a);
-int	sb(t_stack **b);
-int	ss(t_stack **a, t_stack **b);
+int	ra_bonus(t_stack **a);
+int	rb_bonus(t_stack **b);
+int	rr_bonus(t_stack **a, t_stack **b);
 
 #endif

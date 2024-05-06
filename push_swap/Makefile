@@ -3,7 +3,7 @@ CFLAGS = -Wall -Werror -Wextra
 Libraries = -lft -L ./libft
 
 src_dir = ./source
-bonus_dir = ./source/bonus
+bonus_dir = ./source
 src = $(src_dir)/push_swap.c\
       $(src_dir)/reverse.c\
       $(src_dir)/rotate.c\
@@ -17,9 +17,15 @@ src = $(src_dir)/push_swap.c\
 	  $(src_dir)/list_utils.c\
 	  $(src_dir)/list_utils2.c\
 
-bonus_src = $(bonus_dir)/errors_bonus.c\
-			$(bonus_dir)/pipex_bonus.c\
-			$(bonus_dir)/utils_bonus.c\
+bonus_src = $(bonus_dir)/push_swap_checker_bonus.c\
+			$(bonus_dir)/error_bonus.c\
+			$(bonus_dir)/push_bonus.c\
+			$(bonus_dir)/reverse_bonus.c\
+			$(bonus_dir)/rotate_bonus.c\
+			$(bonus_dir)/swap_bonus.c\
+			$(src_dir)/utils.c\
+			$(src_dir)/list_utils.c\
+			$(src_dir)/math.c\
 
 obj = $(src:.c=.o)
 bonus_obj = $(bonus_src:.c=.o)
@@ -30,7 +36,7 @@ $(Name):$(obj)
 	gcc $(Libraries) $^ -o $@
 
 bonus:$(bonus_obj)
-	gcc $(Libraries) $^ -o $(Name)
+	gcc $(Libraries) $^ -o Checker_Mac_Stripet
 
 clean:
 	rm -f $(src_dir)/*.o
@@ -54,6 +60,11 @@ sanitize:
 
 bsanitize:
 	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
+
+random_test:
+	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -4); \
+	echo $$NUMBERS; \
+	./push_swap $$NUMBERS | ./checker_Mac $$NUMBERS
 
 test:
 	@printf 'begining of sanitize tests\n'
@@ -83,14 +94,6 @@ test:
 	-./$(Name) "4 67 3 87 23" | wc -l
 	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
-	-./$(Name) "270284 394749 -223162 283973 -490820 -434218 4562 348454 409752 -286498 373741 -18099 -106742 111432 212119 377419 49857 406729 -105914 173040" | wc -l
-	ARG="270284 394749 -223162 283973 -490820 -434218 4562 348454 409752 -286498 373741 -18099 -106742 111432 212119 377419 49857 406729 -105914 173040"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-./$(Name) "240801 -87713 351766 319398 -273624 -373765 -100864 -455759 -253289 -480648 -11506 -368913 159660 332997 -11770 329079 -467708 142050 -309518 -31721 -16534 460591 -200140 -114877 62042 -176836 368833 194427 127634 106147 -343196 400948 374163 -480965 289949 460101 -273119 400327 183859 5630 454263 34969 -26961 61255 394082 -74357 234981 305915 53630 -429778" | wc -l
-	ARG="240801 -87713 351766 319398 -273624 -373765 -100864 -455759 -253289 -480648 -11506 -368913 159660 332997 -11770 329079 -467708 142050 -309518 -31721 -16534 460591 -200140 -114877 62042 -176836 368833 194427 127634 106147 -343196 400948 374163 -480965 289949 460101 -273119 400327 183859 5630 454263 34969 -26961 61255 394082 -74357 234981 305915 53630 -429778"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-./$(Name) "209432 -342825 -452289 17349 -87098" | wc -l
-	ARG="209432 -342825 -452289 17349 -87098"; ./push_swap $$ARG | ./checker_Mac $$ARG
 
 	@printf 'End of sanitize tests\n\n\n\n\n\n\n\n\n'
 
@@ -121,13 +124,5 @@ test:
 	-Leaks --atExit --quiet -- ./$(Name) "4 67 3 87 23"
 	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "270284 394749 -223162 283973 -490820 -434218 4562 348454 409752 -286498 373741 -18099 -106742 111432 212119 377419 49857 406729 -105914 173040"
-	ARG="270284 394749 -223162 283973 -490820 -434218 4562 348454 409752 -286498 373741 -18099 -106742 111432 212119 377419 49857 406729 -105914 173040"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "240801 -87713 351766 319398 -273624 -373765 -100864 -455759 -253289 -480648 -11506 -368913 159660 332997 -11770 329079 -467708 142050 -309518 -31721 -16534 460591 -200140 -114877 62042 -176836 368833 194427 127634 106147 -343196 400948 374163 -480965 289949 460101 -273119 400327 183859 5630 454263 34969 -26961 61255 394082 -74357 234981 305915 53630 -429778"
-	ARG="240801 -87713 351766 319398 -273624 -373765 -100864 -455759 -253289 -480648 -11506 -368913 159660 332997 -11770 329079 -467708 142050 -309518 -31721 -16534 460591 -200140 -114877 62042 -176836 368833 194427 127634 106147 -343196 400948 374163 -480965 289949 460101 -273119 400327 183859 5630 454263 34969 -26961 61255 394082 -74357 234981 305915 53630 -429778"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "209432 -342825 -452289 17349 -87098"
-	ARG="209432 -342825 -452289 17349 -87098"; ./push_swap $$ARG | ./checker_Mac $$ARG
 
 	@printf 'end of leaks tests\n'
