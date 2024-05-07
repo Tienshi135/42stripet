@@ -6,54 +6,33 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:46:12 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/03 15:55:39 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/07 15:30:35 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/list_utils2.h"
 
-void	set_big_small(t_data *data)
-{
-	t_stack	*cursor;
-	int		big;
-	int		small;
-
-	small = data->smallest;
-	big = data->biggest;
-	cursor = data->b;
-	while (cursor)
-	{
-		if (cursor->content > big)
-			big = cursor->content;
-		if (cursor->content < small)
-			small = cursor->content;
-		cursor = cursor->next;
-	}
-	data->biggest = big;
-	data->smallest = small;
-}
-
-void	reset_moves(t_data *data)
+void	reset_moves(t_data *data)//tofix
 {
 	t_stack	*cursor;
 
 	cursor = data->a;
 	while (cursor)
 	{
-		if (cursor->movesA)
+		if (cursor->movesa)
 		{
-			free(cursor->movesA);
-			cursor->movesA = NULL;
+			free(cursor->movesa);
+			cursor->movesa = NULL;
 		}
 		cursor = cursor->next;
 	}
 	cursor = data->b;
 	while (cursor)
 	{
-		if (cursor->movesA)
+		if (cursor->movesa)
 		{
-			free(cursor->movesA);
-			cursor->movesA = NULL;
+			free(cursor->movesa);
+			cursor->movesa = NULL;
 		}
 		cursor = cursor->next;
 	}
@@ -70,12 +49,12 @@ void	add_to_moves(char **moves, char *instruction, int *steps)
 	*steps += 1;
 }
 
-void	ex_moves(t_data *data, t_stack *to_do)
+void	ex_moves(t_data *data, t_stack *to_do)//to change and fix
 {
 	char	**buffer;
 	int		i;
 
-	buffer = ft_split(to_do->movesA, ' ');
+	buffer = ft_split(to_do->movesa, ' ');
 	i = 0;
 	while (buffer[i])
 	{
@@ -117,9 +96,9 @@ int	get_to_top(t_stack *element)
 	while ((counter[0]-- > 0) && (counter[1]-- > 0))
 	{
 		if (counter[0] < counter[1])
-			add_to_moves(&(element->movesA), "ra ", &(counter[2]));
+			add_to_moves(&(element->movesa), "ra ", &(counter[2]));
 		else
-			add_to_moves(&(element->movesA), "rra ", &(counter[2]));
+			add_to_moves(&(element->movesa), "rra ", &(counter[2]));
 	}
 	return (counter[2]);
 }

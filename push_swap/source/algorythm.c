@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:15:43 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/06 17:45:06 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/07 16:05:50 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,38 @@
 #include "../includes/utils.h"
 #include "../includes/math.h"
 
-static int	arrange_middle(t_data *data, t_stack *element)
+#include "../includes/push_swap.h"
+
+static int	arrange_b(t_data *data, t_stack *element)
 {
-	t_stack	*cursor;
-	int		result;
 	int		counter;
 
-	result = 0;
 	counter = 0;
-	cursor = ps_lstlast(data->b);
-	while (cursor && (element->content < cursor->content))
+	if (is_smallest(data->dupb, element->content))
 	{
-		add_to_moves(&(element->movesA), "rb ", &result);
-		cursor = cursor->previous;
-		counter++;
+		while (data->dupb->content > ps_lstlast(data->dupb)->content)
+			add_to_moves(&(element->movesb), "rrb", &counter);
+		add_to_moves(&(element->movesb), "rb", &counter);
 	}
-	add_to_moves(&(element->movesA), "pb ", &result);
-	while (counter > 0)
+	else
 	{
-		add_to_moves(&(element->movesA), "rrb ", &result);
-		counter--;
+		while (data->dupb->content > element->content)
+			add_to_moves(&(element->movesb), "rrb", &counter);
+		while (data->dupb->content < element->content)
+			add_to_moves(&(element->movesb), "rb", &counter);
 	}
-	return (result);
+	return (counter);
 }
 
 static int	moves_to_b(t_data *data, t_stack *element)
 {
 	int		steps;
 
-    steps = 0;
-    steps += get_to_top(element);
-	if (element->content > data->smallest
-		&& element->content < data->biggest)
-		steps += arrange_middle(data, element);
-	else
-	{
-		add_to_moves(&(element->movesA), "pb ", &steps);
-		if (element->content < data->smallest)
-			add_to_moves(&(element->movesA), "rb ", &steps);
-	}
+	steps = 0;
+	print_list(data);
+	steps += get_to_top(element);
+	add_to_moves(&(element->movesa), "pb", &steps);
+	steps += arrange_b(data, element);
 	return (steps);
 }
 
@@ -61,18 +54,13 @@ void	push_to_b(t_data *data)
 	t_stack	*to_push;
 	t_stack	*cursor;
 
-	pb(&(data->a), &(data->b));
-	pb(&(data->a), &(data->b));
-	init_big_small(data);
-	if (!is_rsorted(data->b) && ps_lstsize(data->b) == 2)
-		rb(&(data->b));
+	sort_init(data);
 	while (ps_lstsize(data->a) > 3)
 	{
-		to_push = ps_lstlast(data->a);
-		cursor = ps_lstlast(data->a)->previous;
+		to_push = ps_lstlast(data->dupa);
+		cursor = to_push->previous;
 		while (cursor)
 		{
-			set_big_small(data);
 			reset_moves(data);
 			if (moves_to_b(data, cursor) < moves_to_b(data, to_push))
 				to_push = cursor;
@@ -82,31 +70,27 @@ void	push_to_b(t_data *data)
 	}
 }
 
-void	stackA_check(t_data *data)
-{
-	t_stack	*cursorA;
-	t_stack	*cursorB;
-
-    cursorA = data->a;
-    cursorB = ps_lstlast(data->b);
-    if (cursorB->content > ps_lstlast(data->a)->content)
-        while (cursorB->content > ps_lstlast(data->a)->content
-            && ps_lstlast(data->a) != cursorA)
-            ra(&(data->a));
-    else if (cursorA > cursorB && cursorA < ps_lstlast(data->a))
-        rra(&(data->a));
-}
-
 void	push_to_a(t_data *data)
 {
-	while (ps_lstsize(data->b) > 0)
+	if (ps_lstlast(data->a)->content > ps_lstlast(data->b)->content)
+		while (data->b)
+			pa(&(data->a), &(data->b));
+	else if (data->a->content < data->b->content)
+		while (data->b)
+			pa(&(data->a), &(data->b));
+	else
 	{
-        stackA_check(data);
-		pa(&(data->a), &(data->b));
+		while (ps_lstsize(data->b) > 0)
+		{
+			while (data->a->content < ps_lstlast(data->a)->content
+				&& data->a->content > ps_lstlast(data->b)->content)
+				rra(&(data->a));
+			pa(&(data->a), &(data->b));
+		}
 	}
-    if (!is_sorted(data->a))
-    {
-        while (data->a->content < ps_lstlast(data->a)->content)
-            rra(&(data->a));
-    }
+	if (!is_sorted(data->a))
+	{
+		while (data->a->content < ps_lstlast(data->a)->content)
+			rra(&(data->a));
+	}
 }

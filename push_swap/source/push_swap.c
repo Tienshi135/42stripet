@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/06 17:37:40 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/07 15:38:25 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,29 @@
 
 void	print_list(t_data *data)
 {
-	t_stack	*cursorA;
-	t_stack	*cursorB;
+	t_stack	*cursora;
+	t_stack	*cursorb;
 
-    cursorA = ps_lstlast(data->a);
-    cursorB = ps_lstlast(data->b);
+	cursora = ps_lstlast(data->dupa);
+	cursorb = ps_lstlast(data->dupb);
 	ft_printf("Stack before sorting :\na b\n⎻ ⎻\n");
-	while (cursorA || cursorB)
+	while (cursora || cursorb)
 	{
-		if (cursorA && cursorB)
+		if (cursora && cursorb)
 		{
-			ft_printf("%i %i\n", cursorA->content, cursorB->content);
-            cursorA = cursorA->previous;
-            cursorB = cursorB->previous;
+			ft_printf("%i %i\n", cursora->content, cursorb->content);
+			cursora = cursora->previous;
+			cursorb = cursorb->previous;
 		}
-		else if (cursorA)
+		else if (cursora)
 		{
-			ft_printf("%i NAN\n", cursorA->content);
-            cursorA = cursorA->previous;
+			ft_printf("%i NAN\n", cursora->content);
+			cursora = cursora->previous;
 		}
 		else
 		{
-			ft_printf("NAN %i\n", cursorB->content);
-            cursorB = cursorB->previous;
+			ft_printf("NAN %i\n", cursorb->content);
+			cursorb = cursorb->previous;
 		}
 	}
 }
@@ -114,8 +114,7 @@ int	main(int argc, char **argv)
 	if (ps_lstsize(data.a) < 5)
 		sort_small_stack(&data);
 	else
-        sort_big_stack(&data);
-    print_list(&data);
+		sort_big_stack(&data);
 	data_cleanup(&data);
 	free(data.list);
 	return (0);
