@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/swap_bonus.h"
-#include "../includes/utils.h"
+#include "../../includes/bonus/swap_bonus.h"
+#include "../../includes/utils.h"
 
 /// @brief Swap the first 2 elements at the top of stack a
 /// @param t_stack a 

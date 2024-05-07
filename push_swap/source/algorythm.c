@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/algorythm.h"
-#include "../includes/math.h"
-#include "../includes/push_swap.h"
 #include "../includes/utils.h"
+#include "../includes/math.h"
 
 static int	arrange_middle(t_data *data, t_stack *element)
 {
@@ -26,14 +25,14 @@ static int	arrange_middle(t_data *data, t_stack *element)
 	cursor = ps_lstlast(data->b);
 	while (cursor && (element->content < cursor->content))
 	{
-		add_to_moves(&(element->moves), "rb ", &result);
+		add_to_moves(&(element->movesA), "rb ", &result);
 		cursor = cursor->previous;
 		counter++;
 	}
-	add_to_moves(&(element->moves), "pb ", &result);
+	add_to_moves(&(element->movesA), "pb ", &result);
 	while (counter > 0)
 	{
-		add_to_moves(&(element->moves), "rrb ", &result);
+		add_to_moves(&(element->movesA), "rrb ", &result);
 		counter--;
 	}
 	return (result);
@@ -42,19 +41,17 @@ static int	arrange_middle(t_data *data, t_stack *element)
 static int	moves_to_b(t_data *data, t_stack *element)
 {
 	int		steps;
-	t_stack	*cursor;
 
-	steps = 0;
-	cursor = element;
-	steps += get_to_top(element);
+    steps = 0;
+    steps += get_to_top(element);
 	if (element->content > data->smallest
 		&& element->content < data->biggest)
 		steps += arrange_middle(data, element);
 	else
 	{
-		add_to_moves(&(element->moves), "pb ", &steps);
+		add_to_moves(&(element->movesA), "pb ", &steps);
 		if (element->content < data->smallest)
-			add_to_moves(&(element->moves), "rb ", &steps);
+			add_to_moves(&(element->movesA), "rb ", &steps);
 	}
 	return (steps);
 }
@@ -85,43 +82,31 @@ void	push_to_b(t_data *data)
 	}
 }
 
-void	insert_back(t_data *data)
+void	stackA_check(t_data *data)
 {
-	t_stack	*cursor;
-	t_stack	*cursorb;
+	t_stack	*cursorA;
+	t_stack	*cursorB;
 
-	cursor = data->a;
-	cursorb = ps_lstlast(data->b);
-	if (data->a->content < ps_lstlast(data->a)->content
-		&& data->a->content > cursorb->content)
-	{
-		while (data->a->content < ps_lstlast(data->a)->content
-			&& data->a->content > cursorb->content)
-			rra(&(data->a));
-	}
-	else if (cursorb->content > ps_lstlast(data->a)->content
-		&& data->a->content > cursorb->content)
-	{
-		while (cursorb->content > ps_lstlast(data->a)->content)
-			ra(&(data->a));
-	}
-	else if (data->a->content < ps_lstlast(data->a)->content
-		&& cursorb->content > ps_lstlast(data->a)->content)
-	{
-		while (data->a->content < ps_lstlast(data->a)->content)
-			rra(&(data->a));
-	}
+    cursorA = data->a;
+    cursorB = ps_lstlast(data->b);
+    if (cursorB->content > ps_lstlast(data->a)->content)
+        while (cursorB->content > ps_lstlast(data->a)->content
+            && ps_lstlast(data->a) != cursorA)
+            ra(&(data->a));
+    else if (cursorA > cursorB && cursorA < ps_lstlast(data->a))
+        rra(&(data->a));
 }
 
 void	push_to_a(t_data *data)
 {
 	while (ps_lstsize(data->b) > 0)
 	{
-		insert_back(data);
+        stackA_check(data);
 		pa(&(data->a), &(data->b));
 	}
-	while (data->a->content < ps_lstlast(data->a)->content)
-		rra(&(data->a));
-	while (ps_lstlast(data->a)->content > data->a->content)
-		ra(&(data->a));
+    if (!is_sorted(data->a))
+    {
+        while (data->a->content < ps_lstlast(data->a)->content)
+            rra(&(data->a));
+    }
 }

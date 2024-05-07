@@ -12,37 +12,34 @@
 
 #include "../includes/push_swap.h"
 #include "../includes/errors.h"
-#include "../libft/libft.h"
-#include "../includes/math.h"
 #include "../includes/algorythm.h"
-#include "../includes/reverse.h"
-#include "../includes/utils.h"
+#include "../includes/math.h"
 
 void	print_list(t_data *data)
 {
-	t_stack	*cursora;
-	t_stack	*cursorb;
+	t_stack	*cursorA;
+	t_stack	*cursorB;
 
-	cursora = ps_lstlast(data->a);
-	cursorb = ps_lstlast(data->b);
+    cursorA = ps_lstlast(data->a);
+    cursorB = ps_lstlast(data->b);
 	ft_printf("Stack before sorting :\na b\n⎻ ⎻\n");
-	while (cursora || cursorb)
+	while (cursorA || cursorB)
 	{
-		if (cursora && cursorb)
+		if (cursorA && cursorB)
 		{
-			ft_printf("%i %i\n", cursora->content, cursorb->content);
-			cursora = cursora->previous;
-			cursorb = cursorb->previous;
+			ft_printf("%i %i\n", cursorA->content, cursorB->content);
+            cursorA = cursorA->previous;
+            cursorB = cursorB->previous;
 		}
-		else if (cursora)
+		else if (cursorA)
 		{
-			ft_printf("%i NAN\n", cursora->content);
-			cursora = cursora->previous;
+			ft_printf("%i NAN\n", cursorA->content);
+            cursorA = cursorA->previous;
 		}
-		else if (cursorb)
+		else
 		{
-			ft_printf("NAN %i\n", cursorb->content);
-			cursorb = cursorb->previous;
+			ft_printf("NAN %i\n", cursorB->content);
+            cursorB = cursorB->previous;
 		}
 	}
 }
@@ -60,7 +57,7 @@ static void	stack_init(t_data *data, char *list)
 			ft_split_free(buffer);
 		error(data);
 	}
-	while (buffer[i])
+	while (buffer && buffer[i])
 	{
 		if (is_valid(data, buffer[i]))
 			ps_lstadd_front(&(data->a), ps_lstnew(ft_atoi(buffer[i])));
@@ -93,7 +90,7 @@ static void	wait_prompt(t_data *data)
 	stack_init(&(*data), data->list);
 }
 
-void	sort_stack(t_data *data)
+void	sort_big_stack(t_data *data)
 {
 	if (ps_lstsize(data->a) == 1 || is_sorted(data->a))
 		return ;
@@ -117,7 +114,8 @@ int	main(int argc, char **argv)
 	if (ps_lstsize(data.a) < 5)
 		sort_small_stack(&data);
 	else
-		sort_stack(&data);
+        sort_big_stack(&data);
+    print_list(&data);
 	data_cleanup(&data);
 	free(data.list);
 	return (0);

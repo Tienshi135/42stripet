@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_bonus.h"
-#include "../includes/utils.h"
+#include "../../includes/bonus/push_bonus.h"
+#include "../../includes/utils.h"
 
 /// @brief Take the first element at the top of b and put it at the top of a.
 /// @param t_stack a 

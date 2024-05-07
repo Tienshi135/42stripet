@@ -11,40 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/math.h"
-#include "../includes/list_utils.h"
-#include "../includes/utils.h"
-
-int	ps_max(t_stack *stack)
-{
-	int		result;
-	t_stack	*cursor;
-
-	cursor = stack;
-	result = 0;
-	while (cursor)
-	{
-		if (cursor->content > result)
-			result = cursor->content;
-		cursor = cursor->next;
-	}
-	return (result);
-}
-
-int	ps_min(t_stack *stack)
-{
-	int		result;
-	t_stack	*cursor;
-
-	cursor = stack;
-	result = 0;
-	while (cursor)
-	{
-		if (cursor->content < result)
-			result = cursor->content;
-		cursor = cursor->next;
-	}
-	return (result);
-}
 
 int	is_sorted(t_stack *stack)
 {

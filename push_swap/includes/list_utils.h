@@ -13,7 +13,6 @@
 #ifndef LIST_UTILS_H
 # define LIST_UTILS_H
 # include "../includes/structures.h"
-# include "../libft/libft.h"
 # include "../includes/list_utils2.h"
 
 int		ps_lstsize(t_stack *stack);

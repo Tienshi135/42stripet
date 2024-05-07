@@ -13,13 +13,15 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 # include <stdlib.h>
+# include "../libft/libft.h"
 
 typedef struct stack
 {
 	int				content;
 	struct stack	*next;
 	struct stack	*previous;
-	char			*moves;
+	char			*movesA;
+    char            *movesB;
 }	t_stack;
 
 typedef struct data {

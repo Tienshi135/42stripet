@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/errors.h"
-#include "../libft/libft.h"
 
 void	msg(int code)
 {

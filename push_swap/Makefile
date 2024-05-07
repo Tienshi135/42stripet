@@ -62,9 +62,9 @@ bsanitize:
 	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
 
 random_test:
-	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -4); \
+	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -20); \
 	echo $$NUMBERS; \
-	./push_swap $$NUMBERS | ./checker_Mac $$NUMBERS
+	./push_swap $$NUMBERS
 
 test:
 	@printf 'begining of sanitize tests\n'

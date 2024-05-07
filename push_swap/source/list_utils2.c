@@ -40,20 +40,20 @@ void	reset_moves(t_data *data)
 	cursor = data->a;
 	while (cursor)
 	{
-		if (cursor->moves)
+		if (cursor->movesA)
 		{
-			free(cursor->moves);
-			cursor->moves = NULL;
+			free(cursor->movesA);
+			cursor->movesA = NULL;
 		}
 		cursor = cursor->next;
 	}
 	cursor = data->b;
 	while (cursor)
 	{
-		if (cursor->moves)
+		if (cursor->movesA)
 		{
-			free(cursor->moves);
-			cursor->moves = NULL;
+			free(cursor->movesA);
+			cursor->movesA = NULL;
 		}
 		cursor = cursor->next;
 	}
@@ -75,7 +75,7 @@ void	ex_moves(t_data *data, t_stack *to_do)
 	char	**buffer;
 	int		i;
 
-	buffer = ft_split(to_do->moves, ' ');
+	buffer = ft_split(to_do->movesA, ' ');
 	i = 0;
 	while (buffer[i])
 	{
@@ -117,9 +117,9 @@ int	get_to_top(t_stack *element)
 	while ((counter[0]-- > 0) && (counter[1]-- > 0))
 	{
 		if (counter[0] < counter[1])
-			add_to_moves(&(element->moves), "ra ", &(counter[2]));
+			add_to_moves(&(element->movesA), "ra ", &(counter[2]));
 		else
-			add_to_moves(&(element->moves), "rra ", &(counter[2]));
+			add_to_moves(&(element->movesA), "rra ", &(counter[2]));
 	}
 	return (counter[2]);
 }

@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap_checker_bonus.h"
-#include "../includes/structures.h"
-#include "../includes/push_bonus.h"
-#include "../includes/reverse_bonus.h"
-#include "../includes/rotate_bonus.h"
-#include "../includes/swap_bonus.h"
-#include "../libft/libft.h"
-#include "../includes/error_bonus.h"
-#include "../includes/utils.h"
+#include "../../includes/bonus/push_swap_checker_bonus.h"
+#include "../../includes/structures.h"
+#include "../../includes/bonus/push_bonus.h"
+#include "../../includes/bonus/reverse_bonus.h"
+#include "../../includes/bonus/rotate_bonus.h"
+#include "../../includes/bonus/swap_bonus.h"
+#include "../../libft/libft.h"
+#include "../../includes/bonus/error_bonus.h"
+#include "../../includes/utils.h"
 #include "unistd.h"
 
 static void	stack_init(t_data *data, char *list)

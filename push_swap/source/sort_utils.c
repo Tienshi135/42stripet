@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/sort_utils.h"
-#include "../includes/push_swap.h"
+#include "../includes/utils.h"
+#include "../includes/math.h"
 #include "../includes/algorythm.h"
 
 void	sort_3(t_stack **stack)

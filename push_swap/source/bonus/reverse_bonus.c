@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/reverse_bonus.h"
-#include "../includes/utils.h"
+#include "../../includes/bonus/reverse_bonus.h"
+#include "../../includes/utils.h"
 
 /// @brief Shift down all elements of stack a by 1.
 /// The last element becomes the first one.

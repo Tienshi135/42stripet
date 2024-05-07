@@ -13,8 +13,6 @@
 #ifndef SORT_UTILS_H
 # define SORT_UTILS_H
 # include "../includes/structures.h"
-# include "../includes/math.h"
-# include "../includes/list_utils.h"
 
 void	sort_3(t_stack **stack);
 void	sort_small_stack(t_data *data);

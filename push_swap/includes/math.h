@@ -13,11 +13,9 @@
 #ifndef MATH_H
 # define MATH_H
 # include "../includes/structures.h"
+# include "../includes/utils.h"
 
-int	ps_max(t_stack *stack);
-int	ps_min(t_stack *stack);
 int	is_sorted(t_stack *stack);
 int	is_rsorted(t_stack *stack);
-int	ps_average(t_stack *stack);
 
 #endif

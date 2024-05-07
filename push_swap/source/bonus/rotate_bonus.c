@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/rotate_bonus.h"
-#include "../includes/utils.h"
+#include "../../includes/bonus/rotate_bonus.h"
+#include "../../includes/utils.h"
 
 /// @brief Shift up all elements of stack a by 1.
 /// The first element becomes the last one.

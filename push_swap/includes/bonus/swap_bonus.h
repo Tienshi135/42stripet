@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_bonus.c                                      :+:      :+:    :+:   */
+/*   swap_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/06 10:48:31 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/06 13:28:00 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/06 11:22:03 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/06 13:33:26 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/error_bonus.h"
-#include "../libft/libft.h"
+#ifndef SWAP_BONUS_H
+# define SWAP_BONUS_H
+# include "../structures.h"
 
-void	error(t_data *data)
-{
-	if (data->list)
-		free(data->list);
-	write(STDERR_FILENO, "Error !\n", 8);
-	exit (-1);
-}
+int	sa_bonus(t_stack **a);
+int	sb_bonus(t_stack **b);
+int	ss_bonus(t_stack **a, t_stack **b);
+
+#endif

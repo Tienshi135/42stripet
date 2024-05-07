@@ -13,7 +13,6 @@
 #ifndef UTILS_H
 # define UTILS_H
 # include "../includes/structures.h"
-# include "../libft/libft.h"
 # include "../includes/list_utils.h"
 # include "../includes/sort_utils.h"
 

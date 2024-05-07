@@ -13,10 +13,6 @@
 #ifndef ALGORYTHM_H
 # define ALGORYTHM_H
 # include "../includes/structures.h"
-# include "../includes/swap.h"
-# include "../includes/rotate.h"
-# include "../includes/reverse.h"
-# include "../includes/push.h"
 
 void	push_to_a(t_data *data);
 void	push_to_b(t_data *data);

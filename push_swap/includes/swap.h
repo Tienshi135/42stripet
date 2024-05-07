@@ -13,8 +13,6 @@
 #ifndef SWAP_H
 # define SWAP_H
 # include "../includes/structures.h"
-# include "../libft/libft.h"
-# include "../includes/utils.h"
 
 int	sa(t_stack **a);
 int	sb(t_stack **b);

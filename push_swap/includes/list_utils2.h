@@ -13,7 +13,6 @@
 #ifndef LIST_UTILS2_H
 # define LIST_UTILS2_H
 # include "../includes/structures.h"
-# include "../libft/libft.h"
 # include "../includes/swap.h"
 # include "../includes/rotate.h"
 # include "../includes/reverse.h"
