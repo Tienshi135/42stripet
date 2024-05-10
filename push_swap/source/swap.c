@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:41:22 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/29 13:26:59 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/10 14:33:12 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	sa(t_stack **a)
 		return (-1);
 	temp = ps_lstlast(*a);
 	cursor = temp->previous;
-	cursor->previous->next = temp;
+	if (cursor->previous != NULL)
+		cursor->previous->next = temp;
 	temp->next = cursor;
 	temp->previous = cursor->previous;
 	cursor->previous = temp;
@@ -46,7 +47,8 @@ int	sb(t_stack **b)
 		return (-1);
 	temp = ps_lstlast(*b);
 	cursor = temp->previous;
-	cursor->previous->next = temp;
+	if (cursor->previous != NULL)
+		cursor->previous->next = temp;
 	temp->next = cursor;
 	temp->previous = cursor->previous;
 	cursor->previous = temp;

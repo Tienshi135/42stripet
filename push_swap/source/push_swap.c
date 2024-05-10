@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/07 15:38:25 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/10 14:27:53 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	print_list(t_data *data)
 	t_stack	*cursora;
 	t_stack	*cursorb;
 
-	cursora = ps_lstlast(data->dupa);
-	cursorb = ps_lstlast(data->dupb);
+	cursora = ps_lstlast(data->a);
+	cursorb = ps_lstlast(data->b);
 	ft_printf("Stack before sorting :\na b\n⎻ ⎻\n");
 	while (cursora || cursorb)
 	{
@@ -115,6 +115,7 @@ int	main(int argc, char **argv)
 		sort_small_stack(&data);
 	else
 		sort_big_stack(&data);
+	//print_list(&data);
 	data_cleanup(&data);
 	free(data.list);
 	return (0);

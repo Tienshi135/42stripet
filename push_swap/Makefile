@@ -64,7 +64,7 @@ bsanitize:
 random_test:
 	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -100); \
 	echo $$NUMBERS; \
-	./push_swap $$NUMBERS | wc -l; \
+	./push_swap $$NUMBERS
 
 test:
 	@printf 'begining of sanitize tests\n'

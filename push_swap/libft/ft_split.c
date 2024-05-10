@@ -21,7 +21,7 @@ static size_t	ft_countt(char *s, char c)
 
 	count = 0;
 	trigger = 0;
-	while (*s)
+	while (s && *s)
 	{
 		if (*s != c && trigger == 0)
 		{

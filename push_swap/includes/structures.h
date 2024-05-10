@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:50:00 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/07 15:12:42 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/10 13:31:07 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@ typedef struct stack
 	struct stack	*previous;
 	char			*movesa;
 	char			*movesb;
+	char			*moves_left;
 }	t_stack;
 
 typedef struct data {
 	t_stack	*a;
 	t_stack	*b;
-	t_stack	*dupa;
-	t_stack	*dupb;
 	char	*list;
-	char	*moves_left;
 }	t_data;
 
 #endif
