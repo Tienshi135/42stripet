@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:50:00 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/10 13:31:07 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/13 13:04:28 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ enum	e_bool
 	true
 };
 
-typedef struct stack
-{
+typedef struct stack {
 	int				content;
 	struct stack	*next;
 	struct stack	*previous;
-	char			*movesa;
-	char			*movesb;
-	char			*moves_left;
+	int				index;
+	int				position;
+	int				target_position;
+	int				cost_a;
+	int				cost_b;
 }	t_stack;
 
 typedef struct data {

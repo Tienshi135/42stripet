@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/10 14:27:53 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/13 14:25:01 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,35 @@ void	print_list(t_data *data)
 	}
 }
 
+void	index_init(t_stack *a, int stack_size)
+{
+	t_stack	*cursor;
+	t_stack	*biggest;
+	int		temp;
+
+	while (stack_size-- > 0)
+	{
+		cursor = a;
+		temp = INT_MIN;
+		biggest = NULL;
+		while (cursor)
+		{
+			if (cursor->content == INT_MIN && cursor->index == 0)
+				cursor->index = 1;
+			if (cursor->content > temp && cursor->index == 0)
+			{
+				temp = cursor->content;
+				biggest = cursor;
+				cursor = a;
+			}
+			else
+				cursor = cursor->next;
+		}
+		if (biggest != NULL)
+			biggest->index = stack_size;
+	}
+}
+
 static void	stack_init(t_data *data, char *list)
 {
 	char	**buffer;
@@ -70,6 +99,7 @@ static void	stack_init(t_data *data, char *list)
 		i++;
 	}
 	ft_split_free(buffer);
+	index_init(data->a, ps_lstsize(data->a));
 }
 
 static void	wait_prompt(t_data *data)
@@ -96,7 +126,9 @@ void	sort_big_stack(t_data *data)
 		return ;
 	push_to_b(data);
 	sort_3(&(data->a));
+	print_list(data);
 	push_to_a(data);
+	print_list(data);
 }
 
 int	main(int argc, char **argv)
@@ -115,7 +147,6 @@ int	main(int argc, char **argv)
 		sort_small_stack(&data);
 	else
 		sort_big_stack(&data);
-	//print_list(&data);
 	data_cleanup(&data);
 	free(data.list);
 	return (0);

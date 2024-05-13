@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:59:43 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/06 17:46:08 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/13 12:23:37 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,5 @@ void	sort_small_stack(t_data *data)
 	{
 		pb(&(data->a), &(data->b));
 		sort_3(&(data->a));
-		push_to_a(data);
 	}
 }
