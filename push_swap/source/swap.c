@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:41:22 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/10 14:33:12 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:36:51 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 /// @brief Swap the first 2 elements at the top of stack a
 /// @param t_stack a 
 /// @return 1 on success -1 on failure
-int	sa(t_stack **a)
+int	sa(t_stack **a, int print)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -31,14 +31,15 @@ int	sa(t_stack **a)
 	temp->previous = cursor->previous;
 	cursor->previous = temp;
 	cursor->next = NULL;
-	ft_printf("sa\n");
+	if (print == true)
+		ft_printf("sa\n");
 	return (1);
 }
 
 /// @brief Swap the first 2 elements at the top of stack b
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	sb(t_stack **b)
+int	sb(t_stack **b, int print)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -53,7 +54,8 @@ int	sb(t_stack **b)
 	temp->previous = cursor->previous;
 	cursor->previous = temp;
 	cursor->next = NULL;
-	ft_printf("sb\n");
+	if (print == true)
+		ft_printf("sb\n");
 	return (1);
 }
 
@@ -61,10 +63,11 @@ int	sb(t_stack **b)
 /// @param t_stack a 
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	ss(t_stack **a, t_stack **b)
+int	ss(t_stack **a, t_stack **b, int print)
 {
-	if ((sa (&(*a)) == -1) || ((sb (&(*b))) == -1))
+	if ((sa (&(*a), false) == -1) || ((sb (&(*b), false)) == -1))
 		return (-1);
-	ft_printf("ss\n");
+	if (print == true)
+		ft_printf("ss\n");
 	return (1);
 }

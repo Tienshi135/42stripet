@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 11:07:21 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/29 13:26:01 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:35:13 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /// @param t_stack a 
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	pa(t_stack **a, t_stack **b)
+int	pa(t_stack **a, t_stack **b, int print)
 {
 	t_stack	*temp;
 
@@ -32,7 +32,8 @@ int	pa(t_stack **a, t_stack **b)
 		temp->previous = NULL;
 	}
 	ps_lstadd_back(a, temp);
-	ft_printf("pa\n");
+	if (print == true)
+		ft_printf("pa\n");
 	return (0);
 }
 
@@ -40,7 +41,7 @@ int	pa(t_stack **a, t_stack **b)
 /// @param t_stack a 
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	pb(t_stack **a, t_stack **b)
+int	pb(t_stack **a, t_stack **b, int print)
 {
 	t_stack	*temp;
 
@@ -55,6 +56,7 @@ int	pb(t_stack **a, t_stack **b)
 		temp->previous = NULL;
 	}
 	ps_lstadd_back(b, temp);
-	ft_printf("pb\n");
+	if (print == true)
+		ft_printf("pb\n");
 	return (0);
 }

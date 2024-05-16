@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:46:21 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/07 15:14:53 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:29:22 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include "../includes/rotate.h"
 # include "../includes/reverse.h"
 # include "../includes/push.h"
+# include "../includes/math.h"
 
-void	reset_moves(t_data *data);
-void	add_to_moves(char **moves, char *instruction, int *steps);
-void	ex_moves(t_data *data, t_stack *to_do);
-int		get_to_top(t_stack *element);
+void	set_position(t_stack *stack);
+int		set_target(t_data *data, int index_b);
+void	do_costa(t_data *data, t_stack *to_do);
+void	do_costb(t_data *data, t_stack *to_do);
 
 #endif

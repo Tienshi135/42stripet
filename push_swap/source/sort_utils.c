@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 15:59:43 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/13 12:23:37 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 14:43:06 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,47 @@ void	sort_3(t_stack **stack)
 		nodes[2] = *stack;
 		if (nodes[0]->content > nodes[2]->content)
 		{
-			ra(stack);
-			sa(stack);
+			ra(stack, true);
+			sa(stack, true);
 		}
 		else if (nodes[0]->content > nodes[1]->content)
-			sa(stack);
+			sa(stack, true);
 		else if (nodes[1]->content > nodes[2]->content)
 		{
-			rra(stack);
-			sa(stack);
+			rra(stack, true);
+			sa(stack, true);
 		}
 	}
 }
 
 void	sort_small_stack(t_data *data)
 {
+	if (is_sorted(data->a))
+		return ;
 	if (ps_lstsize(data->a) == 2 && !is_sorted(data->a))
-		sa(&(data->a));
+		sa(&(data->a), true);
 	else if (ps_lstsize(data->a) == 3)
 		sort_3(&(data->a));
 	else if (ps_lstsize(data->a) == 4)
 	{
-		pb(&(data->a), &(data->b));
+		pb(&(data->a), &(data->b), true);
 		sort_3(&(data->a));
 	}
+}
+
+void	shift_stack(t_data *data)
+{
+	t_stack	*lowest;
+	int		size;
+
+	lowest = find_smallest(data->a);
+	size = ps_lstsize(data->a);
+	if (lowest->position > size / 2)
+	{
+		while (ps_lstlast(data->a) != lowest)
+			rra(&data->a, true);
+	}
+	else
+		while (ps_lstlast(data->a) != lowest)
+			ra(&data->a, true);
 }

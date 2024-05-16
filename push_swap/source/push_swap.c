@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 17:37:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/13 14:25:01 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:05:55 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,6 @@
 #include "../includes/errors.h"
 #include "../includes/algorythm.h"
 #include "../includes/math.h"
-
-void	print_list(t_data *data)
-{
-	t_stack	*cursora;
-	t_stack	*cursorb;
-
-	cursora = ps_lstlast(data->a);
-	cursorb = ps_lstlast(data->b);
-	ft_printf("Stack before sorting :\na b\n⎻ ⎻\n");
-	while (cursora || cursorb)
-	{
-		if (cursora && cursorb)
-		{
-			ft_printf("%i %i\n", cursora->content, cursorb->content);
-			cursora = cursora->previous;
-			cursorb = cursorb->previous;
-		}
-		else if (cursora)
-		{
-			ft_printf("%i NAN\n", cursora->content);
-			cursora = cursora->previous;
-		}
-		else
-		{
-			ft_printf("NAN %i\n", cursorb->content);
-			cursorb = cursorb->previous;
-		}
-	}
-}
 
 void	index_init(t_stack *a, int stack_size)
 {
@@ -126,9 +97,8 @@ void	sort_big_stack(t_data *data)
 		return ;
 	push_to_b(data);
 	sort_3(&(data->a));
-	print_list(data);
 	push_to_a(data);
-	print_list(data);
+	shift_stack(data);
 }
 
 int	main(int argc, char **argv)

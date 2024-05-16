@@ -1,9 +1,9 @@
-Name = push_swap
+NAME = push_swap
 CFLAGS = -Wall -Werror -Wextra
 Libraries = -lft -L ./libft
 
 src_dir = ./source
-bonus_dir = ./source
+bonus_dir = ./source/bonus
 src = $(src_dir)/push_swap.c\
       $(src_dir)/reverse.c\
       $(src_dir)/rotate.c\
@@ -19,20 +19,21 @@ src = $(src_dir)/push_swap.c\
 
 bonus_src = $(bonus_dir)/push_swap_checker_bonus.c\
 			$(bonus_dir)/error_bonus.c\
-			$(bonus_dir)/push_bonus.c\
-			$(bonus_dir)/reverse_bonus.c\
-			$(bonus_dir)/rotate_bonus.c\
-			$(bonus_dir)/swap_bonus.c\
 			$(src_dir)/utils.c\
 			$(src_dir)/list_utils.c\
+			$(src_dir)/list_utils2.c\
+			$(src_dir)/reverse.c\
+      		$(src_dir)/rotate.c\
+	  		$(src_dir)/swap.c\
+	 		$(src_dir)/push.c\
 			$(src_dir)/math.c\
 
 obj = $(src:.c=.o)
 bonus_obj = $(bonus_src:.c=.o)
 
-all: $(Name)
+all: $(NAME)
 
-$(Name):$(obj)
+$(NAME):$(obj)
 	gcc $(Libraries) $^ -o $@
 
 bonus:$(bonus_obj)
@@ -43,55 +44,56 @@ clean:
 	rm -f $(bonus_dir)/*.o
 
 fclean: clean
-	rm -f $(Name)
+	rm -f $(NAME)
+	rm -f Checker_Mac_Stripet
 
 re: fclean all
 
 bre: fclean bonus
 
 debug:
-	gcc -g $(CFLAGS) $(Libraries) $(src) -o $(Name)
+	gcc -g $(CFLAGS) $(Libraries) $(src) -o $(NAME)
 
 bdebug:
-	gcc -g $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
+	gcc -g $(CFLAGS) $(Libraries) $(bonus_src) -o $(NAME)
 
 sanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(src) -o $(Name)
+	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(src) -o $(NAME)
 
 bsanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
+	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(bonus_src) -o $(NAME)
 
 random_test:
-	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -100); \
+	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -5); \
 	echo $$NUMBERS; \
-	./push_swap $$NUMBERS
+	./push_swap $$NUMBERS | ./Checker_Mac_Stripet $$NUMBERS
 
 test:
 	@printf 'begining of sanitize tests\n'
 	@make sanitize
 	@printf '\n'
-	-./$(Name)
+	-./$(NAME)
 	@printf '\n'
-	-./$(Name) wrong
+	-./$(NAME) wrong
 	@printf '\n'
-	-./$(Name) 1
+	-./$(NAME) 1
 	@printf '\n'
-	-./$(Name) 1 wrong 2 3
+	-./$(NAME) 1 wrong 2 3
 	@printf '\n'
-	-./$(Name) 1 2 5 2 1
+	-./$(NAME) 1 2 5 2 1
 	@printf '\n'
-	-./$(Name) "1" "wrong" "2" "3"
+	-./$(NAME) "1" "wrong" "2" "3"
 	@printf '\n'
-	-./$(Name) "1" "2" "5" "2" "1"
+	-./$(NAME) "1" "2" "5" "2" "1"
 
 	@printf '\n'
-	-./$(Name) "0 1 2 3 4 5 6 7 8 9 10" | wc -l
+	-./$(NAME) "0 1 2 3 4 5 6 7 8 9 10" | wc -l
 	ARG="0 1 2 3 4 5 6 7 8 9 10"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
-	-./$(Name) "10 9 8 7 6 5 4 3 2 1 0" | wc -l
+	-./$(NAME) "10 9 8 7 6 5 4 3 2 1 0" | wc -l
 	ARG="10 9 8 7 6 5 4 3 2 1 0"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
-	-./$(Name) "4 67 3 87 23" | wc -l
+	-./$(NAME) "4 67 3 87 23" | wc -l
 	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
 
@@ -100,28 +102,28 @@ test:
 	@printf 'begining of leaks tests\n'
 	@make re
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name)
+	-Leaks --atExit --quiet -- ./$(NAME)
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) wrong
+	-Leaks --atExit --quiet -- ./$(NAME) wrong
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) 1
+	-Leaks --atExit --quiet -- ./$(NAME) 1
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) 1 wrong 2 3
+	-Leaks --atExit --quiet -- ./$(NAME) 1 wrong 2 3
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) 1 2 5 2 1
+	-Leaks --atExit --quiet -- ./$(NAME) 1 2 5 2 1
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "1" "wrong" "2" "3"
+	-Leaks --atExit --quiet -- ./$(NAME) "1" "wrong" "2" "3"
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "1" "2" "5" "2" "1"
+	-Leaks --atExit --quiet -- ./$(NAME) "1" "2" "5" "2" "1"
 
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "0 1 2 3 4 5 6 7 8 9 10"
+	-Leaks --atExit --quiet -- ./$(NAME) "0 1 2 3 4 5 6 7 8 9 10"
 	ARG="0 1 2 3 4 5 6 7 8 9 10"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "10 9 8 7 6 5 4 3 2 1 0"
+	-Leaks --atExit --quiet -- ./$(NAME) "10 9 8 7 6 5 4 3 2 1 0"
 	ARG="10 9 8 7 6 5 4 3 2 1 0"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "4 67 3 87 23"
+	-Leaks --atExit --quiet -- ./$(NAME) "4 67 3 87 23"
 	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker_Mac $$ARG
 	@printf '\n'
 

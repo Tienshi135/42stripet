@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:41:01 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/29 13:26:42 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:36:31 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /// The first element becomes the last one.
 /// @param t_stack a 
 /// @return 1 on success -1 on failure
-int	ra(t_stack **a)
+int	ra(t_stack **a, int print)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -31,7 +31,8 @@ int	ra(t_stack **a)
 	temp->next = cursor;
 	cursor->previous = temp;
 	*a = temp;
-	ft_printf("ra\n");
+	if (print == true)
+		ft_printf("ra\n");
 	return (0);
 }
 
@@ -39,7 +40,7 @@ int	ra(t_stack **a)
 /// The first element becomes the last one.
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	rb(t_stack **b)
+int	rb(t_stack **b, int print)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -53,7 +54,8 @@ int	rb(t_stack **b)
 	temp->next = cursor;
 	cursor->previous = temp;
 	*b = temp;
-	ft_printf("rb\n");
+	if (print == true)
+		ft_printf("rb\n");
 	return (0);
 }
 
@@ -62,10 +64,21 @@ int	rb(t_stack **b)
 /// @param t_stack a 
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	rr(t_stack **a, t_stack **b)
+int	rr(t_stack **a, t_stack **b, int print)
 {
-	if ((ra (&(*a)) == -1) || ((rb (&(*b))) == -1))
+	if ((ra (&(*a), false) == -1) || ((rb (&(*b), false)) == -1))
 		return (-1);
-	ft_printf("rr\n");
+	if (print == true)
+		ft_printf("rr\n");
 	return (1);
+}
+
+void	rotate_both(t_data *data, t_stack *to_do)
+{
+	while (to_do->cost_a > 0 && to_do->cost_b > 0)
+	{
+		rr(&(data->a), &(data->b), true);
+		to_do->cost_a--;
+		to_do->cost_b--;
+	}
 }

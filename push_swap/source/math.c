@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 12:24:57 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/13 13:19:25 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:09:50 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,25 @@ t_stack	*find_smallest(t_stack *stack)
 		cursor = cursor->next;
 	}
 	return (smallest);
+}
+
+void	get_cost(t_data *data)
+{
+	t_stack	*cursor_b;
+	int		size_a;
+	int		size_b;
+
+	cursor_b = ps_lstlast(data->b);
+	size_a = ps_lstsize(data->a);
+	size_b = ps_lstsize(data->b);
+	while (cursor_b)
+	{
+		cursor_b->cost_b = cursor_b->position;
+		if (cursor_b->position > size_b / 2)
+			cursor_b->cost_b = (size_b - cursor_b->position) * -1;
+		cursor_b->cost_a = cursor_b->target_position;
+		if (cursor_b->target_position > size_a / 2)
+			cursor_b->cost_a = (size_a - cursor_b->target_position) * -1;
+		cursor_b = cursor_b->previous;
+	}
 }

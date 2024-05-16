@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 18:09:08 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/06 11:25:28 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/16 13:35:56 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 /// The last element becomes the first one.
 /// @param t_stack a
 /// @return 1 on success -1 on failure
-int	rra(t_stack **a)
+int	rra(t_stack **a, int print)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -31,7 +31,8 @@ int	rra(t_stack **a)
 	(*a)->previous = NULL;
 	temp->previous = cursor;
 	temp->next = NULL;
-	ft_printf("rra\n");
+	if (print == true)
+		ft_printf("rra\n");
 	return (0);
 }
 
@@ -39,7 +40,7 @@ int	rra(t_stack **a)
 /// The last element becomes the first one.
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	rrb(t_stack **b)
+int	rrb(t_stack **b, int print)
 {
 	t_stack	*temp;
 	t_stack	*cursor;
@@ -53,7 +54,8 @@ int	rrb(t_stack **b)
 	(*b)->previous = NULL;
 	temp->previous = cursor;
 	temp->next = NULL;
-	ft_printf("rrb\n");
+	if (print == true)
+		ft_printf("rrb\n");
 	return (0);
 }
 
@@ -62,10 +64,21 @@ int	rrb(t_stack **b)
 /// @param t_stack a 
 /// @param t_stack b 
 /// @return 1 on success -1 on failure
-int	rrr(t_stack **a, t_stack **b)
+int	rrr(t_stack **a, t_stack **b, int print)
 {
-	if ((rra (&(*a)) == -1) || ((rrb (&(*b))) == -1))
+	if ((rra (&(*a), false) == -1) || ((rrb (&(*b), false)) == -1))
 		return (-1);
-	ft_printf("rrr\n");
+	if (print == true)
+		ft_printf("rrr\n");
 	return (1);
+}
+
+void	reverse_rotate_both(t_data *data, t_stack *to_do)
+{
+	while (to_do->cost_a < 0 && to_do->cost_b < 0)
+	{
+		rrr(&(data->a), &(data->b), true);
+		to_do->cost_a++;
+		to_do->cost_b++;
+	}
 }
