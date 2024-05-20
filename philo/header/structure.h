@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 17:33:40 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/20 14:12:18 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/20 11:34:15 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/20 15:19:27 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef STRUCTURE_H
+# define STRUCTURE_H
 
-enum e_error {
-	bad_args = -1,
-	gettimeofday_error = -2,
-	pthread_create_error = -3
-}	;
+# include "sys/time.h"
+# include "pthread.h"
 
-int	error(int code);
+typedef struct s_philo
+{
+	struct timeval	time;
+	int				nb_philo;
+	pthread_t		**philo_threads;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nb_eat;
+	int				*forks;
+}	t_philo;
 
 #endif

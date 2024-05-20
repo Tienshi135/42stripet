@@ -1,24 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 17:33:40 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/20 14:12:18 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/20 11:39:29 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/20 11:40:51 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#include "../header/util.h"
 
-enum e_error {
-	bad_args = -1,
-	gettimeofday_error = -2,
-	pthread_create_error = -3
-}	;
+int	ph_atoi(const char *str)
+{
+	int		i;
+	int		n;
+	int		sign;
 
-int	error(int code);
-
-#endif
+	i = 0;
+	n = 0;
+	sign = 1;
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		n = n * 10 + str[i] - '0';
+		i++;
+	}
+	return (n * sign);
+}

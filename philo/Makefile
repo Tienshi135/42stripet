@@ -1,12 +1,13 @@
 NAME = philo
 BONUS_NAME = philo_bonus
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -pthread
 Libraries =
 
 src_dir = ./source
 bonus_dir = ./source/bonus
 src = 	$(src_dir)/philo.c\
 		$(src_dir)/error.c\
+		$(src_dir)/util.c\
 
 bonus_src =
 
