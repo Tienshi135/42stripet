@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:33:40 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/20 14:12:25 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/24 13:47:48 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,15 @@ int	error(int code)
 		printf("Error: gettimeofday failed\n");
 	else if (code == pthread_create_error)
 		printf("Error: pthread_create failed\n");
+	else if (code == pthread_join_error)
+		printf("Error: pthread_join failed\n");
+	else if (code == pthread_mutex_init_error)
+		printf("Error: pthread_mutex_init failed\n");
+	else if (code == pthread_mutex_lock_error)
+		printf("Error: pthread_mutex_lock failed\n");
+	else if (code == pthread_mutex_unlock_error)
+		printf("Error: pthread_mutex_unlock failed\n");
+	else if (code == malloc_error)
+		printf("Error: malloc failed\n");
 	return (code);
 }

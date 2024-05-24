@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:39:29 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/23 18:18:33 by tienshi          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:50:36 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,35 @@ int	ph_atoi(const char *str)
 	return (n * sign);
 }
 
-void	free_philo(t_data *data)
+void	mutex_init(t_data *data)
 {
-	// int i;
+	int	i;
 
-	// i = 0;
-	// while ((data->tupid_pasta_eaters) + i)
-	// {
-	// 	free((data->tupid_pasta_eaters + i)->pthread);
-	// 	i++;
-	// }
-	free(data->tupid_pasta_eaters);
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		data->philosophers[i].id = i + 1;
+		data->philosophers[i].data = data;
+		pthread_mutex_init(&data->philosophers[i].left_fork, NULL);
+		pthread_mutex_init(&data->philosophers[i].right_fork, NULL);
+		i++;
+	}
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		if (i == data->nb_philo - 1)
+			data->philosophers[i].right_fork = data->philosophers[0].left_fork;
+		else
+			data->philosophers[i].right_fork
+				= data->philosophers[i + 1].left_fork;
+		i++;
+	}
+}
+
+int	get_current_time(void)
+{
+	struct timeval	time;
+
+	gettimeofday(&time, NULL);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }

@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:39:46 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/20 11:40:30 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:50:46 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "stdio.h"
 
 int		ph_atoi(const char *str);
-void	free_philo(t_data *data);
+void	mutex_init(t_data *data);
+int		get_current_time(void);
 
 #endif

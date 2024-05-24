@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:34:15 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/20 15:19:27 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/24 14:53:14 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,23 @@ enum e_bool
 	False = 0
 }	;
 
-typedef struct s_philo
+typedef struct s_philosopher
 {
-	pthread_t 		pthread;
-	int				alive;
-	int				lfork;
-	int 			rfork;
-}	t_philo;
+	int				id;
+	int				last_meal;
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
+	struct s_data	*data;
+}	t_philosopher;
 
 typedef struct s_data
 {
-	struct timeval  time;
-	int             nb_philo;
+	int				nb_philo;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_eat;
-	int 			forks;
-	t_philo			*tupid_pasta_eaters;
+	t_philosopher	*philosophers;
 }	t_data;
 
 #endif
