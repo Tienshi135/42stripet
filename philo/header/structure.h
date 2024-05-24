@@ -16,16 +16,30 @@
 # include "sys/time.h"
 # include "pthread.h"
 
+enum e_bool
+{
+	True = 1,
+	False = 0
+}	;
+
 typedef struct s_philo
 {
-	struct timeval	time;
-	int				nb_philo;
-	pthread_t		**philo_threads;
+	pthread_t 		pthread;
+	int				alive;
+	int				lfork;
+	int 			rfork;
+}	t_philo;
+
+typedef struct s_data
+{
+	struct timeval  time;
+	int             nb_philo;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				nb_eat;
-	int				*forks;
-}	t_philo;
+	int 			forks;
+	t_philo			*tupid_pasta_eaters;
+}	t_data;
 
 #endif

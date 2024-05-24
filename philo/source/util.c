@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:39:29 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/20 11:40:51 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/23 18:18:33 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,17 @@ int	ph_atoi(const char *str)
 		i++;
 	}
 	return (n * sign);
+}
+
+void	free_philo(t_data *data)
+{
+	// int i;
+
+	// i = 0;
+	// while ((data->tupid_pasta_eaters) + i)
+	// {
+	// 	free((data->tupid_pasta_eaters + i)->pthread);
+	// 	i++;
+	// }
+	free(data->tupid_pasta_eaters);
 }

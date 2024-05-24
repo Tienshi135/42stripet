@@ -13,6 +13,11 @@
 #ifndef UTIL_H
 # define UTIL_H
 
-int	ph_atoi(const char *str);
+# include "stdlib.h"
+# include "../header/structure.h"
+# include "stdio.h"
+
+int		ph_atoi(const char *str);
+void	free_philo(t_data *data);
 
 #endif
