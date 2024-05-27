@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:33:40 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/24 13:47:48 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/27 16:21:49 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,9 @@ int	error(int code)
 		printf("Error: pthread_mutex_unlock failed\n");
 	else if (code == malloc_error)
 		printf("Error: malloc failed\n");
+	else if (code == pthread_detach_error)
+		printf("Error: pthread_detach failed\n");
+	else if (code == pthread_init_error)
+		printf("Error: pthread_init failed\n");
 	return (code);
 }

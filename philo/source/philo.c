@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:28:30 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/24 15:26:45 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/27 16:42:42 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ void	*check_death(void *arg)
 	{
 		if (get_current_time() - joe->last_meal > joe->data->time_to_die)
 		{
-			printf("Philosopher %d died\n", joe->id);
-			exit(0);
+			safe_print(joe->data, joe->id, "died");
+			exit(1);
 		}
-		usleep(joe->data->time_to_die + 1);
+		usleep((joe->data->time_to_die + 10) * 1000);
 	}
 }
 
@@ -42,25 +42,42 @@ void	*living(void *arg)
 {
 	t_philosopher	*joe;
 	pthread_t		death_thread;
+	pthread_mutex_t	*first_fork;
+	pthread_mutex_t	*second_fork;
 
 	joe = arg;
-	pthread_create(&death_thread, NULL, check_death, joe);
-	pthread_detach(death_thread);
+	if (joe->id % 2 == 0)
+	{
+		first_fork = &joe->left_fork;
+		second_fork = &joe->right_fork;
+	}
+	else
+	{
+		first_fork = &joe->right_fork;
+		second_fork = &joe->left_fork;
+	}
+	if (pthread_create(&death_thread, NULL, check_death, joe) != 0)
+		error(pthread_create_error);
+	if (pthread_detach(death_thread) != 0)
+		error(pthread_detach_error);
 	while (1)
 	{
-		printf("Philosopher %d is thinking\n", joe->id);
-		if (pthread_mutex_lock(&joe->left_fork) != 0)
+		safe_print(joe->data, joe->id, "is thinking");
+		if (pthread_mutex_lock(first_fork) != 0)
 			error(pthread_mutex_lock_error);
-		if (pthread_mutex_lock(&joe->right_fork) != 0)
+		safe_print(joe->data, joe->id, "has taken a fork");
+		if (pthread_mutex_lock(second_fork) != 0)
 			error(pthread_mutex_lock_error);
-		printf("Philosopher %d is eating\n", joe->id);
+		safe_print(joe->data, joe->id, "has taken a fork");
+		safe_print(joe->data, joe->id, "is eating");
 		usleep(joe->data->time_to_eat * 1000);
 		joe->last_meal = get_current_time();
+		joe->nb_eat++;
 		if (pthread_mutex_unlock(&joe->left_fork) != 0)
 			error(pthread_mutex_unlock_error);
 		if (pthread_mutex_unlock(&joe->right_fork) != 0)
 			error(pthread_mutex_unlock_error);
-		printf("Philosopher %d is sleeping\n", joe->id);
+		safe_print(joe->data, joe->id, "is sleeping");
 		usleep(joe->data->time_to_sleep * 1000);
 	}
 }
@@ -72,6 +89,7 @@ void	init_philo(t_data *data)
 
 	i = 0;
 	threads = malloc(sizeof(pthread_t) * data->nb_philo);
+	data->boot_time = get_current_time();
 	if (!threads)
 		error(malloc_error);
 	mutex_init(data);
@@ -80,14 +98,13 @@ void	init_philo(t_data *data)
 		data->philosophers[i].last_meal = get_current_time();
 		if (pthread_create(&threads[i], NULL, living,
 				&data->philosophers[i]) != 0)
-			error(pthread_create_error);
+			error(pthread_init_error);
 		i++;
 	}
 	i = 0;
 	while (i < data->nb_philo)
 	{
-		if (pthread_join(threads[i], NULL) != 0)
-			error(pthread_join_error);
+		pthread_join(threads[i], NULL);
 		i++;
 	}
 	free(threads);
@@ -95,13 +112,20 @@ void	init_philo(t_data *data)
 
 int	main(int argc, char **argv)
 {
-	t_data	data;
+	t_data		data;
+	pthread_t	they_win;
 
 	if (argc < 5 || argc > 6)
 		return (error(bad_args));
 	data_init(&data, argv);
 	if (argc == 6)
-		data.nb_eat = ph_atoi(argv[5]);
+	{
+		data.to_win = ph_atoi(argv[5]);
+		if (pthread_create(&they_win, NULL, check_win, &data))
+			error(pthread_create_error);
+		if (pthread_detach(they_win))
+			error(pthread_detach_error);
+	}
 	init_philo(&data);
 	return (0);
 }

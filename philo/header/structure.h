@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:34:15 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/24 14:53:14 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/27 14:17:13 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,11 @@
 # include "sys/time.h"
 # include "pthread.h"
 
-enum e_bool
-{
-	True = 1,
-	False = 0
-}	;
-
 typedef struct s_philosopher
 {
 	int				id;
 	int				last_meal;
+	int				nb_eat;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
 	struct s_data	*data;
@@ -37,7 +32,9 @@ typedef struct s_data
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				nb_eat;
+	int				to_win;
+	int				boot_time;
+	pthread_mutex_t	rubber_chicken;
 	t_philosopher	*philosophers;
 }	t_data;
 

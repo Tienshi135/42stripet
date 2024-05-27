@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:33:40 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/24 13:47:53 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/27 16:21:43 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ enum e_error {
 	pthread_mutex_init_error = -5,
 	pthread_mutex_lock_error = -6,
 	pthread_mutex_unlock_error = -7,
-	malloc_error = -8
+	malloc_error = -8,
+	pthread_detach_error = -9,
+	pthread_init_error = -10,
 }	;
 
 int	error(int code);
