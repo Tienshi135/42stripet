@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 17:28:30 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/30 12:00:14 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/30 11:35:22 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/30 12:05:57 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef INIT_H
+# define INIT_H
 
-# include "../header/error.h"
 # include "../header/structure.h"
+# include "../header/error.h"
 # include "../header/util.h"
-# include "../header/init.h"
-# include "../header/action.h"
-# include "unistd.h"
-# include "string.h"
-# include "stdlib.h"
+
+void		init_data(t_data *data, int argc, char **argv);
+void		init_mutexes(t_data *data);
 
 #endif

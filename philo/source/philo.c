@@ -6,126 +6,123 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 17:28:30 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/27 16:42:42 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/30 15:01:39 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/philo.h"
 
-void	data_init(t_data *data, char **argv)
+void	*check_win(void *arg)
 {
-	memset(data, 0, sizeof(t_data));
-	data->nb_philo = ph_atoi(argv[1]);
-	data->time_to_die = ph_atoi(argv[2]);
-	data->time_to_eat = ph_atoi(argv[3]);
-	data->time_to_sleep = ph_atoi(argv[4]);
-	data->philosophers = malloc(sizeof(t_philosopher) * data->nb_philo);
+	t_data	*data;
+	int		i;
+
+	data = (t_data *)arg;
+	i = 0;
+	while (i < data->nb_philo)
+	{
+		if (data->philosophers[i].nb_eat < data->to_win)
+			i = 0;
+		else
+			i++;
+	}
+	safe_print(data, 0, "All philosophers have eaten enough, they win!");
+	safe_exit(data);
+	return (NULL);
 }
 
 void	*check_death(void *arg)
 {
-	t_philosopher	*joe;
+	t_philosopher	*philo;
 
-	joe = arg;
-	while (1)
-	{
-		if (get_current_time() - joe->last_meal > joe->data->time_to_die)
-		{
-			safe_print(joe->data, joe->id, "died");
-			exit(1);
-		}
-		usleep((joe->data->time_to_die + 10) * 1000);
-	}
+	philo = (t_philosopher *)arg;
+	while (get_current_time() - philo->last_meal < philo->data->time_to_die)
+		usleep((philo->data->time_to_die - 10) * 1000);
+	philo->is_alive = false;
+	return (NULL);
 }
 
 void	*living(void *arg)
 {
-	t_philosopher	*joe;
-	pthread_t		death_thread;
-	pthread_mutex_t	*first_fork;
-	pthread_mutex_t	*second_fork;
+	t_philosopher	*philo;
 
-	joe = arg;
-	if (joe->id % 2 == 0)
-	{
-		first_fork = &joe->left_fork;
-		second_fork = &joe->right_fork;
-	}
-	else
-	{
-		first_fork = &joe->right_fork;
-		second_fork = &joe->left_fork;
-	}
-	if (pthread_create(&death_thread, NULL, check_death, joe) != 0)
+	philo = (t_philosopher *)arg;
+	if (pthread_create(&(philo->death_monitor), NULL, check_death, philo) != 0)
 		error(pthread_create_error);
-	if (pthread_detach(death_thread) != 0)
-		error(pthread_detach_error);
+	while (philo->is_alive == true)
+	{
+		take_forks(philo);
+		eat(philo);
+		drop_forks(philo);
+		sleeping(philo);
+		safe_print(philo->data, philo->id, "is thinking");
+	}
+	if (pthread_join(philo->death_monitor, NULL) != 0)
+		error(pthread_join_error);
+	return (NULL);
+}
+
+void	*death_monitor(void *arg)
+{
+	t_data	*data;
+	int		i;
+
+	data = (t_data *)arg;
+
 	while (1)
 	{
-		safe_print(joe->data, joe->id, "is thinking");
-		if (pthread_mutex_lock(first_fork) != 0)
-			error(pthread_mutex_lock_error);
-		safe_print(joe->data, joe->id, "has taken a fork");
-		if (pthread_mutex_lock(second_fork) != 0)
-			error(pthread_mutex_lock_error);
-		safe_print(joe->data, joe->id, "has taken a fork");
-		safe_print(joe->data, joe->id, "is eating");
-		usleep(joe->data->time_to_eat * 1000);
-		joe->last_meal = get_current_time();
-		joe->nb_eat++;
-		if (pthread_mutex_unlock(&joe->left_fork) != 0)
-			error(pthread_mutex_unlock_error);
-		if (pthread_mutex_unlock(&joe->right_fork) != 0)
-			error(pthread_mutex_unlock_error);
-		safe_print(joe->data, joe->id, "is sleeping");
-		usleep(joe->data->time_to_sleep * 1000);
+		i = 0;
+		while (i < data->nb_philo)
+		{
+			if (data->philosophers[i].is_alive == false)
+			{
+				safe_print(data, data->philosophers[i].id, "died");
+				safe_exit(data);
+			}
+			i++;
+		}
+		usleep((data->time_to_die / 4) * 1000);
 	}
 }
 
-void	init_philo(t_data *data)
+void	create_world(t_data *data)
 {
-	int				i;
-	pthread_t		*threads;
+	int	i;
 
 	i = 0;
-	threads = malloc(sizeof(pthread_t) * data->nb_philo);
 	data->boot_time = get_current_time();
-	if (!threads)
-		error(malloc_error);
-	mutex_init(data);
 	while (i < data->nb_philo)
 	{
-		data->philosophers[i].last_meal = get_current_time();
-		if (pthread_create(&threads[i], NULL, living,
-				&data->philosophers[i]) != 0)
-			error(pthread_init_error);
+		data->philosophers[i].last_meal = data->boot_time;
+		if (pthread_create(&(data->philosophers[i].pasta_eater), NULL, living,
+				&(data->philosophers[i])) != 0)
+			error(pthread_create_error);
+		if (pthread_detach(data->philosophers[i].pasta_eater) != 0)
+			error(pthread_detach_error);
 		i++;
 	}
-	i = 0;
-	while (i < data->nb_philo)
-	{
-		pthread_join(threads[i], NULL);
-		i++;
-	}
-	free(threads);
+	if (pthread_create(&data->monitor, NULL, death_monitor, data) != 0)
+		error(pthread_create_error);
+	if (pthread_join(data->monitor, NULL) != 0)
+		error(pthread_join_error);
 }
 
 int	main(int argc, char **argv)
 {
 	t_data		data;
-	pthread_t	they_win;
+	pthread_t	monitor;
 
 	if (argc < 5 || argc > 6)
-		return (error(bad_args));
-	data_init(&data, argv);
-	if (argc == 6)
+		return (printf("Usage : ./philo nb_philo time_to_die time_to_eat \
+time_to_sleep [nb_of_time_each_philo_must_eat]\n"));
+	init_data(&data, argc, argv);
+	if (data.to_win > -1)
 	{
-		data.to_win = ph_atoi(argv[5]);
-		if (pthread_create(&they_win, NULL, check_win, &data))
+		if (pthread_create(&monitor, NULL, check_win, &data) != 0)
 			error(pthread_create_error);
-		if (pthread_detach(they_win))
+		if (pthread_detach(monitor) != 0)
 			error(pthread_detach_error);
 	}
-	init_philo(&data);
+	create_world(&data);
 	return (0);
 }

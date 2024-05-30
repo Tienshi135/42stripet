@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 11:39:46 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/27 16:04:20 by stripet          ###   ########.fr       */
+/*   Updated: 2024/05/30 11:30:49 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@
 # include "unistd.h"
 
 int		ph_atoi(const char *str);
-void	mutex_init(t_data *data);
 int		get_current_time(void);
-void	*check_win(void *arg);
 void	safe_print(t_data *data, int id, const char *action);
+void	safe_exit(t_data *data);
 
 #endif

@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   action.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 17:28:30 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/30 12:00:14 by stripet          ###   ########.fr       */
+/*   Created: 2024/05/30 11:55:07 by stripet           #+#    #+#             */
+/*   Updated: 2024/05/30 12:06:26 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#ifndef ACTION_H
+# define ACTION_H
 
-# include "../header/error.h"
 # include "../header/structure.h"
 # include "../header/util.h"
-# include "../header/init.h"
-# include "../header/action.h"
-# include "unistd.h"
-# include "string.h"
-# include "stdlib.h"
+
+void	take_forks(t_philosopher *philo);
+void	eat(t_philosopher *philo);
+void	drop_forks(t_philosopher *philo);
+void	sleeping(t_philosopher *philo);
 
 #endif
