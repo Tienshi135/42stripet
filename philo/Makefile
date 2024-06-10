@@ -6,10 +6,8 @@ Libraries =
 src_dir = ./source
 bonus_dir = ./source/bonus
 src = 	$(src_dir)/philo.c\
-		$(src_dir)/error.c\
-		$(src_dir)/util.c\
-		$(src_dir)/init.c\
-		$(src_dir)/action.c\
+		$(src_dir)/utils.c\
+		$(src_dir)/actions.c\
 
 bonus_src =
 

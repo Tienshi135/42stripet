@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/30 11:35:22 by stripet           #+#    #+#             */
-/*   Updated: 2024/05/30 12:05:57 by stripet          ###   ########.fr       */
+/*   Created: 2024/06/10 12:28:09 by stripet           #+#    #+#             */
+/*   Updated: 2024/06/10 15:23:14 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INIT_H
-# define INIT_H
+#ifndef UTILS_H
+# define UTILS_H
 
-# include "../header/structure.h"
-# include "../header/error.h"
-# include "../header/util.h"
+# include "structures.h"
+# include <sys/time.h>
+# include <unistd.h>
+# include <stdio.h>
 
-void		init_data(t_data *data, int argc, char **argv);
-void		init_mutexes(t_data *data);
+int		p_atoi(const char *str);
+int		get_time(void);
+void	sleep_time(int time);
+int		safe_print(t_data *data, char *str, int id);
+int		safe_get_int(int *value, pthread_mutex_t *mutex);
+void	safe_set_int(int *value, int new_value, pthread_mutex_t *mutex);
 
 #endif

@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.h                                            :+:      :+:    :+:   */
+/*   actions.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 17:33:40 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/30 11:20:17 by stripet          ###   ########.fr       */
+/*   Created: 2024/06/10 14:50:16 by stripet           #+#    #+#             */
+/*   Updated: 2024/06/10 15:04:44 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERROR_H
-# define ERROR_H
+#ifndef ACTIONS_H
+# define ACTIONS_H
 
-# include "../header/structure.h"
-# include "stdlib.h"
+# include "./structures.h"
+# include "./utils.h"
 
-enum e_error {
-	gettimeofday_error = -1,
-	pthread_create_error = -2,
-	pthread_join_error = -3,
-	pthread_detach_error = -4,
-	pthread_mutex_init_error = -5,
-	pthread_mutex_lock_error = -6,
-	pthread_mutex_unlock_error = -7,
-}	;
-
-int	error(int code);
+void	eat(t_philo *philo);
+void	rest(t_philo *philo);
 
 #endif
