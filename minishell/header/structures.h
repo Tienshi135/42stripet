@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/22 02:45:06 by tienshi           #+#    #+#             */
-/*   Updated: 2024/07/24 14:40:41 by stripet          ###   ########.fr       */
+/*   Updated: 2024/07/26 18:41:49 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef enum e_bool
 
 typedef struct s_command
 {
-	char	*command;
+	char	*separator;
 	int		argc;
 	char	**argv;
 }	t_command;

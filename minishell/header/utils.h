@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 10:22:45 by stripet           #+#    #+#             */
-/*   Updated: 2024/07/24 10:36:07 by stripet          ###   ########.fr       */
+/*   Updated: 2024/07/27 14:56:32 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 
-int	parse(t_data *data);
+void	parse(t_data *data);
+void	execute(t_data *data);
 
 #endif

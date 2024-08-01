@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 10:49:50 by stripet           #+#    #+#             */
-/*   Updated: 2024/07/24 11:18:42 by stripet          ###   ########.fr       */
+/*   Updated: 2024/07/26 23:03:22 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	get_status(t_status *status, char c)
 		else
 			*status = SINGLE_QUOTED;
 	}
+	printf("Status : %d\n", *status);//debug
 }
