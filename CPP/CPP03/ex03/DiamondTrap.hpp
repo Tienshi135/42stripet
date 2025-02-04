@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 17:42:40 by tienshi           #+#    #+#             */
-/*   Updated: 2025/02/04 12:47:06 by stripet          ###   ########.fr       */
+/*   Created: 2025/02/04 17:05:03 by stripet           #+#    #+#             */
+/*   Updated: 2025/02/04 17:05:22 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "Fixed.hpp"
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-class Point
+class DiamondTrap : public ScavTrap, public FragTrap
 {
-private:
-	Fixed _x;
-	Fixed _y;
-public:
-	Point(const float x, const float y);
-	~Point();
-	Point(const Point &point);
-	Point &operator=(const Point &point);
-	Fixed x() const;
-	Fixed y() const;
+    private:
+        std::string _Name;
+    public:
+        DiamondTrap(const std::string name);
+        ~DiamondTrap();
+        DiamondTrap(const DiamondTrap &copy);
+        DiamondTrap &operator=(const DiamondTrap &copy);
+        void whoAmI();
 };
-
-bool bsp(Point const a, Point const b, Point const c, Point const point);

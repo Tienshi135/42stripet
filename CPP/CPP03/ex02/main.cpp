@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 17:42:40 by tienshi           #+#    #+#             */
-/*   Updated: 2025/02/04 12:47:06 by stripet          ###   ########.fr       */
+/*   Created: 2025/02/04 16:48:26 by stripet           #+#    #+#             */
+/*   Updated: 2025/02/04 17:03:10 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "FragTrap.hpp"
+#include "ScavTrap.hpp"
 
-#include "Fixed.hpp"
-
-class Point
+int main()
 {
-private:
-	Fixed _x;
-	Fixed _y;
-public:
-	Point(const float x, const float y);
-	~Point();
-	Point(const Point &point);
-	Point &operator=(const Point &point);
-	Fixed x() const;
-	Fixed y() const;
-};
+    ClapTrap dude0("C1");
+    FragTrap dude1("F1");
+    ScavTrap dude2("S1");
 
-bool bsp(Point const a, Point const b, Point const c, Point const point);
+    dude0.attack("F1");
+    dude1.takeDamage(5);
+    dude1.highFivesGuys();
+    dude2.guardGate();
+    dude2.attack("F1");
+    dude1.attack("S1");
+    return (0);
+}

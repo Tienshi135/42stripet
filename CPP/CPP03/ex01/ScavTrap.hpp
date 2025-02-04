@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 17:42:40 by tienshi           #+#    #+#             */
-/*   Updated: 2025/02/04 12:47:06 by stripet          ###   ########.fr       */
+/*   Created: 2025/02/04 13:09:02 by stripet           #+#    #+#             */
+/*   Updated: 2025/02/04 15:03:24 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "Fixed.hpp"
+#include "ClapTrap.hpp"
 
-class Point
+class ScavTrap : public ClapTrap
 {
-private:
-	Fixed _x;
-	Fixed _y;
-public:
-	Point(const float x, const float y);
-	~Point();
-	Point(const Point &point);
-	Point &operator=(const Point &point);
-	Fixed x() const;
-	Fixed y() const;
+    private:
+        bool _IsFree;
+    public:
+        ScavTrap(const std::string name);
+        ~ScavTrap();
+        ScavTrap(const ScavTrap &copy);
+        ScavTrap &operator=(const ScavTrap &copy);
+        void attack(const std::string &target);
+        void guardGate();
 };
-
-bool bsp(Point const a, Point const b, Point const c, Point const point);

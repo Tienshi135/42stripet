@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Point.hpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/22 17:42:40 by tienshi           #+#    #+#             */
-/*   Updated: 2025/02/04 12:47:06 by stripet          ###   ########.fr       */
+/*   Created: 2025/02/04 13:36:54 by stripet           #+#    #+#             */
+/*   Updated: 2025/02/04 15:07:57 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "ScavTrap.hpp"
 
-#include "Fixed.hpp"
-
-class Point
+int main()
 {
-private:
-	Fixed _x;
-	Fixed _y;
-public:
-	Point(const float x, const float y);
-	~Point();
-	Point(const Point &point);
-	Point &operator=(const Point &point);
-	Fixed x() const;
-	Fixed y() const;
-};
+    ScavTrap dude1("Scavtrap1");
+    ScavTrap dude2("Scavtrap2");
 
-bool bsp(Point const a, Point const b, Point const c, Point const point);
+    dude1.guardGate();
+    dude2.guardGate();
+    dude2.guardGate();
+    dude2.attack("Scavtrap1");
+    dude1.takeDamage(100);
+    dude1.guardGate();
+    return (0);
+}
+    
