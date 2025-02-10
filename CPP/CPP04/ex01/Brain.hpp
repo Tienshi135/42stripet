@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Brain.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 13:09:02 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/10 14:02:10 by stripet          ###   ########.fr       */
+/*   Created: 2025/02/10 14:51:07 by stripet           #+#    #+#             */
+/*   Updated: 2025/02/10 14:58:54 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "ClapTrap.hpp"
+#include <iostream>
 
-class ScavTrap : virtual public ClapTrap
-{
+class Brain{
     private:
-        bool _IsFree;
+        std::string _ideas[100];
     public:
-        ScavTrap(const std::string name);
-        ~ScavTrap();
-        ScavTrap(const ScavTrap &copy);
-        ScavTrap &operator=(const ScavTrap &copy);
-        void attack(const std::string &target);
-        void guardGate();
+        Brain();
+        ~Brain();
+        Brain(const Brain &copy);
+        Brain &operator=(const Brain &copy);
 };

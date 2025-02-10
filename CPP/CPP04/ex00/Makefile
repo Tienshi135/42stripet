@@ -3,16 +3,17 @@ GREEN=\033[0;32m
 BLUE=\033[0;34m
 NC=\033[0m
 
-NAME = DiamondTrap
+NAME = Polymorphism
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98 -I $(INCDIR)
 INCDIR = ./header
 
 src =	./main.cpp \
-		./ClapTrap.cpp \
-		./ScavTrap.cpp \
-		./FragTrap.cpp \
-		./DiamondTrap.cpp\
+		./Animal.cpp \
+		./Dog.cpp \
+		./Cat.cpp \
+		./WrongAnimal.cpp \
+		./WrongCat.cpp\
 
 obj = $(src:.cpp=.o)
 

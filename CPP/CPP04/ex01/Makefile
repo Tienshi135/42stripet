@@ -3,16 +3,17 @@ GREEN=\033[0;32m
 BLUE=\033[0;34m
 NC=\033[0m
 
-NAME = DiamondTrap
+NAME = WorldOnFire
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -std=c++98 -I $(INCDIR)
 INCDIR = ./header
 
 src =	./main.cpp \
-		./ClapTrap.cpp \
-		./ScavTrap.cpp \
-		./FragTrap.cpp \
-		./DiamondTrap.cpp\
+		./Animal.cpp \
+		./Dog.cpp \
+		./Cat.cpp \
+		./Brain.cpp\
+
 
 obj = $(src:.cpp=.o)
 
@@ -61,3 +62,8 @@ fclean: clean
 	fi
 
 re: fclean all
+
+check_leaks:
+	valgrind -q --leak-check=full --track-origins=yes ./$(NAME)
+
+.PHONY: all clean fclean re debug sanitize check_leaks

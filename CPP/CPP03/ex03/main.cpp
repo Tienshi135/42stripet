@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 13:09:02 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/10 14:02:10 by stripet          ###   ########.fr       */
+/*   Created: 2025/02/10 14:12:27 by stripet           #+#    #+#             */
+/*   Updated: 2025/02/10 14:12:52 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "DiamondTrap.hpp"
 
-#include "ClapTrap.hpp"
-
-class ScavTrap : virtual public ClapTrap
+int main()
 {
-    private:
-        bool _IsFree;
-    public:
-        ScavTrap(const std::string name);
-        ~ScavTrap();
-        ScavTrap(const ScavTrap &copy);
-        ScavTrap &operator=(const ScavTrap &copy);
-        void attack(const std::string &target);
-        void guardGate();
-};
+    DiamondTrap diamondTrap("DiamondTrap");
+    diamondTrap.attack("target");
+    diamondTrap.takeDamage(10);
+    diamondTrap.beRepaired(10);
+    diamondTrap.guardGate();
+    diamondTrap.highFivesGuys();
+    diamondTrap.whoAmI();
+    return 0;
+}

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Cat.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/04 13:09:02 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/10 14:02:10 by stripet          ###   ########.fr       */
+/*   Created: 2025/02/10 14:22:50 by stripet           #+#    #+#             */
+/*   Updated: 2025/02/10 16:10:11 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
-#include "ClapTrap.hpp"
+#include "Animal.hpp"
 
-class ScavTrap : virtual public ClapTrap
+class Cat : public Animal
 {
     private:
-        bool _IsFree;
+        std::string _type;
+        Brain *_brain;
     public:
-        ScavTrap(const std::string name);
-        ~ScavTrap();
-        ScavTrap(const ScavTrap &copy);
-        ScavTrap &operator=(const ScavTrap &copy);
-        void attack(const std::string &target);
-        void guardGate();
+        Cat();
+        ~Cat();
+        Cat(const Cat &copy);
+        Cat &operator=(const Cat &copy);
+        void makeSound() const;
+        Brain *getBrain() const;
 };

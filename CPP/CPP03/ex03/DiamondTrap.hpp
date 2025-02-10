@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:05:03 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/04 17:05:22 by stripet          ###   ########.fr       */
+/*   Updated: 2025/02/10 14:14:16 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ class DiamondTrap : public ScavTrap, public FragTrap
         ~DiamondTrap();
         DiamondTrap(const DiamondTrap &copy);
         DiamondTrap &operator=(const DiamondTrap &copy);
+        void attack(const std::string &target);
         void whoAmI();
 };
