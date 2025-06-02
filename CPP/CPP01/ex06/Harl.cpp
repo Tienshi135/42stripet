@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:50:06 by tienshi           #+#    #+#             */
-/*   Updated: 2024/12/19 15:19:21 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:14:05 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void Harl::complain(std::string level)
 		std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
 		return;
 	}
-	for (int i = 0; i <= index; i++)
+	for (int i = 0; i < index; i++)
 		(this->*functions[i])();
 }

@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:04:51 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/10 14:11:52 by stripet          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:25:02 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 DiamondTrap::DiamondTrap(const std::string name) : ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name)
 {
-    std::cout << "DiamondTrap " << _Name << " is created." << std::endl;
+    this->_Name = name;
+    std::cout << "DiamondTrap " << this->_Name << " is created." << std::endl;
     this->setHitPoints(FragTrap::getHitPoints());
     this->setEnergyPoints(ScavTrap::getEnergyPoints());
     this->setAttackDamage(FragTrap::getAttackDamage());
@@ -46,6 +47,6 @@ void::DiamondTrap::attack(const std::string &target)
 
 void DiamondTrap::whoAmI()
 {
-    std::cout << "DiamondTrap " << _Name << " is " << this->getName() << "." << std::endl;
+    std::cout << "DiamondTrap " << this->_Name << " is " << this->getName() << "." << std::endl;
 }
 

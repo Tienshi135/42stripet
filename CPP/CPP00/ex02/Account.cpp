@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Account.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/10 18:15:39 by tienshi           #+#    #+#             */
-/*   Updated: 2024/12/10 19:02:13 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:08:18 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Account.hpp"
 #include <iostream>
+#include <ctime>
 
 int Account::_nbAccounts = 0;
 int Account::_totalAmount = 0;
@@ -20,7 +21,13 @@ int Account::_totalNbWithdrawals = 0;
 
 void Account::_displayTimestamp(void)
 {
-	std::cout << "[19920104_091532] ";
+	std::time_t	timestamp;
+	struct tm	*curr_time;
+	char output[18];
+	time(&timestamp);
+	curr_time = localtime(&timestamp);
+	strftime(output, 18, "[%Y%d0%u_%H%M%S]", curr_time);
+	std::cout << output;
 }
 
 Account::Account(int initial_deposit)

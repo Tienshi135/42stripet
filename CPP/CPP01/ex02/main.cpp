@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:44:49 by tienshi           #+#    #+#             */
-/*   Updated: 2024/12/12 13:51:21 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:13:12 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main()
 	std::string* ptr = &str;
 	std::string& ref = str;
 	std::cout << "String adress :" << &str << std::endl;
-	std::cout << "Pointer adress :" << &ptr << std::endl;
+	std::cout << "Pointer adress :" << ptr << std::endl;
 	std::cout << "Reference adress :" << &ref << std::endl;
 	std::cout << "String value :" << str << std::endl;
 	std::cout << "Pointer value :" << *ptr << std::endl;

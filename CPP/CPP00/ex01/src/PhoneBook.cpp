@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 18:55:37 by tienshi           #+#    #+#             */
-/*   Updated: 2024/11/30 17:10:29 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:44:35 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void PhoneBook::AddContact(void)
 		std::cout << RED << "First Name can't be empty" << std::endl << std::endl;
 		std::cout << PASTEL_BLUE << "Please enter the first name: " << std::endl << DARK_GREEN;
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::system("clear");
+			return;
+		}
 	}
 	PB[head].setFirstName(input);
 	std::cout << PASTEL_BLUE << "Please enter the last name: " << std::endl << DARK_GREEN;
@@ -81,6 +86,11 @@ void PhoneBook::AddContact(void)
 		std::cout << RED << "Last Name can't be empty" << std::endl << std::endl;
 		std::cout << PASTEL_BLUE << "Please enter the Last name: " << std::endl << DARK_GREEN;
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::system("clear");
+			return;
+		}
 	}
 	PB[head].setLastName(input);
 	std::cout << PASTEL_BLUE << "Please enter the nickname: " << std::endl << DARK_GREEN;
@@ -90,6 +100,11 @@ void PhoneBook::AddContact(void)
 		std::cout << RED << "Nickname can't be empty" << std::endl << std::endl;
 		std::cout << PASTEL_BLUE << "Please enter the Nickname: " << std::endl << DARK_GREEN;
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::system("clear");
+			return;
+		}
 	}
 	PB[head].setNickname(input);
 	std::cout << PASTEL_BLUE << "Please enter the phone number: " << std::endl << DARK_GREEN;
@@ -99,6 +114,11 @@ void PhoneBook::AddContact(void)
 		std::cout << RED << "Phone number is invalid. Carefull" << PASTEL_BLUE << std::endl;
 		std::cout << "Please enter the phone number: " << DARK_GREEN << std::endl;
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::system("clear");
+			return;
+		}
 	}
 	PB[head].setPhoneNumber(input);
 	std::cout << PASTEL_BLUE << "Please enter their darkest secret ^-^" << std::endl << DARK_GREEN;
@@ -108,6 +128,11 @@ void PhoneBook::AddContact(void)
 		std::cout << RED << "You can't hide your darkest secrets..." << std::endl << std::endl;
 		std::cout << PASTEL_BLUE << "Please enter their darkest secret: " << std::endl << DARK_GREEN;
 		std::getline(std::cin, input);
+		if (std::cin.eof())
+		{
+			std::system("clear");
+			return;
+		}
 	}
 	PB[head].setDarkestSecret(input);
 	std::cout << std::endl << YELLOW << "Loading..." << NC << std::endl;
@@ -177,14 +202,15 @@ void	PhoneBook::SearchContact(void) const
     {
         std::cout << "Enter ID of Contact you want to search \n(type \"return\" to go back to main menu)" << std::endl;
         std::getline(std::cin, buffer);
-        if (buffer == "return")
+        if (buffer == "return" || std::cin.eof())
         {
             std::system("clear");
             return;
         }
         try
 		{
-            nbr = std::stoi(buffer);
+            std::stringstream strm(buffer);
+			strm >> nbr;
             if (nbr >= 1 && nbr <= 8 && this->PB[nbr - 1].isInit())
             {
                 break;
@@ -208,7 +234,7 @@ void	PhoneBook::SearchContact(void) const
 	std::cout << "Darkest secret : " << this->PB[nbr].getDarkestSecret() << std::endl << std::endl;
 	std::cout << "Type return to go back to main menu." << std::endl;
 	std::getline(std::cin, buffer);
-	while (buffer != "return")
+	while (buffer != "return" && !std::cin.eof())
 		std::getline(std::cin, buffer);
-		std::system("clear");
+	std::system("clear");
 }

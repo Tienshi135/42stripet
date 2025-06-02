@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:13 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/04 15:07:31 by stripet          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:30:00 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ ScavTrap::ScavTrap(const std::string name) : ClapTrap(name)
 
 ScavTrap::~ScavTrap()
 {
-    std::cout << "ScavTrap" << this->getName() << " is destroyed." << std::endl;
+    std::cout << "ScavTrap " << this->getName() << " is destroyed." << std::endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &copy) : ClapTrap(copy)

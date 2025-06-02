@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:54:50 by tienshi           #+#    #+#             */
-/*   Updated: 2024/12/01 17:57:49 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/04/15 16:34:32 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main()
 	std::cout << "Available commands are " << PASTEL_BLUE << "ADD" << NC << " , " << PINK << "SEARCH" << NC << " and " << PURPLE << "EXIT" << NC << std::endl;
 	std::cout << "Please enter a command: ";
 	std::getline(std::cin, command);
-	while (command != "EXIT" && command != "exit")
+	while ((command != "EXIT" && command != "exit") && !std::cin.eof())
 	{
 		bool trigger = false;
 

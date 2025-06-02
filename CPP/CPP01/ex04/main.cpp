@@ -3,30 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 17:15:39 by tienshi           #+#    #+#             */
-/*   Updated: 2024/12/12 17:32:10 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:00:04 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <fstream>
+#include <cstring>
 
 int	main(int argc, char**argv)
 {
+	std::ofstream output;
+	std::ifstream input;
+
 	if (argc != 4)
 	{
 		std::cout << "Usage: ./sed [input_file] [str1] [str2]" << std::endl;
 		return 1;
 	}
-	std::ifstream input(argv[1]);
+	input.open(argv[1]);
 	if (!input.is_open())
 	{
 		std::cout << "Error: Could not open file :" << argv[1] << std::endl;
 		return -42;
 	}
-	std::ofstream output(std::string(argv[1]) + ".replace");
+	output.open((std::string(argv[1]) + ".replace").c_str());
 	if (!output.is_open())
 	{
 		std::cout << "Error: Could not create file :" << std::string(argv[1]) + ".replace" << std::endl;

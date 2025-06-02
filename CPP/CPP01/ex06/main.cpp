@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 15:08:56 by tienshi           #+#    #+#             */
-/*   Updated: 2024/12/19 15:20:48 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:14:00 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,12 @@ int	main(int argc, char**argv)
 			Harl.complain("DEBUG");
 			break;
 		case 2:
-			Harl.complain("DEBUG");
 			Harl.complain("INFO");
-			
 			break;
 		case 3:
-			Harl.complain("DEBUG");
-			Harl.complain("INFO");
 			Harl.complain("WARNING");
 			break;
 		case 4:
-			Harl.complain("DEBUG");
-			Harl.complain("INFO");
-			Harl.complain("WARNING");
 			Harl.complain("ERROR");
 			break;
 		default:
