@@ -27,9 +27,6 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	buffer = (char *) malloc(s);
 	if (!buffer)
 		return (NULL);
-	else
-	{
-		ft_bzero(buffer, s);
-		return (buffer);
-	}
+	ft_bzero(buffer, s);
+	return (buffer);
 }

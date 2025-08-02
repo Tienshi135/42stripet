@@ -18,15 +18,15 @@ static int	conversation(va_list arguments, const char c)
 
 	returnvalue = 0;
 	if (c == 'c')
-		returnvalue += printchar(va_arg(arguments, int));
+		returnvalue += ft_putchar_fd(va_arg(arguments, int), STDOUT_FILENO);
 	else if (c == 's')
-		returnvalue += printstring(va_arg(arguments, char *));
+		returnvalue += ft_putstr_fd(va_arg(arguments, char *), STDOUT_FILENO);
 	else if (c == 'p')
 		returnvalue += printpointer(va_arg(arguments, unsigned long long));
 	else if (c == 'd')
-		returnvalue += printdecimal(va_arg(arguments, int));
+		returnvalue += ft_putnbr_fd(va_arg(arguments, int), STDOUT_FILENO);
 	else if (c == 'i')
-		returnvalue += printinteger(va_arg(arguments, int));
+		returnvalue += ft_putnbr_fd(va_arg(arguments, int), STDOUT_FILENO);
 	else if (c == 'u')
 		returnvalue += printunsigneddecimal(va_arg(arguments, unsigned int));
 	else if (c == 'x')
@@ -38,6 +38,10 @@ static int	conversation(va_list arguments, const char c)
 	return (returnvalue);
 }
 
+/// @brief Writes char * string to STDOUT.
+/// @param string 
+/// @param ...
+/// @return number of bytes written
 int	ft_printf(const char *string, ...)
 {
 	va_list	arguments;

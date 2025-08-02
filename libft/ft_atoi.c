@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "libft.h"
 
 /// @brief Converts a string to an int

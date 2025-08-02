@@ -11,18 +11,38 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <limits.h>
 
-void	ft_putnbr_fd(int n, int fd)
+static int	nb_len(int c)
 {
+	int	returnvalue;
+
+	returnvalue = 0;
+	if (c == 0)
+		return (1);
+	if (c < 0)
+		returnvalue++;
+	while (c != 0)
+	{
+		c /= 10;
+		returnvalue++;
+	}
+	return (returnvalue);
+}
+
+/// @brief writes int n to fd
+/// @param c 
+/// @param fd 
+int	ft_putnbr_fd(int n, int fd)
+{
+	int		len;
 	char	c;
 
+	len = nb_len(n);
 	if (fd >= 0)
 	{
-		if (n == -2147483648)
-		{
-			write(fd, "-2147483648", 11);
-			return ;
-		}
+		if (n == INT_MIN)
+			return (write(fd, "-2147483648", 11));
 		if (n < 0)
 		{
 			write(fd, "-", 1);
@@ -35,4 +55,5 @@ void	ft_putnbr_fd(int n, int fd)
 		c = '0' + (n % 10);
 		write(fd, &c, 1);
 	}
+	return (len);
 }

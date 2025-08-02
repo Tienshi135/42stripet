@@ -25,13 +25,8 @@ char	*ft_strchr(const char *s, int c)
 	while (*cursor)
 	{
 		if (*cursor == (char) c)
-		{
 			return (cursor);
-		}
-		else
-		{
-			cursor++;
-		}
+		cursor++;
 	}
 	if ((char) c == '\0')
 		return (cursor);

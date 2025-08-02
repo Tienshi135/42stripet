@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printstring.c                                      :+:      :+:    :+:   */
+/*   ft_table_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/26 14:24:44 by stripet           #+#    #+#             */
-/*   Updated: 2023/11/14 09:03:17 by tienshi          ###   ########.fr       */
+/*   Created: 2024/03/20 12:24:12 by stripet           #+#    #+#             */
+/*   Updated: 2025/08/02 11:56:19 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	str_len(char *str)
+/// @brief frees a double pointer
+/// @param void** pointer to free
+void	ft_table_free(void **tofree)
 {
-	int	i;
+	char	**p;
+	size_t	i;
 
 	i = 0;
-	while (str && str[i])
+	p = (char **) tofree;
+	while (p[i])
 	{
+		free(p[i]);
 		i++;
 	}
-	return (i);
-}
-
-int	printstring(char *str)
-{
-	int	returnvalue;
-
-	returnvalue = str_len(str);
-	if (!str)
-	{
-		str = "(null)";
-		returnvalue = 6;
-	}
-	ft_putstr_fd(str, 1);
-	return (returnvalue);
+	free(p);
 }

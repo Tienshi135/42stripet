@@ -31,7 +31,7 @@ static size_t	ft_intlen(int n)
 
 /// @brief Converts int n into char*
 /// @param n 
-/// @return char* from the conversion of int n ; returns NULL on error
+/// @return malloc'd char* from the conversion of int n ; returns NULL on error
 char	*ft_itoa(int n)
 {
 	char	*buffer;
@@ -40,23 +40,17 @@ char	*ft_itoa(int n)
 	len = ft_intlen(n);
 	if (n < 0)
 		len++;
-	buffer = (char *) malloc((len + 1) * sizeof(char));
+	buffer = (char *) ft_calloc((len + 1), sizeof(char));
 	if (!buffer)
 		return (NULL);
 	if (n == 0)
+		*buffer = '0';
+	while (--len >= 0 && n != 0)
 	{
-		*buffer = 48;
-		buffer[1] = '\0';
-		return (buffer);
-	}
-	buffer[len--] = '\0';
-	while (len >= 0 && n != 0)
-	{
-		if (n < 0)
-			buffer[0] = '-';
 		buffer[len] = ft_abs(n % 10) + '0';
 		n /= 10;
-		len--;
 	}
+	if (n < 0)
+		buffer[0] = '-';
 	return (buffer);
 }

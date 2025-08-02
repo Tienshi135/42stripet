@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <limits.h>
+
+
+/// @brief Gives the absolute value of n
+/// @param n 
+/// @return int n as absolute vaue or -1 on error
 int	ft_abs(int n)
 {
+	if (n == INT_MIN)
+		return (-1);
 	if (n < 0)
 		n *= -1;
 	return (n);

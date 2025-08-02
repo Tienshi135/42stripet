@@ -13,7 +13,10 @@
 #include <unistd.h>
 #include <stddef.h>
 
-void	ft_putstr_fd(char *s, int fd)
+/// @brief writes char * s to fd
+/// @param c 
+/// @param fd 
+int	ft_putstr_fd(char *s, int fd)
 {
 	size_t	i;
 
@@ -23,4 +26,5 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
+	return (i);
 }

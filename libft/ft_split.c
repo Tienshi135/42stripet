@@ -47,9 +47,7 @@ static char	*ft_tokken_extract(char *s, size_t start, size_t end)
 	length = end - start;
 	buffer = (char *) malloc((length + 1) * sizeof(char));
 	if (!s || !buffer)
-	{
 		return (NULL);
-	}
 	while (i < length)
 	{
 		buffer[i] = s[start];

@@ -17,7 +17,7 @@
 # define BUFFER_SIZE 200
 #endif
 
-void	line_process(int r, char **buffer, char **saved_str)
+static void	line_process(int r, char **buffer, char **saved_str)
 {
 	void	*temp;
 
@@ -30,7 +30,33 @@ void	line_process(int r, char **buffer, char **saved_str)
 		free(temp);
 }
 
-char	*fd_read(int fd, char *str)
+static char	*line_extract(char **str)
+{
+	int		i;
+	char	*buffer;
+	void	*temp;
+
+	i = 0;
+	if (!str || !*str)
+		return (NULL);
+	while ((*str)[i])
+	{
+		if ((*str)[i] == '\n')
+		{
+			buffer = ft_substr(*str, 0, i + 1);
+			temp = (char *) *str;
+			*str = ft_substr(*str, i + 1, ft_strlen(*str) - (i + 1));
+			free(temp);
+			return (buffer);
+		}
+		i++;
+	}
+	buffer = *str;
+	*str = NULL;
+	return (buffer);
+}
+
+static char	*fd_read(int fd, char *str)
 {
 	char	*buffer;
 	int		r;
