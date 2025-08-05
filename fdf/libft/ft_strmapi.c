@@ -24,9 +24,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	len = ft_strlen(s);
 	buffer = (char *) malloc((len + 1) * sizeof(char));
 	if (!buffer || !s)
-	{
 		return (NULL);
-	}
 	while (s[i])
 	{
 		buffer [i] = f(i, s[i]);

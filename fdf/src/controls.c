@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:38:14 by tienshi           #+#    #+#             */
-/*   Updated: 2024/05/06 16:07:20 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:21:12 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/structures.h"
-#include "../includes/controls.h"
-#include "../minilibx_macos/mlx.h"
-#include "../includes/utils.h"
+#include "structures.h"
+#include "controls.h"
+#include "mlx.h"
+#include "utils.h"
 
 int	close_window(t_data *data)
 {

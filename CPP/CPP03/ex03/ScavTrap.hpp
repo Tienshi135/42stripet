@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 13:09:02 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/10 14:02:10 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 15:38:28 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ class ScavTrap : virtual public ClapTrap
     private:
         bool _IsFree;
     public:
+        ScavTrap();
         ScavTrap(const std::string name);
         ~ScavTrap();
         ScavTrap(const ScavTrap &copy);

@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:37:30 by tienshi           #+#    #+#             */
-/*   Updated: 2024/04/29 09:25:24 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:22:06 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/structures.h"
-#include "../minilibx_macos/mlx.h"
-#include "../includes/mapping.h"
-#include "../includes/hooks.h"
+#include "structures.h"
+#include "mlx.h"
+#include "mapping.h"
+#include "hooks.h"
 #include <fcntl.h>
-#include "../includes/menu.h"
-#include "../includes/title.h"
-#include "../includes/fdf.h"
+#include "menu.h"
+#include "title.h"
+#include "fdf.h"
 
 void	split_free(char **tofree)
 {

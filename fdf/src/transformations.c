@@ -6,13 +6,13 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:56:43 by tienshi           #+#    #+#             */
-/*   Updated: 2024/02/22 08:31:09 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:23:19 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/structures.h"
-#include "../includes/transformations.h"
-#include "../includes/utils.h"
+#include "structures.h"
+#include "transformations.h"
+#include "utils.h"
 
 void	rotate_x(int *y, int *z, float alpha)
 {

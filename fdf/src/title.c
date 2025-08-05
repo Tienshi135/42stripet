@@ -6,13 +6,13 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 16:13:19 by tienshi           #+#    #+#             */
-/*   Updated: 2024/02/20 11:17:45 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:23:08 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/title.h"
-#include "../minilibx_macos/mlx.h"
-#include "../includes/utils.h"
+#include "title.h"
+#include "mlx.h"
+#include "utils.h"
 
 void	title_render(t_data *data)
 {

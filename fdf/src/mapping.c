@@ -6,13 +6,13 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:38:17 by tienshi           #+#    #+#             */
-/*   Updated: 2024/02/27 08:21:29 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:22:41 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/structures.h"
-#include "../includes/mapping.h"
-#include "../includes/fdf.h"
+#include "structures.h"
+#include "mapping.h"
+#include "fdf.h"
 
 int	to_coords(t_map *map, int x, int y, int z)
 {

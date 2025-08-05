@@ -5,7 +5,7 @@ NC=\033[0m
 
 NAME = DiamondTrap
 CC = c++
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -I $(INCDIR)
+CFLAGS = -Wall -Werror -Wextra -Wno-shadow -std=c++98 -I $(INCDIR)
 INCDIR = ./header
 
 src =	./main.cpp \

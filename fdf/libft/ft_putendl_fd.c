@@ -13,6 +13,9 @@
 #include <unistd.h>
 #include <stddef.h>
 
+/// @brief writes char * c to fd with an endl;
+/// @param c 
+/// @param fd 
 void	ft_putendl_fd(char *s, int fd)
 {
 	size_t	i;

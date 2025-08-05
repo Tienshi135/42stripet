@@ -6,15 +6,15 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 17:05:44 by tienshi           #+#    #+#             */
-/*   Updated: 2024/02/22 08:26:14 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:22:58 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/menu.h"
-#include "../minilibx_macos/mlx.h"
-#include "../libft/libft.h"
-#include "../includes/drawing.h"
-#include "../includes/utils.h"
+#include "menu.h"
+#include "mlx.h"
+#include "libft.h"
+#include "drawing.h"
+#include "utils.h"
 
 void	line(t_data *data, int x1, int x2, int y)
 {

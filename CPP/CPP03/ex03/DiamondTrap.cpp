@@ -3,22 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   DiamondTrap.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 17:04:51 by stripet           #+#    #+#             */
-/*   Updated: 2025/06/02 15:25:02 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 15:56:44 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "DiamondTrap.hpp"
 
-DiamondTrap::DiamondTrap(const std::string name) : ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name)
+DiamondTrap::DiamondTrap(const std::string name) : ClapTrap(name + "_clap_name")
 {
-    this->_Name = name;
+    this->_Name = name;   
     std::cout << "DiamondTrap " << this->_Name << " is created." << std::endl;
-    this->setHitPoints(FragTrap::getHitPoints());
-    this->setEnergyPoints(ScavTrap::getEnergyPoints());
-    this->setAttackDamage(FragTrap::getAttackDamage());
 }
 
 DiamondTrap::~DiamondTrap()
@@ -34,19 +31,21 @@ DiamondTrap::DiamondTrap(const DiamondTrap &copy) : ClapTrap(copy), ScavTrap(cop
 DiamondTrap &DiamondTrap::operator=(const DiamondTrap &copy)
 {
     ClapTrap::operator=(copy);
-    ScavTrap::operator=(copy);
-    FragTrap::operator=(copy);
     this->_Name = copy._Name;
     return *this;
 }
 
-void::DiamondTrap::attack(const std::string &target)
+void DiamondTrap::attack(const std::string &target)
 {
     ScavTrap::attack(target);
 }
 
-void DiamondTrap::whoAmI()
+void DiamondTrap::whoAmI() const
 {
-    std::cout << "DiamondTrap " << this->_Name << " is " << this->getName() << "." << std::endl;
+    std::cout << "DiamondTrap " << this->_Name << " is " << ClapTrap::_Name << "." << std::endl;
 }
 
+void DiamondTrap::announcestats() const
+{
+    std::cout << "DiamondTrap " << this->_Name << "has " << this->_HitPoints << " hit points, " << this->_EnergyPoints << "energy points, " << "and " << this->_AttackDamage << " attack damage." << std::endl;
+}

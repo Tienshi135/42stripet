@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   gradient.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 11:29:35 by stripet           #+#    #+#             */
-/*   Updated: 2024/02/06 12:33:56 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:22:12 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/gradient.h"
+#include "gradient.h"
 
 double	percent(int start, int end, int current)
 {

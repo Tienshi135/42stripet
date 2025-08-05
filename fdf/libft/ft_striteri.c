@@ -13,6 +13,9 @@
 #include <string.h>
 #include "libft.h"
 
+/// @brief writes char c to fd
+/// @param c 
+/// @param fd 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	size_t	i;

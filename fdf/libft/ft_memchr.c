@@ -19,21 +19,20 @@
 /// @return Returns pointer to memory adress of int c : returns NULL on error
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char	chr;
-	size_t			i;
+	unsigned char		chr;
+	const unsigned char	*cursor;
+	size_t				i;
 
 	chr = c;
+	cursor = s;
 	i = 0;
 	while (i < n)
 	{
-		if (((unsigned char *)s)[i] == chr)
-		{
-			return ((void *)&s[i]);
-		}
-		else
-		{
-			i++;
-		}
+		if (cursor[i] == chr)
+			return ((void *) cursor);
+		i++;
+		cursor++;
+
 	}
 	return (NULL);
 }

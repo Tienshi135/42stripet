@@ -27,16 +27,12 @@ char	*ft_strtrim(const char *s1, const char *set)
 	if (!set)
 		return ((char *)s1);
 	while (ft_strchr(set, *s1) && *s1)
-	{
 		s1++;
-	}
 	i = ft_strlen(s1);
 	if (i != 0)
 	{
 		while (ft_strchr(set, s1[i - 1]))
-		{
 			i--;
-		}
 	}
 	return (ft_substr(s1, 0, i));
 }

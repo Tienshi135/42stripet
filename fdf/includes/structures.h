@@ -6,14 +6,14 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:45:47 by tienshi           #+#    #+#             */
-/*   Updated: 2024/02/20 10:46:03 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/02 14:59:14 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include <stdio.h>
 
 enum {

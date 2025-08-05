@@ -1,26 +1,63 @@
-Name = fdf
-Flags = -Wall -Werror -Wextra
-Libraries = -lmlx -lm -lft -L ./libft -L ./minilibx_macos -framework OpenGL -framework AppKit
+###VARIABLES###
 
-src =	./source/*.c
+# name of the executable
+NAME = fdf
 
-all:$(Name)
+# variables
+src_dir = ./src
+obj_dir = ./obj
 
-$(Name):
-	gcc $(Flags) $(Libraries) $(src) -o $(Name)
+# compilator and compilation flags
+CC = gcc
+CFLAGS = -Wall -Werror -Wextra -g3
+INCLUDES = -I ./includes -I ./libft -I ./mlx
+LDFLAGS = -L ./libft -L ./mlx
+LDLIBS = -lmlx -lft -lXext -lX11 -lm -lz
 
-re:
-	make fclean
-	make all
+# source files (recursively find all .c files)
+SRCS = $(shell find $(src_dir) -name "*.c")
+OBJS = $(addprefix $(obj_dir)/,$(notdir $(SRCS:.c=.o)))
 
-fclean:
-	make clean
+###RULES###
+all: $(NAME)
 
+debug: fclean
+	@$(MAKE) DEBUG=1
+
+$(NAME): libft/libft.a mlx/libmlx.a $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $@
+
+# Create object files from source files
+$(obj_dir)/%.o: $(src_dir)/*/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INCLUDES) $(DB) -c $< -o $@
+
+$(obj_dir)/%.o: $(src_dir)/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INCLUDES) $(DB) -c $< -o $@
+
+# Create object directory
+$(obj_dir):
+	mkdir -p $(obj_dir)
+
+# Build libft
+libft/libft.a:
+	$(MAKE) -C libft
+
+# Build mlx
+mlx/libmlx.a:
+	$(MAKE) -C mlx
+
+# Clean object files
 clean:
-	rm -f $(Name)
+	rm -rf $(obj_dir)
+	$(MAKE) -C libft clean
 
-debug:
-	gcc $(Flags) -g $(Libraries) $(src) -o $(Name)
+# Clean everything
+fclean: clean
+	rm -f $(NAME)
+	$(MAKE) -C libft fclean
+#	$(MAKE) -C mlx clean
 
-sanitize:
-	gcc $(Flags) -g -fsanitize=address $(Libraries) $(src) -o $(Name)
+# Rebuild everything
+re: fclean all
+
+.PHONY: all clean fclean re

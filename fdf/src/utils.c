@@ -6,15 +6,15 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:36:44 by stripet           #+#    #+#             */
-/*   Updated: 2024/02/27 08:43:09 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:23:33 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/structures.h"
-#include "../includes/utils.h"
+#include "structures.h"
+#include "utils.h"
 #include <math.h>
-#include "../includes/transformations.h"
-#include "../minilibx_macos/mlx.h"
+#include "transformations.h"
+#include "mlx.h"
 
 double	torad(double x)
 {

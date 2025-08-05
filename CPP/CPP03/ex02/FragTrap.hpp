@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 16:37:55 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/04 17:03:19 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 10:23:54 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 class FragTrap : public ClapTrap
 {
+    private:
+    
     public:
         FragTrap(const std::string name);
         ~FragTrap();

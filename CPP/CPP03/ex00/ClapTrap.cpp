@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 12:38:51 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/04 12:57:07 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/01 17:50:03 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ ClapTrap::ClapTrap(const ClapTrap &copy)
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &copy)
 {
-    _Name = copy._Name;
-    _HitPoints = copy._HitPoints;
-    _EnergyPoints = copy._EnergyPoints;
-    _AttackDamage = copy._AttackDamage;
+    this->_Name = copy._Name;
+    this->_HitPoints = copy._HitPoints;
+    this->_EnergyPoints = copy._EnergyPoints;
+    this->_AttackDamage = copy._AttackDamage;
     return *this;
 }
 
@@ -78,6 +78,6 @@ void ClapTrap::beRepaired(unsigned int amount)
         return ;
     }
     this->_EnergyPoints--;
-    std::cout << "ClapTrap " << _Name << " is repaired for " << amount << " points!" << std::endl;
     this->_HitPoints += amount;
+    std::cout << "ClapTrap " << _Name << " is repaired for " << amount << " points!" << std::endl;
 }

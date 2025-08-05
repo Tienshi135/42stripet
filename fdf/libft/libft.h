@@ -55,10 +55,10 @@ char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
-void	ft_putchar_fd(char c, int fd);
-void	ft_putstr_fd(char *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
+int		ft_putnbr_fd(int n, int fd);
 
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
@@ -72,20 +72,14 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 int		ft_isspace(char c);
 int		ft_abs(int n);
+void	ft_table_free(void **tofree);
 
 char	*get_next_line(int fd);
-char	*line_extract(char **str);
 
 int		ft_printf(const char *string, ...);
-int		printchar(int c);
-int		printstring(char *str);
 int		printpointer(unsigned long long c);
-int		printdecimal(int c);
-int		printinteger(int c);
 int		printunsigneddecimal(unsigned int c);
 int		printhexadecimall(unsigned int c);
 int		printhexadecimalu(unsigned int c);
 
-char	*gnl_strjoin(char const *s1, char const *s2);
-char	*gnl_strchr(const char *s, int c);
 #endif

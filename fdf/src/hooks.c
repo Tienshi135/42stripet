@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 14:54:57 by stripet           #+#    #+#             */
-/*   Updated: 2024/04/29 09:30:54 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:22:31 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/structures.h"
-#include "../includes/hooks.h"
-#include "../includes/drawing.h"
-#include "../includes/controls.h"
-#include "../minilibx_macos/mlx.h"
+#include "structures.h"
+#include "hooks.h"
+#include "drawing.h"
+#include "controls.h"
+#include "mlx.h"
 
 void	hook_init(t_data data)
 {

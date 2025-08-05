@@ -6,7 +6,7 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 17:49:56 by tienshi           #+#    #+#             */
-/*   Updated: 2025/01/22 15:50:28 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/01 17:33:28 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ std::cout << ++a << std::endl;
 std::cout << a << std::endl;
 std::cout << a++ << std::endl;
 std::cout << a << std::endl;
+std::cout << --a << std::endl;
+std::cout << a << std::endl;
+std::cout << a-- << std::endl;
+std::cout << a << std::endl;
 std::cout << b << std::endl;
 std::cout << Fixed::max( a, b ) << std::endl;
+std::cout << Fixed::min( a, b ) << std::endl;
+
 }

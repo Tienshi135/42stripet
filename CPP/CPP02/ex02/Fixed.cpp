@@ -6,7 +6,7 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 16:13:20 by tienshi           #+#    #+#             */
-/*   Updated: 2025/01/22 15:49:04 by tienshi          ###   ########.fr       */
+/*   Updated: 2025/08/01 17:33:58 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,61 +18,61 @@ std::ostream& operator<<(std::ostream &out, const Fixed &fixed)
 	return out;
 }
 
-bool operator<(const Fixed &fixed1, const Fixed &fixed2)
+bool Fixed::operator<(const Fixed &fixed) const
 {
-    return fixed1.getRawBits() < fixed2.getRawBits();
+    return this->getRawBits() < fixed.getRawBits();
 }
 
-bool operator>(const Fixed &fixed1, const Fixed &fixed2)
+bool Fixed::operator>(const Fixed &fixed) const
 {
-    return fixed1.getRawBits() > fixed2.getRawBits();
+    return this->getRawBits() > fixed.getRawBits();
 }
 
-bool operator<=(const Fixed &fixed1, const Fixed &fixed2)
+bool Fixed::operator<=(const Fixed &fixed) const
 {
-    return fixed1.getRawBits() <= fixed2.getRawBits();
+    return this->getRawBits() <= fixed.getRawBits();
 }
 
-bool operator>=(const Fixed &fixed1, const Fixed &fixed2)
+bool Fixed::operator>=(const Fixed &fixed) const
 {
-    return fixed1.getRawBits() >= fixed2.getRawBits();
+    return this->getRawBits() >= fixed.getRawBits();
 }
 
-bool operator==(const Fixed &fixed1, const Fixed &fixed2)
+bool Fixed::operator==(const Fixed &fixed) const
 {
-    return fixed1.getRawBits() == fixed2.getRawBits();
+    return this->getRawBits() == fixed.getRawBits();
 }
 
-bool operator!=(const Fixed &fixed1, const Fixed &fixed2)
+bool Fixed::operator!=(const Fixed &fixed) const
 {
-    return fixed1.getRawBits() != fixed2.getRawBits();
+    return this->getRawBits() != fixed.getRawBits();
 }
 
-Fixed operator+(const Fixed &fixed1, const Fixed &fixed2)
+Fixed Fixed::operator+(const Fixed &fixed)
 {
     Fixed ret;
-    ret.setRawBits(fixed1.getRawBits() + fixed2.getRawBits());
+    ret.setRawBits(this->getRawBits() + fixed.getRawBits());
     return ret;
 }
 
-Fixed operator-(const Fixed &fixed1, const Fixed &fixed2)
+Fixed Fixed::operator-(const Fixed &fixed)
 {
     Fixed ret;
-    ret.setRawBits(fixed1.getRawBits() - fixed2.getRawBits());
+    ret.setRawBits(this->getRawBits() - fixed.getRawBits());
     return ret;
 }
 
-Fixed operator*(const Fixed &fixed1, const Fixed &fixed2)
+Fixed Fixed::operator*(const Fixed &fixed)
 {
     Fixed ret;
-    ret.setRawBits((fixed1.getRawBits() * fixed2.getRawBits()) >> Fixed::_fractionalBits);
+    ret.setRawBits((this->getRawBits() * fixed.getRawBits()) >> Fixed::_fractionalBits);
     return ret;
 }
 
-Fixed operator/(const Fixed &fixed1, const Fixed &fixed2)
+Fixed Fixed::operator/(const Fixed &fixed)
 {
     Fixed ret;
-    ret.setRawBits((fixed1.getRawBits() << Fixed::_fractionalBits) / fixed2.getRawBits());
+    ret.setRawBits((this->getRawBits() << Fixed::_fractionalBits) / fixed.getRawBits());
     return ret;
 }
 
@@ -84,8 +84,22 @@ Fixed &Fixed::operator++()
 
 Fixed Fixed::operator++(int)
 {
-	Fixed buffer;
+	Fixed	buffer;
 
+	buffer = *this;
+	++this->_value;
+	return (buffer);
+}
+
+Fixed &Fixed::operator--()
+{
+	++this->_value;
+	return *this;
+}
+
+Fixed Fixed::operator--(int)
+{
+	Fixed	buffer;
 	buffer = *this;
 	++this->_value;
 	return (buffer);
@@ -139,7 +153,6 @@ Fixed &Fixed::operator=(const Fixed &fixed)
 
 int Fixed::getRawBits(void) const
 {
-	std::cout << "getRawBits member function called" << std::endl;
 	return this->_value;
 }
 

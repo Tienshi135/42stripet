@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 10:38:45 by tienshi           #+#    #+#             */
-/*   Updated: 2024/02/22 13:17:41 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/02 12:21:41 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/structures.h"
-#include "../includes/drawing.h"
-#include "../includes/transformations.h"
-#include "../includes/gradient.h"
-#include "../minilibx_macos/mlx.h"
-#include "../includes/utils.h"
-#include "../includes/title.h"
+#include "structures.h"
+#include "drawing.h"
+#include "transformations.h"
+#include "gradient.h"
+#include "mlx.h"
+#include "utils.h"
+#include "title.h"
 
 void	set_bvalues(t_coords *p, t_coords *n, int **whateverthisis)
 {
