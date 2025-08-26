@@ -1,0 +1,68 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   grid_utils2.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: odruke-s <marvin@42lausanne.ch>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/04 18:15:08 by odruke-s          #+#    #+#             */
+/*   Updated: 2025/08/04 18:15:11 by odruke-s         ###   ####lausanne.ch   */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
+bool	is_open_wall(char **grid, int pos_x, int pos_y, t_coords limits)
+{
+	if (pos_y + 1 >= limits.y || pos_y <= 0)
+		return (true);
+	if (pos_x >= limits.x || pos_x <= 0)
+		return (true);
+	if (ft_isblank(grid[pos_y - 1][pos_x])
+		|| ft_isblank(grid[pos_y + 1][pos_x]))
+		return (true);
+	if (ft_isblank(grid[pos_y][pos_x - 1])
+		|| ft_isblank(grid[pos_y][pos_x + 1]))
+		return (true);
+	return (false);
+}
+
+static char	get_player_char(char **grid, t_coords player)
+{
+	char	*chars;
+
+	chars = "NSEW";
+	while (*chars)
+	{
+		if (*chars == grid[(int)player.y][(int)player.x])
+			return (*chars);
+		chars++;
+	}
+	return (*chars);
+}
+
+void	walled(char **grid, int width, int heigh, t_coords player)
+{
+	int		y;
+	int		x;
+	char	player_char;
+
+	y = -1;
+	player_char = get_player_char(grid, player);
+	while (grid[++y])
+	{
+		x = -1;
+		while (grid[y][++x])
+		{
+			if (grid[y][x] == '0' || grid[y][x] == player_char)
+			{
+				if (is_open_wall(grid, x, y, (t_coords){heigh, width}))
+				{
+					free_table(grid);
+					error_handle(ERR_GRID_BAD_ITEM, "open wall",
+						__FILE__, __LINE__);
+				}
+			}
+		}
+	}
+}
