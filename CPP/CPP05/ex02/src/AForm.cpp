@@ -72,9 +72,24 @@ void    AForm::beSigned(Bureaucrat &bureaucrat)
     this->_signed = true;
 }
 
+void    AForm::execute(Bureaucrat const &bureaucrat) const
+{
+    if (!this->_signed)
+    {
+        std::cout << "Form " << this->_name << " is not signed" << std::endl;
+        return;
+    }
+    if (bureaucrat.getGrade() > this->_execute)
+    {
+        bureaucrat.GradeTooLowException();
+        return;
+    }
+    this->beExecuted(this->_target);
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-AForm::AForm(std::string name, std::string target, unsigned int sign, unsigned int execute):_name(name), _target(target), _signed(false), _sign(sign), _execute(execute)
+AForm::AForm(std::string name, std::string target, unsigned int sign, unsigned int execute):_name(name), _target(target), _sign(sign), _execute(execute)
 {
     if (sign == 0 || execute == 0)
         this->GradeTooHighException();
@@ -83,7 +98,7 @@ AForm::AForm(std::string name, std::string target, unsigned int sign, unsigned i
     std::cout << "Constructor for AForm " << this->_target << " called" << std::endl;
 }
 
-AForm::AForm(const AForm &copy): _target(copy.getName()), _signed(copy.getSigned()), _sign(copy.getSign()), _execute(copy.getExecute())
+AForm::AForm(const AForm &copy): _name(copy.getName()), _target(copy.getTarget()), _signed(copy.getSigned()), _sign(copy.getSign()), _execute(copy.getExecute())
 {
     std::cout << "Copy Constructor of AForm called" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:39:06 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/20 14:31:24 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/26 14:51:48 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ class Bureaucrat
 		void	Promote(void);
 		void	Demote(void);
 		void	signAForm(AForm &AForm);
+		void	executeAForm(AForm const &form) const;
 };
 
 std::ostream& operator<<(std::ostream &out, const Bureaucrat &bureaucrat);

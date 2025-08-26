@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:39:04 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/20 14:39:33 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/26 14:52:53 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,24 @@ std::string Bureaucrat::getName(void) const
 
 unsigned int    Bureaucrat::getGrade(void) const
 {
-    return (this->_Grade);
+    return (this->_grade);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
 void    Bureaucrat::Promote(void)
 {
-    if (this->_Grade <= 1)
+    if (this->_grade <= 1)
         this->GradeTooHighException();
-    this->_Grade--;
+    this->_grade--;
     std::cout << "Congratulations Bureaucrat " << this->_name << " on your promotion !" << std::endl;
 }
 
 void    Bureaucrat::Demote(void)
 {
-    if (this->_Grade >= 150)
+    if (this->_grade >= 150)
         this->GradeTooLowException();
-    this->_Grade++;
+    this->_grade++;
     std::cout << "Unfortunately Bureaucrat " << this->_name << " got demoted..." << std::endl; 
 }
 
@@ -75,9 +75,22 @@ void    Bureaucrat::signAForm(AForm &AForm)
     
 }
 
+void    Bureaucrat::executeAForm(AForm const &Aform) const
+{
+    try
+    {
+        Aform.execute(*this);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << this->_name << " can't execute form cause:" << e.what() << std::endl;
+    }
+    std::cout << this->_name << " Executed " << Aform.getName() << std::endl;
+}
+
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-Bureaucrat::Bureaucrat(std::string name, unsigned int grade) : _name(name), _Grade(grade)
+Bureaucrat::Bureaucrat(std::string name, unsigned int grade) : _name(name), _grade(grade)
 {
     if (grade == 0)
         this->GradeTooHighException();
@@ -86,7 +99,7 @@ Bureaucrat::Bureaucrat(std::string name, unsigned int grade) : _name(name), _Gra
     std::cout << "Constructor for Bureaucrat " << this->_name << " called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &copy): _name(copy.getName()), _Grade(copy.getGrade())
+Bureaucrat::Bureaucrat(const Bureaucrat &copy): _name(copy.getName()), _grade(copy.getGrade())
 {
     std::cout << "Copy Constructor of Bureaucrat called" << std::endl;
 }
@@ -96,7 +109,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
     std::cout << "Assignment operator of Bureaucrat called" << std::endl;
     if (this != &copy)
     {
-        this->_Grade = copy.getGrade();
+        this->_grade = copy.getGrade();
     }
     return (*this);
 }

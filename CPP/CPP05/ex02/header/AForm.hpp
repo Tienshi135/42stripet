@@ -39,7 +39,9 @@ public:
 	unsigned int	getSign(void) const;
 	unsigned int	getExecute(void) const;
 
-	virtual void	beSigned(Bureaucrat &bureaucrat) = 0;
+	void			beSigned(Bureaucrat &bureaucrat);
+	virtual void	beExecuted(std::string target) const = 0;
+	void			execute(Bureaucrat const &Bureaucrat) const;
 };
 
 std::ostream	&operator<<(std::ostream &out, AForm &AForm);
