@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:39:04 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/18 14:46:30 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/20 14:39:33 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void Bureaucrat::GradeTooLowException(void) const
 
 std::string Bureaucrat::getName(void) const
 {
-    return (this->_Name);
+    return (this->_name);
 }
 
 unsigned int    Bureaucrat::getGrade(void) const
@@ -50,7 +50,7 @@ void    Bureaucrat::Promote(void)
     if (this->_Grade <= 1)
         this->GradeTooHighException();
     this->_Grade--;
-    std::cout << "Congratulations Bureaucrat " << this->_Name << " on your promotion !" << std::endl;
+    std::cout << "Congratulations Bureaucrat " << this->_name << " on your promotion !" << std::endl;
 }
 
 void    Bureaucrat::Demote(void)
@@ -58,7 +58,7 @@ void    Bureaucrat::Demote(void)
     if (this->_Grade >= 150)
         this->GradeTooLowException();
     this->_Grade++;
-    std::cout << "Unfortunately Bureaucrat " << this->_Name << " got demoted..." << std::endl; 
+    std::cout << "Unfortunately Bureaucrat " << this->_name << " got demoted..." << std::endl; 
 }
 
 void    Bureaucrat::signForm(Form &form)
@@ -66,27 +66,27 @@ void    Bureaucrat::signForm(Form &form)
     try
     {
         form.beSigned(*this);
-        std::cout << this->_Name << " signed " << form.getName() << std::endl;
+        std::cout << this->_name << " signed " << form.getName() << std::endl;
     }
     catch(const std::exception& e)
     {
-        std::cout << this->_Name << " could'nt sign " << form.getName() << " because " << e.what();
+        std::cout << this->_name << " could'nt sign " << form.getName() << " because " << e.what();
     }
     
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-Bureaucrat::Bureaucrat(std::string name, unsigned int grade) : _Name(name), _Grade(grade)
+Bureaucrat::Bureaucrat(std::string name, unsigned int grade) : _name(name), _Grade(grade)
 {
     if (grade == 0)
         this->GradeTooHighException();
     if (grade > 150)
         this->GradeTooHighException();
-    std::cout << "Constructor for Bureaucrat " << this->_Name << " called" << std::endl;
+    std::cout << "Constructor for Bureaucrat " << this->_name << " called" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &copy): _Name(copy.getName()), _Grade(copy.getGrade())
+Bureaucrat::Bureaucrat(const Bureaucrat &copy): _name(copy.getName()), _Grade(copy.getGrade())
 {
     std::cout << "Copy Constructor of Bureaucrat called" << std::endl;
 }
@@ -103,5 +103,5 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &copy)
 
 Bureaucrat::~Bureaucrat(void)
 {
-    std::cout << "Destructor for Bureaucrat " << this->_Name << " called" << std::endl;
+    std::cout << "Destructor for Bureaucrat " << this->_name << " called" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:39:06 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/18 13:23:03 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/20 14:39:33 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 class Bureaucrat
 {
 	private:
-		const std::string	_Name;
+		const std::string	_name;
 		unsigned int		_Grade;
 	public:
 		Bureaucrat(std::string name, unsigned int grade);

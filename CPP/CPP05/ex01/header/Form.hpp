@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:11:03 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/18 14:10:49 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/20 14:40:28 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ class Bureaucrat;
 class Form
 {
 private:
-    const std::string	_Name;
-    bool				_Signed;
-    const unsigned int	_Sign;
-	const unsigned int	_Execute;
+    const std::string	_name;
+    bool				_signed;
+    const unsigned int	_sign;
+	const unsigned int	_execute;
 public:
     Form(std::string name, unsigned int sign, unsigned int execute);
 	Form(const Form &copy);

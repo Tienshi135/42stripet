@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:23:16 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/10 16:07:36 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/25 14:02:39 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 
 class Dog : public Animal
 {
-    private:
-        std::string _type;
     public:
         Dog();
         ~Dog();

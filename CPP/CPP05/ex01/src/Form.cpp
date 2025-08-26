@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 13:11:41 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/18 14:14:57 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/20 14:40:28 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,22 @@ void Form::GradeTooLowException(void) const
 
 std::string		Form::getName(void) const
 {
-    return (this->_Name);
+    return (this->_name);
 }
 
 bool			Form::getSigned(void) const
 {
-    return (this->_Signed);
+    return (this->_signed);
 }
 
 unsigned int	Form::getSign(void) const
 {
-    return (this->_Sign);
+    return (this->_sign);
 }
 
 unsigned int	Form::getExecute(void) const
 {
-    return (this->_Execute);
+    return (this->_execute);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -64,21 +64,21 @@ void    Form::beSigned(Bureaucrat &bureaucrat)
 {
     if (bureaucrat.getGrade() > this->getSign())
         this->GradeTooLowException();
-    this->_Signed = true;
+    this->_signed = true;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-Form::Form(std::string name, unsigned int sign, unsigned int execute): _Name(name), _Signed(false), _Sign(sign), _Execute(execute)
+Form::Form(std::string name, unsigned int sign, unsigned int execute): _name(name), _signed(false), _sign(sign), _execute(execute)
 {
     if (sign == 0 || execute == 0)
         this->GradeTooHighException();
     if (sign > 150 || execute > 150)
         this->GradeTooHighException();
-    std::cout << "Constructor for Form " << this->_Name << " called" << std::endl;
+    std::cout << "Constructor for Form " << this->_name << " called" << std::endl;
 }
 
-Form::Form(const Form &copy): _Name(copy.getName()), _Signed(copy.getSigned()), _Sign(copy.getSign()), _Execute(copy.getExecute())
+Form::Form(const Form &copy): _name(copy.getName()), _signed(copy.getSigned()), _sign(copy.getSign()), _execute(copy.getExecute())
 {
     std::cout << "Copy Constructor of Form called" << std::endl;
 }
@@ -88,12 +88,12 @@ Form    &Form::operator=(const Form &copy)
     std::cout << "Assignment operator of Form called" << std::endl;
     if (this != &copy)
     {
-        this->_Signed = copy.getSigned();
+        this->_signed = copy.getSigned();
     }
     return (*this);
 }
 
 Form::~Form()
 {
-    std::cout << "Destructor for Form " << this->_Name << " called" << std::endl;
+    std::cout << "Destructor for Form " << this->_name << " called" << std::endl;
 }

@@ -6,7 +6,7 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:39:06 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/18 14:58:30 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/20 14:31:24 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ class AForm;
 class Bureaucrat
 {
 	private:
-		const std::string	_Name;
-		unsigned int		_Grade;
+		const std::string	_name;
+		unsigned int		_grade;
 	public:
 		Bureaucrat(std::string name, unsigned int grade);
 		~Bureaucrat();

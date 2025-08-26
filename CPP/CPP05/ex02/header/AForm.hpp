@@ -19,12 +19,13 @@ class Bureaucrat;
 class AForm
 {
 private:
-    const std::string	_Name;
-    bool				_Signed;
-    const unsigned int	_Sign;
-	const unsigned int	_Execute;
+    const std::string	_name;
+	const std::string	_target;
+    bool				_signed;
+    const unsigned int	_sign;
+	const unsigned int	_execute;
 public:
-    AForm(std::string name, unsigned int sign, unsigned int execute);
+    AForm(std::string name, std::string target, unsigned int sign, unsigned int execute);
 	AForm(const AForm &copy);
 	AForm	&operator=(const AForm &copy);
     ~AForm();
@@ -33,6 +34,7 @@ public:
 	void	GradeTooLowException(void) const;
 
 	std::string		getName(void) const;
+	std::string		getTarget(void) const;
 	bool			getSigned(void) const;
 	unsigned int	getSign(void) const;
 	unsigned int	getExecute(void) const;

@@ -40,22 +40,27 @@ void AForm::GradeTooLowException(void) const
 
 std::string		AForm::getName(void) const
 {
-    return (this->_Name);
+    return (this->_name);
 }
 
-bool			AForm::getSigned(void) const
+std::string	AForm::getTarget(void) const
 {
-    return (this->_Signed);
+	return (this->_name);
+}
+
+bool	AForm::getSigned(void) const
+{
+    return (this->_signed);
 }
 
 unsigned int	AForm::getSign(void) const
 {
-    return (this->_Sign);
+    return (this->_sign);
 }
 
 unsigned int	AForm::getExecute(void) const
 {
-    return (this->_Execute);
+    return (this->_execute);
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
@@ -64,21 +69,21 @@ void    AForm::beSigned(Bureaucrat &bureaucrat)
 {
     if (bureaucrat.getGrade() > this->getSign())
         this->GradeTooLowException();
-    this->_Signed = true;
+    this->_signed = true;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-AForm::AForm(std::string name, unsigned int sign, unsigned int execute): _Name(name), _Signed(false), _Sign(sign), _Execute(execute)
+AForm::AForm(std::string name, std::string target, unsigned int sign, unsigned int execute):_name(name), _target(target), _signed(false), _sign(sign), _execute(execute)
 {
     if (sign == 0 || execute == 0)
         this->GradeTooHighException();
     if (sign > 150 || execute > 150)
         this->GradeTooHighException();
-    std::cout << "Constructor for AForm " << this->_Name << " called" << std::endl;
+    std::cout << "Constructor for AForm " << this->_target << " called" << std::endl;
 }
 
-AForm::AForm(const AForm &copy): _Name(copy.getName()), _Signed(copy.getSigned()), _Sign(copy.getSign()), _Execute(copy.getExecute())
+AForm::AForm(const AForm &copy): _target(copy.getName()), _signed(copy.getSigned()), _sign(copy.getSign()), _execute(copy.getExecute())
 {
     std::cout << "Copy Constructor of AForm called" << std::endl;
 }
@@ -88,12 +93,12 @@ AForm    &AForm::operator=(const AForm &copy)
     std::cout << "Assignment operator of AForm called" << std::endl;
     if (this != &copy)
     {
-        this->_Signed = copy.getSigned();
+        this->_signed = copy.getSigned();
     }
     return (*this);
 }
 
 AForm::~AForm()
 {
-    std::cout << "Destructor for AForm " << this->_Name << " called" << std::endl;
+    std::cout << "Destructor for AForm " << this->_name << " called" << std::endl;
 }

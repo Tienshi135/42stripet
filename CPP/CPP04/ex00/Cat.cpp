@@ -6,13 +6,13 @@
 /*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 14:22:45 by stripet           #+#    #+#             */
-/*   Updated: 2025/02/10 16:00:20 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/25 14:02:59 by stripet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Cat.hpp"
 
-Cat::Cat() : Animal("Cat")
+Cat::Cat() : Animal("cat")
 {
     std::cout << "Cat default constructor called" << std::endl;
 }
