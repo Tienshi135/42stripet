@@ -1,6 +1,6 @@
 #include "PresidentialPardonForm.hpp"
 
-void    PresidentialPardonForm::beExecuted(std::string target)
+void    PresidentialPardonForm::beExecuted(std::string target) const
 {
     std::cout << target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
 }

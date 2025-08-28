@@ -1,5 +1,7 @@
+#pragma once
+
 #include <iostream>
-#include <AForm.hpp>
+#include "AForm.hpp"
 
 class ShrubberyCreationForm : public AForm
 {
@@ -9,5 +11,5 @@ class ShrubberyCreationForm : public AForm
     ShrubberyCreationForm  &operator=(const ShrubberyCreationForm &copy);
     ~ShrubberyCreationForm();
 
-    void    beExecuted(std::string target);
+    void    beExecuted(std::string target) const;
 };

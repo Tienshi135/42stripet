@@ -1,5 +1,7 @@
+#pragma once
+
 #include <iostream>
-#include <AForm.hpp>
+#include "AForm.hpp"
 
 class PresidentialPardonForm : public AForm
 {
@@ -9,5 +11,5 @@ class PresidentialPardonForm : public AForm
     PresidentialPardonForm  &operator=(const PresidentialPardonForm &copy);
     ~PresidentialPardonForm();
 
-    void    beExecuted(std::string target);
+    void    beExecuted(std::string target) const;
 };

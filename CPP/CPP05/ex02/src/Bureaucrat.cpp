@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 11:39:04 by stripet           #+#    #+#             */
-/*   Updated: 2025/08/26 14:52:53 by stripet          ###   ########.fr       */
+/*   Updated: 2025/08/29 00:49:15 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void    Bureaucrat::executeAForm(AForm const &Aform) const
     }
     catch(const std::exception& e)
     {
-        std::cerr << this->_name << " can't execute form cause:" << e.what() << std::endl;
+        std::cerr << this->_name << " can't execute form cause: " << e.what() << std::endl;
+        return;
     }
     std::cout << this->_name << " Executed " << Aform.getName() << std::endl;
 }

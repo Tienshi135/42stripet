@@ -1,17 +1,18 @@
 #include "RobotomyRequestForm.hpp"
 #include <cstdlib>
 
-void    RobotomyRequestForm::beExecuted(std::string target)
+void    RobotomyRequestForm::beExecuted(std::string target) const
 {
     int nb;
 
-    nb = std::rand() % 100;
-    if (nb >= 50)
+    std::cout << "* drilling noises *" << std::endl;
+    nb = std::rand() % 2;
+    if (nb == 0)
     {
         std::cout << "Robotomy failed... Please retry" << std::endl;
         return;
     }
-    std::cout << "Dzzzz Dzzzz Dzzzzz" << std::endl << "..." << std::endl << target << " has been robotomized" << std::endl;
+    std::cout << target << " has been robotomized successfully" << std::endl;
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/

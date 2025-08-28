@@ -1,12 +1,20 @@
 #include "ShrubberyCreationForm.hpp"
 #include <fstream>
 
-void    ShrubberyCreationForm::beExecuted(std::string target)
+void    ShrubberyCreationForm::beExecuted(std::string target) const
 {
-    std::ofstream file(target + "_shrubbery");
-    file << "Printable ASCII [32..126]:\n";
-    for (char c{' '}; c <= '~'; ++c)
-        file << c << ((c + 1) % 32 ? ' ' : '\n');
+    std::ofstream file((target + std::string("_shrubbery")).c_str());
+    file << "       _-_\n";
+    file << "    /~~   ~~\\\n";
+    file << " /~~         ~~\\\n";
+    file << "{               }\n";
+    file << " \\  _-     -_  /\n";
+    file << "   ~  \\\\ //  ~\n";
+    file << "_- -   | | _- _\n";
+    file << "  _ -  | |   -_\n";
+    file << "      // \\\\\n";
+    file << "ASCII Art Tree" << std::endl;
+    file.close();
 }
 
 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
