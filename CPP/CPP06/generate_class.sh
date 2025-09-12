@@ -4,9 +4,9 @@
 # Usage: ./generate_class.sh ex00 ClassName
 
 if [ $# -ne 2 ]; then
-    echo "Usage: $0 <exercise> <ClassName>"
-    echo "Example: $0 ex00 MyClass"
-    exit 1
+	echo "Usage: $0 <exercise> <ClassName>"
+	echo "Example: $0 ex00 MyClass"
+	exit 1
 fi
 
 EXERCISE=$1
@@ -14,8 +14,8 @@ CLASS_NAME=$2
 
 # Check if exercise directory exists
 if [ ! -d "$EXERCISE" ]; then
-    echo "Error: Exercise directory '$EXERCISE' does not exist"
-    exit 1
+	echo "Error: Exercise directory '$EXERCISE' does not exist"
+	exit 1
 fi
 
 # Create header and src directories if they don't exist
@@ -34,16 +34,14 @@ cat > "$HEADER_FILE" << EOF
 class $CLASS_NAME
 {
 private:
-	// Private member variables go here
 
 public:
-	// Orthodox Canonical Form
 	$CLASS_NAME();
 	$CLASS_NAME(const $CLASS_NAME &copy);
-	$CLASS_NAME& operator=(const $CLASS_NAME &copy);
+	$CLASS_NAME &operator=(const $CLASS_NAME &copy);
 	~$CLASS_NAME();
 
-	// Additional member functions go here
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 };
 
 EOF
@@ -52,38 +50,33 @@ EOF
 cat > "$SOURCE_FILE" << EOF
 #include "$CLASS_NAME.hpp"
 
-// Default constructor
 $CLASS_NAME::$CLASS_NAME()
 {
 	std::cout << "$CLASS_NAME default constructor called" << std::endl;
 }
 
-// Copy constructor
 $CLASS_NAME::$CLASS_NAME(const $CLASS_NAME &copy)
 {
 	std::cout << "$CLASS_NAME copy constructor called" << std::endl;
 	*this = copy;
 }
 
-// Assignment operator
-$CLASS_NAME& $CLASS_NAME::operator=(const $CLASS_NAME &copy)
+$CLASS_NAME &$CLASS_NAME::operator=(const $CLASS_NAME &copy)
 {
 	std::cout << "$CLASS_NAME assignment operator called" << std::endl;
 	if (this != &copy)
 	{
-		// Copy member variables from copy
-		// Add your copying logic here
+
 	}
 	return *this;
 }
 
-// Destructor
 $CLASS_NAME::~$CLASS_NAME()
 {
 	std::cout << "$CLASS_NAME destructor called" << std::endl;
 }
 
-// Additional member function implementations go here
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 EOF
 
 echo "Generated files:"
