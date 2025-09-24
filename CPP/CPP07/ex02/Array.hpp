@@ -41,5 +41,5 @@ class Array {
 			throw std::out_of_range("Index out of bounds");
 		return this->_data[index];
 	}
-	size_t	size() const {return _size;};
+	size_t	size() const {return this->_size;};
 };
