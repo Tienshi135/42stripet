@@ -1,5 +1,5 @@
 # name of the executable
-NAME = find
+NAME = btc
 
 # variables
 src_dir = ./src
