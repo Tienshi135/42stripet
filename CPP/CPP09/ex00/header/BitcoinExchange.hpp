@@ -17,6 +17,8 @@ class BitcoinExchange
 		BitcoinExchange &operator=(const BitcoinExchange &copy);
 		~BitcoinExchange();
 
+		std::map<std::string, float>	getInputDB() const { return this->_inputDB; }
+		std::map<std::string, float>	getDB() const { return this->_DB; }
 	/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 		void	processData();
 };

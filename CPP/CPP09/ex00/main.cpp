@@ -2,13 +2,17 @@
 
 void    printBitcoinMaps(BitcoinExchange    *bitcoin)
 {
+    std::map<std::string, float>    db = bitcoin->getDB();
+    std::map<std::string, float>    inputDB = bitcoin->getInputDB();
+
     std::cout << "Database contents:" << std::endl;
-    for (std::map<std::string, float>::const_iterator it = bitcoin->_DB.begin(); it != bitcoin->_DB.end(); ++it)
+    for (std::map<std::string, float>::iterator it = db.begin(); it != db.end(); ++it)
     {
         std::cout << it->first << " => " << it->second << std::endl;
     }
-    std::cout << "Input Database contents:" << std::endl;
-    for (std::map<std::string, float>::const_iterator it = bitcoin->_inputDB.begin(); it != bitcoin->_inputDB.end(); ++it)
+
+    std::cout << "\nInput Database contents:" << std::endl;
+    for (std::map<std::string, float>::iterator it = inputDB.begin(); it != inputDB.end(); ++it)
     {
         std::cout << it->first << " => " << it->second << std::endl;
     }

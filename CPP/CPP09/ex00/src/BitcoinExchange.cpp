@@ -11,7 +11,9 @@ void	parseLine(std::map<std::string, float> &db, const std::string &line)
 	{
 		try
 		{
-			float	value = std::stof(valueStr);
+			float	value;
+			std::stringstream valueStream(valueStr);
+			valueStream >> value;
 			db[date] = value;
 		}
 		catch (const std::exception &e)
