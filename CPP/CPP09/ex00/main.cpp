@@ -1,23 +1,5 @@
 #include "BitcoinExchange.hpp"
 
-void    printBitcoinMaps(BitcoinExchange    *bitcoin)
-{
-    std::map<std::string, float>    db = bitcoin->getDB();
-    std::map<std::string, float>    inputDB = bitcoin->getInputDB();
-
-    std::cout << "Database contents:" << std::endl;
-    for (std::map<std::string, float>::iterator it = db.begin(); it != db.end(); ++it)
-    {
-        std::cout << it->first << " => " << it->second << std::endl;
-    }
-
-    std::cout << "\nInput Database contents:" << std::endl;
-    for (std::map<std::string, float>::iterator it = inputDB.begin(); it != inputDB.end(); ++it)
-    {
-        std::cout << it->first << " => " << it->second << std::endl;
-    }
-}
-
 int    main(int argc, char **argv)
 {
     BitcoinExchange    *bitcoin;
@@ -28,7 +10,7 @@ int    main(int argc, char **argv)
     }
     try
     {
-        bitcoin = new BitcoinExchange("data.csv", argv[1]);
+        bitcoin = new BitcoinExchange("data.csv");
     }
     catch(const std::exception& e)
     {
@@ -36,7 +18,7 @@ int    main(int argc, char **argv)
         return (1);
     }
 
-    printBitcoinMaps(bitcoin);
+    bitcoin->processData(argv[1]);
 
     delete (bitcoin);
     return (0);
