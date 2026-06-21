@@ -8,6 +8,7 @@ COPY conf/nginx.conf /etc/nginx/http.d/default.conf
 COPY tools/entrypoint.sh /entrypoint.sh
 
 
+
 RUN chmod +x /entrypoint.sh && mkdir -p /var/www/html
 
 

@@ -39,6 +39,7 @@ services:
       - "9000"
 
 
+
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
@@ -53,6 +54,16 @@ services:
     restart: always
     expose:
       - "3306"
+    
+
+    
+  website:
+     build: ./requirements/bonus/website
+     container_name: website
+     networks:
+       - inception
+     restart: always
+
 
 
 

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>stripet — CV</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0e0e0e;
+      --surface: #161616;
+      --border:  #2a2a2a;
+      --accent:  #c8f542;
+      --text:    #e8e8e8;
+      --muted:   #666;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 2.5rem 3rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin: auto;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    header span {
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    main {
+      flex: 1;
+      padding: 3rem;
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      margin: auto;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .link-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.9rem 1.25rem;
+      text-decoration: none;
+      transition: border-color 0.15s;
+    }
+
+    .link-item:hover { border-color: var(--accent); }
+
+    .link-label { font-size: 0.85rem; color: var(--text); }
+    .link-url   { font-size: 0.8rem;  color: var(--muted); }
+    .link-arrow { color: var(--accent); }
+
+    .pdf-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .pdf-toolbar {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pdf-toolbar span { font-size: 0.75rem; color: var(--muted); }
+
+    .pdf-toolbar a {
+      color: var(--accent);
+      font-size: 0.75rem;
+      text-decoration: none;
+    }
+
+    .pdf-toolbar a:hover { text-decoration: underline; }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 75vh;
+      border: none;
+    }
+
+    footer {
+      padding: 1.5rem 3rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>stripet</h1>
+    <span>42 School — System Administration</span>
+  </header>
+
+  <main>
+
+    <section>
+      <p class="section-title">Links</p>
+      <div class="links-list">
+        <a class="link-item" href="https://github.com/Tienshi135" target="_blank" rel="noopener">
+          <span class="link-label">GitHub</span>
+          <span class="link-url">github.com/Tienshi135</span>
+          <span class="link-arrow">→</span>
+        </a>
+        <a class="link-item" href="https://linkedin.com/in/placeholder" target="_blank" rel="noopener">
+          <span class="link-label">LinkedIn</span>
+          <span class="link-url">linkedin.com/in/placeholder</span>
+          <span class="link-arrow">→</span>
+        </a>
+        <a class="link-item" href="https://profile.intra.42.fr/users/stripet" target="_blank" rel="noopener">
+          <span class="link-label">42 Intra</span>
+          <span class="link-url">profile.intra.42.fr/users/stripet</span>
+          <span class="link-arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-title">CV</p>
+      <div class="pdf-wrapper">
+        <div class="pdf-toolbar">
+          <span>cv.pdf</span>
+          <a href="/cv.pdf" download>↓ download</a>
+        </div>
+        <iframe src="cv.pdf" title="stripet — CV"></iframe>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>cv.stripet.42.fr</footer>
+
+</body>
+</html>
