@@ -1,3 +1,4 @@
+.DEFAULT_GOAL := inception
 .PHONY: up down build logs clean re fclean
 
 up:
@@ -10,17 +11,16 @@ build:
 	mkdir -p /home/stripet/data/wordpress
 	mkdir -p /home/stripet/data/mariadb
 	docker compose -f srcs/docker-compose.yml build
-	make up
 
 logs:
 	docker compose -f srcs/docker-compose.yml logs -f
 
-clean:
-	docker compose -f srcs/docker-compose.yml down -v
+clean: down
+	docker image prune -af
 
-fclean: clean
-	docker system prune -af
-	sudo rm -rf /home/stripet/data/wordpress
-	sudo rm -rf /home/stripet/data/mariadb
+fclean: down
+	docker system prune -af --volumes
 
-re: fclean build
+re: fclean build up
+
+inception: build up
