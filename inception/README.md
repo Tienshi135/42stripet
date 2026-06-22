@@ -1,169 +1,106 @@
 # Inception
 
-A Docker-based infrastructure project that sets up a complete web server stack with nginx, WordPress, and MariaDB on Alpine Linux containers.
+42 infrastructure project using Docker Compose with 3 Alpine-based services:
+- **nginx** (HTTPS reverse proxy, port 443)
+- **wordpress** (PHP-FPM, port 9000 internal)
+- **mariadb** (database, port 3306 internal)
 
-## Project Overview
+## What this repository contains
 
-Inception is a 42 School project that demonstrates containerization and infrastructure-as-code principles. It creates a multi-container application using Docker Compose, featuring:
+- `README.md`: project overview and setup
+- `USER_DOC.md`: usage guide for WordPress users
+- `DEV_DOC.md`: technical notes for development/maintenance
+- `Makefile`: common lifecycle commands
+- `srcs/docker-compose.yml`: service orchestration
+- `srcs/requirements/*`: Dockerfiles, configs, and entrypoints
 
-- **nginx** — reverse proxy and web server (TLS 1.2/1.3)
-- **WordPress + PHP-FPM** — content management system
-- **MariaDB** — database
+## Prerequisites
 
-All services run on Alpine Linux 3.19 for minimal footprint, communicate via a custom Docker bridge network, and persist data using named volumes.
+- Docker Engine + Docker Compose plugin
+- `make`
+- Permission to create/remove:
+  - `/home/stripet/data/wordpress`
+  - `/home/stripet/data/mariadb`
 
-## Requirements
+## Required local files (not committed)
 
-- Docker Engine (20.10+)
-- Docker Compose (2.0+)
-- Linux VM or VirtualBox with bridged networking
-- `make` command-line tool
+Create these before `make build`:
 
-## Quick Start
+1) `secrets/.db_password`
+2) `secrets/.db_root_password`
+3) `srcs/.env`
 
-### 1. Clone and Enter the Project
+Example `srcs/.env`:
 
-```bash
-cd inception
+```env
+DOMAIN_NAME=stripet.42.fr
+MYSQL_USER=stripet_user
+MYSQL_DATABASE=wordpress_db
 ```
 
-### 2. Configure Your Domain
+> Note: nginx server_name is currently hardcoded to `stripet.42.fr` in `srcs/requirements/nginx/conf/nginx.conf`.
 
-Add your VM's IP to your local `/etc/hosts` (on your host machine):
+## Quick start
 
-```bash
-sudo vim /etc/hosts
-```
+1. Add host mapping on your machine:
+   ```bash
+   sudo sh -c 'echo "<VM_IP> stripet.42.fr" >> /etc/hosts'
+   ```
+2. Build and start:
+   ```bash
+   make build
+   ```
+3. Open:
+   - `https://stripet.42.fr`
 
-Add the line:
-192.168.1.100  stripet.42.fr
-
-(Replace `192.168.1.100` with your VM's actual IP if different.)
-
-### 3. Build and Start the Stack
-
-```bash
-make build
-```
-
-This will:
-- Create directories for persistent data at `/home/stripet/data/wordpress` and `/home/stripet/data/mariadb`
-- Build three Docker images (nginx, wordpress, mariadb)
-- Start all containers
-- Initialize the MariaDB database
-- Generate self-signed TLS certificates
-
-### 4. Access WordPress
-
-Open your browser and navigate to:
-https://stripet.42.fr
-
-You'll be prompted to complete the WordPress installation wizard. Create an admin user (username cannot contain "admin") and configure your site.
-
-## Available Commands
+## Make targets
 
 ```bash
-make up       # Start containers (without rebuilding)
-make down     # Stop and remove containers (keeps data)
-make build    # Full rebuild (clean and build)
-make logs     # Stream logs from all containers
-make clean    # Stop containers and remove volumes
-make fclean   # Complete reset (removes all data and images)
-make re       # Full reset and rebuild
+make up       # docker compose up -d
+make down     # docker compose down
+make build    # create bind dirs, build images, then up
+make logs     # follow compose logs
+make clean    # compose down -v
+make fclean   # clean + docker system prune -af + remove /home/stripet/data/*
+make re       # fclean then build
 ```
 
-## Project Structure
-inception/
+## Service summary
 
-├── README.md              # This file
+- **nginx**
+  - Dockerfile: `srcs/requirements/nginx/Dockerfile`
+  - Config: `srcs/requirements/nginx/conf/nginx.conf`
+  - TLS cert generation: `srcs/requirements/nginx/tools/entrypoint.sh`
 
-├── USER_DOC.md           # End-user documentation
+- **wordpress**
+  - Dockerfile: `srcs/requirements/wordpress/Dockerfile`
+  - PHP-FPM config: `srcs/requirements/wordpress/conf/www.conf`
+  - Runtime config generation: `srcs/requirements/wordpress/tools/entrypoint.sh`
 
-├── DEV_DOC.md            # Developer/technical documentation
+- **mariadb**
+  - Dockerfile: `srcs/requirements/mariadb/Dockerfile`
+  - DB config: `srcs/requirements/mariadb/conf/server.cnf`
+  - DB init/startup: `srcs/requirements/mariadb/tools/entrypoint.sh`
 
-├── Makefile              # Build automation
+## Data and networking
 
-├── secrets/              # Docker secrets (not in git)
-
-└── srcs/
-
-├── .env              # Environment variables
-
-├── docker-compose.yml # Container orchestration
-
-└── requirements/     # Service definitions
-
-├── nginx/
-
-│   ├── Dockerfile
-
-│   ├── conf/
-
-│   └── tools/
-
-├── wordpress/
-
-│   ├── Dockerfile
-
-│   ├── conf/
-
-│   └── tools/
-
-└── mariadb/
-
-├── Dockerfile
-
-├── conf/
-
-└── tools/
-
-## Architecture
-
-### Networking
-
-All containers communicate via a custom `inception` bridge network:
-- **nginx** (public): listens on VM's port 443 (HTTPS)
-- **wordpress**: exposes port 9000 internally for PHP-FPM
-- **mariadb**: exposes port 3306 internally for database connections
-
-### Data Persistence
-
-Named volumes with local driver bind mounts:
-- `wordpress_volume` → `/home/stripet/data/wordpress`
-- `mariadb_volume` → `/home/stripet/data/mariadb`
-
-Data persists across container restarts but is deleted with `make fclean`.
-
-### Security
-
-- All traffic is encrypted with TLS 1.2 and 1.3
-- Database passwords stored in Docker secrets (not in Dockerfiles or `.env`)
-- No hardcoded credentials in images
-- MariaDB only accepts local socket connections during initialization, then binds to network
+- Volumes map to:
+  - `wordpress_volume` → `/home/stripet/data/wordpress`
+  - `mariadb_volume` → `/home/stripet/data/mariadb`
+- Internal network: `inception` (bridge)
+- Only nginx is published to host (`443:443`)
 
 ## Troubleshooting
 
-### "Unable to connect to server"
-
-1. Verify containers are running: `docker ps`
-2. Check logs: `docker logs nginx`
-3. Ensure `/etc/hosts` has the correct VM IP
-4. Accept the self-signed certificate warning in your browser
-
-### "Connection refused on port 3306"
-
-1. Verify MariaDB initialized: `docker logs mariadb | grep "ready for connections"`
-2. Check network connectivity: `docker exec wordpress ping mariadb`
-3. Rebuild cleanly: `make fclean && make build`
-
-### Data persists after `make down` but not `make fclean`
-
-This is by design. `make down` preserves `/home/stripet/data/` for quick restarts. `make fclean` removes everything for a complete reset.
-
-## Author
-
-stripet (stripet.42.fr)
-
-## License
-
-This project is part of the 42 School curriculum.
+- Check containers:
+  ```bash
+  docker ps
+  ```
+- Check logs:
+  ```bash
+  docker compose -f srcs/docker-compose.yml logs -f
+  ```
+- Reset stack:
+  ```bash
+  make re
+  ```
