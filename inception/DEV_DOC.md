@@ -115,7 +115,7 @@ pm.start_servers = 2       # Start with 2 processes
 
 **Key Files:**
 - `srcs/requirements/mariadb/Dockerfile` — builds Alpine + MariaDB
-- `srcs/requirements/mariadb/conf/zzz-server.cnf` — server configuration
+- `srcs/requirements/mariadb/conf/server.cnf` — server configuration
 - `srcs/requirements/mariadb/tools/entrypoint.sh` — database initialization
 
 **Initialization Process (entrypoint.sh):**
@@ -136,7 +136,7 @@ bind-address=0.0.0.0    # Listen on all interfaces (for container network)
 port=3306               # Standard MySQL port
 ```
 
-The `zzz-server.cnf` filename is intentional — it loads **last** alphabetically, overriding Alpine's default `mariadb-server.cnf` which has `skip-networking`.
+The ```COPY conf/server.cnf /etc/my.cnf.d/mariadb-server.cnf``` is intentional — it overrides Alpine's default `mariadb-server.cnf` which has `skip-networking`.
 
 ## Docker Compose Configuration
 
@@ -219,8 +219,6 @@ networks:
 DOMAIN_NAME=stripet.42.fr
 MYSQL_USER=stripet_user
 MYSQL_DATABASE=wordpress_db
-MYSQL_PASSWORD=MysqlPassword!
-MYSQL_ROOT_PASSWORD=MysqlrootPassword!
 ```
 
 Used by entrypoints and Docker Compose. **Not committed to git** (in `.gitignore`).
@@ -230,8 +228,8 @@ Used by entrypoints and Docker Compose. **Not committed to git** (in `.gitignore
 Docker Secrets are mounted at `/run/secrets/` inside containers:
 
 ```bash
-secrets/db_password.txt         # Contains: MysqlPassword!
-secrets/db_root_password.txt    # Contains: MysqlrootPassword!
+secrets/db_password
+secrets/db_root_password
 ```
 
 Accessed in entrypoints:
@@ -336,12 +334,12 @@ make build
 
 ### Modifying MariaDB Config
 
-Edit `srcs/requirements/mariadb/conf/zzz-server.cnf`, then rebuild.
+Edit `srcs/requirements/mariadb/conf/server.cnf`, then rebuild.
 
-**Important:** Changes to `zzz-server.cnf` affect **new** MariaDB containers. Existing data won't be affected. Restart with:
+**Important:** Changes to `server.cnf` affect **new** MariaDB containers. Existing data won't be affected. Restart with:
 
 ```bash
-make fclean && make build
+make re
 ```
 
 ### Modifying PHP Config
@@ -368,7 +366,6 @@ Then rebuild.
 
 ## Performance Tips
 
-- Increase MariaDB `innodb_buffer_pool_size` in `zzz-server.cnf` for large datasets
 - Increase PHP-FPM `pm.max_children` in `www.conf` for high traffic
 - Use WordPress caching plugins (WP Super Cache, etc.)
 - Enable nginx gzip compression in `nginx.conf`:
@@ -442,9 +439,9 @@ srcs/
 │           └── entrypoint.sh   # Init & startup
 secrets/                        # Docker secrets (git-ignored)
 
-├── db_password.txt
+├── db_password
 
-└── db_root_password.txt
+└── db_root_password
 
 ## Testing Checklist
 
