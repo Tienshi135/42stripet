@@ -8,7 +8,7 @@ Inception is a 42 School project that demonstrates containerization and infrastr
 
 - **nginx** — reverse proxy and web server (TLS 1.2/1.3)
 - **WordPress + PHP-FPM** — content management system
-- **MariaDB** — relational database
+- **MariaDB** — database
 
 All services run on Alpine Linux 3.19 for minimal footprint, communicate via a custom Docker bridge network, and persist data using named volumes.
 
@@ -84,10 +84,6 @@ inception/
 ├── Makefile              # Build automation
 
 ├── secrets/              # Docker secrets (not in git)
-
-│   ├── db_password
-
-│   └── db_root_password
 
 └── srcs/
 
