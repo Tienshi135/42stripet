@@ -15,7 +15,7 @@ build:
 logs:
 	docker compose -f srcs/docker-compose.yml logs -f
 
-clean: down
+clean:
 	docker image prune -af
 
 fclean: down
