@@ -1,30 +1,28 @@
 # Inception
 
-42 infrastructure project using Docker Compose with 3 Alpine-based services:
-- **nginx** (HTTPS reverse proxy, port 443)
-- **wordpress** (PHP-FPM, port 9000 internal)
-- **mariadb** (database, port 3306 internal)
+42 infrastructure project using Docker Compose with Alpine-based services:
+- **nginx** (public HTTPS reverse proxy, `443:443`)
+- **wordpress** (PHP-FPM, internal `9000`)
+- **mariadb** (database, internal `3306`)
+- **website** (bonus static site, internal `80`)
 
-## What this repository contains
+## Documentation files
 
 - `README.md`: project overview and setup
-- `USER_DOC.md`: usage guide for WordPress users
-- `DEV_DOC.md`: technical notes for development/maintenance
-- `Makefile`: common lifecycle commands
-- `srcs/docker-compose.yml`: service orchestration
-- `srcs/requirements/*`: Dockerfiles, configs, and entrypoints
+- `USER_DOC.md`: user-facing usage guide
+- `DEV_DOC.md`: technical/runtime details
 
 ## Prerequisites
 
 - Docker Engine + Docker Compose plugin
 - `make`
-- Permission to create/remove:
+- Permission to create directories under:
   - `/home/stripet/data/wordpress`
   - `/home/stripet/data/mariadb`
 
 ## Required local files (not committed)
 
-Create these before `make build`:
+Create these before starting services:
 
 1) `secrets/.db_password`
 2) `secrets/.db_root_password`
@@ -33,36 +31,36 @@ Create these before `make build`:
 Example `srcs/.env`:
 
 ```env
-DOMAIN_NAME=stripet.42.fr
 MYSQL_USER=stripet_user
 MYSQL_DATABASE=wordpress_db
 ```
 
-> Note: nginx server_name is currently hardcoded to `stripet.42.fr` in `srcs/requirements/nginx/conf/nginx.conf`.
-
 ## Quick start
 
-1. Add host mapping on your machine:
+1. Add host mappings on your machine:
    ```bash
-   sudo sh -c 'echo "<VM_IP> stripet.42.fr" >> /etc/hosts'
+   sudo sh -c 'echo "<VM_IP> stripet.42.fr cv.stripet.42.fr" >> /etc/hosts'
    ```
-2. Build and start:
+2. Build images and start all services:
    ```bash
-   make build
+   make
    ```
+   (`make` uses the default `inception` target, which runs `build` then `up`.)
 3. Open:
-   - `https://stripet.42.fr`
+   - WordPress: `https://stripet.42.fr`
+   - Bonus website: `https://cv.stripet.42.fr`
 
 ## Make targets
 
 ```bash
-make up       # docker compose up -d
-make down     # docker compose down
-make build    # create bind dirs, build images, then up
-make logs     # follow compose logs
-make clean    # compose down -v
-make fclean   # clean + docker system prune -af + remove /home/stripet/data/*
-make re       # fclean then build
+make         # default target: build then up
+make up      # docker compose up -d
+make down    # docker compose down
+make build   # create bind dirs and build images
+make logs    # follow compose logs
+make clean   # docker image prune -af
+make fclean  # down + docker system prune -af --volumes
+make re      # fclean then build then up
 ```
 
 ## Service summary
@@ -71,6 +69,9 @@ make re       # fclean then build
   - Dockerfile: `srcs/requirements/nginx/Dockerfile`
   - Config: `srcs/requirements/nginx/conf/nginx.conf`
   - TLS cert generation: `srcs/requirements/nginx/tools/entrypoint.sh`
+  - Routes:
+    - `stripet.42.fr` → `wordpress:9000`
+    - `cv.stripet.42.fr` → `website:80`
 
 - **wordpress**
   - Dockerfile: `srcs/requirements/wordpress/Dockerfile`
@@ -82,25 +83,30 @@ make re       # fclean then build
   - DB config: `srcs/requirements/mariadb/conf/server.cnf`
   - DB init/startup: `srcs/requirements/mariadb/tools/entrypoint.sh`
 
+- **website** (bonus)
+  - Dockerfile: `srcs/requirements/bonus/website/Dockerfile`
+  - Nginx config: `srcs/requirements/bonus/website/conf/nginx.conf`
+  - Static content: `srcs/requirements/bonus/website/html/`
+
 ## Data and networking
 
-- Volumes map to:
+- Volumes:
   - `wordpress_volume` → `/home/stripet/data/wordpress`
   - `mariadb_volume` → `/home/stripet/data/mariadb`
 - Internal network: `inception` (bridge)
-- Only nginx is published to host (`443:443`)
+- Only nginx is exposed to host (`443`)
 
 ## Troubleshooting
 
-- Check containers:
+- Container status:
   ```bash
-  docker ps
+  docker compose -f srcs/docker-compose.yml ps
   ```
-- Check logs:
+- Logs:
   ```bash
-  docker compose -f srcs/docker-compose.yml logs -f
+  make logs
   ```
-- Reset stack:
+- Full reset:
   ```bash
   make re
   ```
