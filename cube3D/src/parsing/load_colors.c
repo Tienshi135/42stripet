@@ -83,7 +83,7 @@ static int	check_ide_and_format_c(char *line, int *i)
 	fordward_index(line, i);
 	if (!is_valid_color_code(line + *i))
 		return (-1);
-	ide[id] = '\0';
+	ide[id] = NULL;
 	return (id);
 }
 

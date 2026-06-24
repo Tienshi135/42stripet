@@ -60,6 +60,7 @@ int	key_press(int key, t_data *data)
 		data->camera.mode = CAVALIER;
 	else if (key == R)
 		reset(data);
+	data->dirty = 1;
 	return (0);
 }
 
@@ -82,6 +83,8 @@ int	mouse_move(int x, int y, t_data *data)
 			data->camera.alpha -= 1;
 		if (deltay > 0)
 			data->camera.alpha += 1;
+		if (deltax != 0 || deltay != 0)
+			data->dirty = 1;
 		data->mouse.x = x;
 		data->mouse.y = y;
 	}
@@ -98,15 +101,22 @@ int	mouse_release(int button, int x, int y, t_data *data)
 int	mouse_press(int button, int x, int y, t_data *data)
 {
 	if (button == SCROLL_UP && data->camera.zoom <= __FLT_MAX__)
+	{
 		data->camera.zoom += 0.5;
+		data->dirty = 1;
+	}
 	else if (button == SCROLL_DOWN && data->camera.zoom >= 0.5)
+	{
 		data->camera.zoom -= 0.5;
+		data->dirty = 1;
+	}
 	if (button == LEFT_CLICK)
 	{
 		if ((x > 70 + 1920 / 16 && y > 740 + 1080 / 8)
 			&& (x < 130 + 1920 / 16 && y < 780 + 1080 / 8))
 		{
 			reset(data);
+			data->dirty = 1;
 		}
 		else if ((x > 1920 / 4 && y > 1080 / 4)
 			&& (x < 3 * (1920 / 4) && y < 3 * (1080 / 4)))

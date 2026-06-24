@@ -79,7 +79,9 @@ static void	free_mlx(t_data *data)
 		mlx_destroy_window(data->mlx->mlx_tunnel, data->mlx->window);
 	if (data->mlx->mlx_tunnel)
 	{
+#ifndef __APPLE__
 		mlx_destroy_display(data->mlx->mlx_tunnel);
+#endif
 		free(data->mlx->mlx_tunnel);
 	}
 }

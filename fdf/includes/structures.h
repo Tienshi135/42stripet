@@ -86,6 +86,7 @@ typedef struct s_data {
 	t_mouse		mouse;
 	t_menu		menu;
 	t_img		title;
+	int			dirty;
 }	t_data;
 
 #endif

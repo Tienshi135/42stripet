@@ -34,8 +34,13 @@ int	enter_win(t_data *data)
 {
 	data->mouse->x = data->mlx->mlx_img->img_w / 2;
 	data->mouse->y = data->mlx->mlx_img->img_h / 2;
+#ifdef __APPLE__
+	mlx_mouse_move(data->mlx->window,
+		data->mouse->x, data->mouse->y);
+#else
 	mlx_mouse_move(data->mlx->mlx_tunnel, data->mlx->window,
 		data->mouse->x, data->mouse->y);
+#endif
 	return (0);
 }
 

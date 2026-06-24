@@ -114,6 +114,9 @@ int	draw_to_img(t_data *data)
 {
 	t_coords	*cursor;
 
+	if (!data->dirty)
+		return (0);
+	data->dirty = 0;
 	cursor = data->map->coords;
 	render_background(data->img, 1920 / 2, 1080 / 2, GREY);
 	while (cursor)

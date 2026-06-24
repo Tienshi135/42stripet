@@ -87,14 +87,23 @@ void	init_data(t_data *data, char *filemap)
 	init_map(data->player, data->map, filemap);
 	init_textures(data->map->elements, data->map->elements->textures);
 	init_mlx_images(data->mlx, data->mini_map);
+#ifdef __APPLE__
+	mlx_mouse_get_pos(data->mlx->window,
+		&data->mouse->x, &data->mouse->y);
+#else
 	mlx_mouse_get_pos(data->mlx->mlx_tunnel, data->mlx->window,
 		&data->mouse->x, &data->mouse->y);
+#endif
 	recover_data_address(data);
 }
 
 void	mlx_hook_start(t_data *data)
 {
+#ifdef __APPLE__
+	mlx_mouse_hide();
+#else
 	mlx_mouse_hide(data->mlx->mlx_tunnel, data->mlx->window);
+#endif
 	mlx_hook(data->mlx->window, 2, (1L << 0), handle_keypress, data);
 	mlx_hook(data->mlx->window, 3, (1L << 1), handle_keyrelease, data);
 	mlx_hook(data->mlx->window, 6, (1L << 6), mouse_move, data);

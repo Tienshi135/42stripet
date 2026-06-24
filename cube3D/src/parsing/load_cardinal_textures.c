@@ -72,7 +72,7 @@ static	int	check_ide_and_format(char *line, int *i)
 	if (ft_strncmp(line + *i, "./", 2) && ft_strncmp(line + *i, "/", 1)
 		&& ft_strncmp(line + *i, "../", 3))
 		return (-1);
-	ide[id] = '\0';
+	ide[id] = NULL;
 	return (id);
 }
 

@@ -34,7 +34,11 @@ static bool	is_dir(char *arg)
 	ret = false;
 	if (!arg)
 		return (ret);
+#ifdef __APPLE__
+	fd = open(arg, O_DIRECTORY);
+#else
 	fd = open(arg, __O_DIRECTORY);
+#endif
 	if (fd >= 0)
 	{
 		close (fd);

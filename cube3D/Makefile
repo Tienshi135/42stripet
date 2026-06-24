@@ -8,13 +8,28 @@ src_dir = ./src
 obj_dir = ./obj
 DEBUG ?= 0
 
+# OS detection
+UNAME := $(shell uname -s)
+
+ifeq ($(UNAME), Darwin)
+    MLX_DIR   = mlx_macos
+    MLX_LIB   = $(MLX_DIR)/libmlx.dylib
+    MLX_FLAGS = -framework Cocoa -framework Metal -framework AppKit
+    RPATH     = -Wl,-rpath,@executable_path/$(MLX_DIR)
+else
+    MLX_DIR   = mlx_linux
+    MLX_LIB   = $(MLX_DIR)/libmlx.a
+    MLX_FLAGS = -lXext -lX11 -lm -lz -lXfixes
+    RPATH     =
+endif
+
 # compilator and compilation flags
-CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
-INCLUDES = -I ./include
-LDFLAGS = -L ./libft -L ./mlx
-LDLIBS = -lmlx -lft -lXext -lX11 -lm -lz -lXfixes
-DB = -DDEBUG=$(DEBUG)
+CC       = gcc
+CFLAGS   = -Wall -Werror -Wextra -g3
+INCLUDES = -I ./include -I ./$(MLX_DIR)
+LDFLAGS  = -L ./libft -L ./$(MLX_DIR)
+LDLIBS   = -lmlx -lft $(MLX_FLAGS)
+DB       = -DDEBUG=$(DEBUG)
 
 # source files (recursively find all .c files)
 SRCS = $(shell find $(src_dir) -name "*.c")
@@ -29,8 +44,8 @@ debug: fclean
 debug2: fclean
 	@$(MAKE) DEBUG=2
 
-$(NAME): libft/libft.a mlx/libmlx.a $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $@
+$(NAME): libft/libft.a $(MLX_LIB) $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LDFLAGS) $(LDLIBS) $(RPATH) -o $@
 	@$(MAKE) compilation_success
 
 # Create object files from source files
@@ -49,8 +64,11 @@ libft/libft.a:
 	@$(MAKE) -C libft
 
 # Build mlx
-mlx/libmlx.a:
-	@$(MAKE) -C mlx
+$(MLX_DIR)/libmlx.a:
+	@$(MAKE) -C $(MLX_DIR)
+
+$(MLX_DIR)/libmlx.dylib:
+	@$(MAKE) -C $(MLX_DIR)
 
 # Clean object files
 clean:
@@ -61,7 +79,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C libft fclean
-	$(MAKE) -C mlx clean
+	$(MAKE) -C $(MLX_DIR) clean
 
 compilation_success:
 	@echo "╔╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╦╗"
