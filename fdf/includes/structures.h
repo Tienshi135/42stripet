@@ -48,6 +48,8 @@ typedef struct s_mouse {
 typedef struct s_map {
 	int			height;
 	int			width;
+	int			zmin;
+	int			zmax;
 	t_coords	*coords;
 }	t_map;
 
@@ -87,6 +89,7 @@ typedef struct s_data {
 	t_menu		menu;
 	t_img		title;
 	int			dirty;
+	int			prev_mode;
 }	t_data;
 
 #endif

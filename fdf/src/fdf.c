@@ -53,6 +53,7 @@ t_data	init(void)
 	buffer.mouse.hook_enable = 0;
 	buffer.camera.mode = ISOMETRIC;
 	buffer.dirty = 1;
+	buffer.prev_mode = -1;
 	menu_init(&buffer);
 	title_init(&buffer);
 	return (buffer);

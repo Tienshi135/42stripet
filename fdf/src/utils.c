@@ -16,6 +16,48 @@
 #include "transformations.h"
 #include "mlx.h"
 
+static int	lerp_channel(int a, int b, float t)
+{
+	return ((int)((1.0f - t) * (float)a + t * (float)b));
+}
+
+static int	lerp_color(int ca, int cb, float t)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = lerp_channel((ca >> 16) & 0xFF, (cb >> 16) & 0xFF, t);
+	g = lerp_channel((ca >> 8) & 0xFF, (cb >> 8) & 0xFF, t);
+	b = lerp_channel(ca & 0xFF, cb & 0xFF, t);
+	return ((r << 16) | (g << 8) | b);
+}
+
+/*
+** Four-stop height gradient: deep navy → ocean blue → sky cyan → white peak.
+** Gives clear height distinction without the old integer-overflow yellows.
+*/
+static int	height_color(int z, int zmin, int zmax)
+{
+	static const int	stops[4] = {0x001B44, 0x0096C7, 0x48CAE4, 0xFFFFFF};
+	float				t;
+	float				seg;
+	int					idx;
+
+	if (zmin == zmax)
+		return (stops[1]);
+	t = (float)(z - zmin) / (float)(zmax - zmin);
+	if (t < 0.0f)
+		t = 0.0f;
+	if (t > 1.0f)
+		t = 1.0f;
+	seg = t * 3.0f;
+	idx = (int)seg;
+	if (idx >= 3)
+		idx = 2;
+	return (lerp_color(stops[idx], stops[idx + 1], seg - (float)idx));
+}
+
 double	torad(double x)
 {
 	return (x / (180.0 / M_PI));
@@ -65,7 +107,7 @@ void	project(t_data *data, t_coords *coords)
 	z1 *= data->camera.zoom;
 	x1 -= (data->map->width * data->camera.zoom) / 2;
 	y1 -= (data->map->height * data->camera.zoom) / 2;
-	coords->color = (BLACK - (30 * coords->z));
+	coords->color = height_color(coords->z, data->map->zmin, data->map->zmax);
 	rotate_x(&y1, &z1, data->camera.alpha);
 	rotate_y(&x1, &z1, data->camera.beta);
 	rotate_z(&x1, &y1, data->camera.gamma);

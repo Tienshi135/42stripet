@@ -13,6 +13,7 @@
 #include "structures.h"
 #include "mapping.h"
 #include "fdf.h"
+#include <limits.h>
 
 int	to_coords(t_map *map, int x, int y, int z)
 {
@@ -26,6 +27,10 @@ int	to_coords(t_map *map, int x, int y, int z)
 	buffer->y = y;
 	buffer->z = z;
 	buffer->next = NULL;
+	if (z < map->zmin)
+		map->zmin = z;
+	if (z > map->zmax)
+		map->zmax = z;
 	if (!map->coords)
 		map->coords = buffer;
 	else
@@ -48,6 +53,8 @@ t_map	*read_map(int fd)
 	map = ft_calloc(1, sizeof(t_map));
 	if (!map)
 		return (NULL);
+	map->zmin = INT_MAX;
+	map->zmax = INT_MIN;
 	while (line)
 	{
 		map->width = 0;

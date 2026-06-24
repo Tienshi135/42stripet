@@ -18,6 +18,79 @@
 #include "utils.h"
 #include "title.h"
 
+/*
+** Liang-Barsky helpers — clip a line segment to the image rectangle before
+** running Bresenham, so zoomed-in maps don't iterate millions of off-screen
+** pixels.  Works on copies of the coord structs; does not touch originals.
+*/
+
+static int	clip_param(float pv, float qv, float *t0, float *t1)
+{
+	float	r;
+
+	if (pv == 0.0f)
+		return (qv >= 0.0f);
+	r = qv / pv;
+	if (pv < 0.0f)
+	{ if (r > *t0) *t0 = r; }
+	else
+	{ if (r < *t1) *t1 = r; }
+	return (*t0 <= *t1);
+}
+
+static int	lerp_color_draw(int ca, int cb, float t)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = (int)((1.0f - t) * (float)((ca >> 16) & 0xFF)
+			+ t * (float)((cb >> 16) & 0xFF));
+	g = (int)((1.0f - t) * (float)((ca >> 8) & 0xFF)
+			+ t * (float)((cb >> 8) & 0xFF));
+	b = (int)((1.0f - t) * (float)(ca & 0xFF) + t * (float)(cb & 0xFF));
+	return ((r << 16) | (g << 8) | b);
+}
+
+/* Returns 0 if the segment is entirely outside the image rect, 1 otherwise.
+** On success, p and n are updated to the clipped endpoints (with interpolated
+** colors so the gradient is still correct at the new start/end positions). */
+static int	clip_liang_barsky(t_img img, t_coords *p, t_coords *n)
+{
+	float	t0;
+	float	t1;
+	int		dx;
+	int		dy;
+	int		c0;
+	int		c1;
+	int		orig_px;
+	int		orig_py;
+
+	t0 = 0.0f;
+	t1 = 1.0f;
+	dx = n->tx - p->tx;
+	dy = n->ty - p->ty;
+	if (!clip_param((float)-dx, (float)p->tx, &t0, &t1))
+		return (0);
+	if (!clip_param((float)dx, (float)(img.img_width - 1 - p->tx), &t0, &t1))
+		return (0);
+	if (!clip_param((float)-dy, (float)p->ty, &t0, &t1))
+		return (0);
+	if (!clip_param((float)dy, (float)(img.img_height - 1 - p->ty), &t0, &t1))
+		return (0);
+	c0 = p->color;
+	c1 = n->color;
+	orig_px = p->tx;
+	orig_py = p->ty;
+	n->tx = orig_px + (int)(t1 * (float)dx);
+	n->ty = orig_py + (int)(t1 * (float)dy);
+	n->color = lerp_color_draw(c0, c1, t1);
+	p->tx = orig_px + (int)(t0 * (float)dx);
+	p->ty = orig_py + (int)(t0 * (float)dy);
+	p->color = lerp_color_draw(c0, c1, t0);
+	return (1);
+}
+
 void	set_bvalues(t_coords *p, t_coords *n, int **whateverthisis)
 {
 	(*whateverthisis)[0] = ft_abs(n->tx - p->tx);
@@ -33,15 +106,21 @@ void	set_bvalues(t_coords *p, t_coords *n, int **whateverthisis)
 
 void	bresenham(t_img img, t_coords *previous, t_coords *next)
 {
+	t_coords	p;
+	t_coords	n;
 	int			*fucknorm;
 	t_coords	current;
 
+	p = *previous;
+	n = *next;
+	if (!clip_liang_barsky(img, &p, &n))
+		return ;
 	ft_bzero(&current, sizeof(t_coords));
 	fucknorm = ft_calloc(sizeof(int), 5);
-	current.tx = previous->tx;
-	current.ty = previous->ty;
-	set_bvalues(previous, next, &fucknorm);
-	while (current.tx != next->tx || current.ty != next->ty)
+	current.tx = p.tx;
+	current.ty = p.ty;
+	set_bvalues(&p, &n, &fucknorm);
+	while (current.tx != n.tx || current.ty != n.ty)
 	{
 		if (2 * fucknorm[4] > -fucknorm[1])
 		{
@@ -53,8 +132,7 @@ void	bresenham(t_img img, t_coords *previous, t_coords *next)
 			fucknorm[4] += fucknorm[0];
 			current.ty += fucknorm[3];
 		}
-		draw(&img, current.tx, current.ty,
-			get_gradient(previous, next, &current));
+		draw(&img, current.tx, current.ty, get_gradient(&p, &n, &current));
 	}
 	free(fucknorm);
 }
@@ -129,6 +207,10 @@ int	draw_to_img(t_data *data)
 	mlx_put_image_to_window(data->tun_id, data->w_id,
 		data->img.img_id, 1920 / 4,
 		1080 / 4 + data->menu.yoffset);
-	title_render(data);
+	if (data->camera.mode != data->prev_mode)
+	{
+		title_render(data);
+		data->prev_mode = data->camera.mode;
+	}
 	return (0);
 }
