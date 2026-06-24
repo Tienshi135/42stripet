@@ -1,9 +1,11 @@
-NAME = push_swap
-CFLAGS = -Wall -Werror -Wextra
+NAME      = push_swap
+CC        = gcc
+CFLAGS    = -Wall -Werror -Wextra
 Libraries = -lft -L ./libft
 
-src_dir = ./source
+src_dir   = ./source
 bonus_dir = ./source/bonus
+
 src = $(src_dir)/push_swap.c\
       $(src_dir)/reverse.c\
       $(src_dir)/rotate.c\
@@ -28,108 +30,58 @@ bonus_src = $(bonus_dir)/push_swap_checker_bonus.c\
 	 		$(src_dir)/push.c\
 			$(src_dir)/math.c\
 
-obj = $(src:.c=.o)
+obj       = $(src:.c=.o)
 bonus_obj = $(bonus_src:.c=.o)
+TOTAL     = $(words $(obj))
 
-.PHONY: all libft bonus clean fclean re bre debug bdebug sanitize bsanitize test
+.PHONY: all libft bonus clean fclean re bre debug bdebug sanitize bsanitize
 
 all: libft $(NAME)
 
 libft:
-	make -C ./libft
+	@$(MAKE) --no-print-directory -C ./libft
 
-$(NAME):$(obj)
-	gcc $^ $(Libraries) -o $@
+$(NAME): $(obj)
+	@printf "  \033[0;34m[LD]\033[0m  Linking %s\n" "$@"
+	@$(CC) $(CFLAGS) $^ $(Libraries) -o $@
+	@echo "╔══════════════════════════════════╗"
+	@echo "║         Build complete!          ║"
+	@echo "║          $(NAME) ready           ║"
+	@echo "╚══════════════════════════════════╝"
 
 bonus: libft $(bonus_obj)
-	gcc $(bonus_obj) $(Libraries) -o Checker_Mac_Stripet
+	@$(CC) $(CFLAGS) $(bonus_obj) $(Libraries) -o Checker_Mac_Stripet
+
+%.o: %.c
+	@N=$$(ls $(dir $<)*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(src_dir)/*.o
-	rm -f $(bonus_dir)/*.o
+	@rm -f $(src_dir)/*.o $(bonus_dir)/*.o
 
 fclean: clean
-	rm -f $(NAME)
-	rm -f Checker_Mac_Stripet
+	@rm -f $(NAME) Checker_Mac_Stripet
+	@$(MAKE) --no-print-directory -C ./libft fclean
 
 re: fclean all
 
 bre: fclean bonus
 
 debug:
-	gcc -g $(CFLAGS) $(src) $(Libraries) -o $(NAME)
+	@$(CC) -g $(CFLAGS) $(src) $(Libraries) -o $(NAME)
 
 bdebug:
-	gcc -g $(CFLAGS) $(bonus_src) $(Libraries) -o $(NAME)
+	@$(CC) -g $(CFLAGS) $(bonus_src) $(Libraries) -o $(NAME)
 
 sanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(src) $(Libraries) -o $(NAME)
+	@$(CC) -g -fsanitize=address $(CFLAGS) $(src) $(Libraries) -o $(NAME)
 
 bsanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(bonus_src) $(Libraries) -o $(NAME)
+	@$(CC) -g -fsanitize=address $(CFLAGS) $(bonus_src) $(Libraries) -o $(NAME)
 
 random_test:
 	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -5); \
 	echo $$NUMBERS; \
 	./push_swap $$NUMBERS | ./Checker_Mac_Stripet $$NUMBERS
-
-test:
-	@printf 'begining of sanitize tests\n'
-	@make sanitize
-	@printf '\n'
-	-./$(NAME)
-	@printf '\n'
-	-./$(NAME) wrong
-	@printf '\n'
-	-./$(NAME) 1
-	@printf '\n'
-	-./$(NAME) 1 wrong 2 3
-	@printf '\n'
-	-./$(NAME) 1 2 5 2 1
-	@printf '\n'
-	-./$(NAME) "1" "wrong" "2" "3"
-	@printf '\n'
-	-./$(NAME) "1" "2" "5" "2" "1"
-
-	@printf '\n'
-	-./$(NAME) "0 1 2 3 4 5 6 7 8 9 10" | wc -l
-	ARG="0 1 2 3 4 5 6 7 8 9 10"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-./$(NAME) "10 9 8 7 6 5 4 3 2 1 0" | wc -l
-	ARG="10 9 8 7 6 5 4 3 2 1 0"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-./$(NAME) "4 67 3 87 23" | wc -l
-	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-
-	@printf 'End of sanitize tests\n\n\n\n\n\n\n\n\n'
-
-	@printf 'begining of leaks tests\n'
-	@make re
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME)
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) wrong
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) 1
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) 1 wrong 2 3
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) 1 2 5 2 1
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) "1" "wrong" "2" "3"
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) "1" "2" "5" "2" "1"
-
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) "0 1 2 3 4 5 6 7 8 9 10"
-	ARG="0 1 2 3 4 5 6 7 8 9 10"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) "10 9 8 7 6 5 4 3 2 1 0"
-	ARG="10 9 8 7 6 5 4 3 2 1 0"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(NAME) "4 67 3 87 23"
-	ARG="4 67 3 87 23"; ./push_swap $$ARG | ./checker_Mac $$ARG
-	@printf '\n'
-
-	@printf 'end of leaks tests\n'

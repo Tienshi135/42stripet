@@ -1,6 +1,6 @@
-CC = cc
-NAME = minishell
-CFLAGS = -Wall -Werror -Wextra
+CC        = cc
+NAME      = minishell
+CFLAGS    = -Wall -Werror -Wextra
 Libraries = -lft -L ./libft -lreadline
 
 src_dir = ./source
@@ -52,34 +52,44 @@ src = 	$(src_dir)/minishell.c\
 		$(src_dir)/parsing/pars_token.c\
 		$(src_dir)/debug.c
 
-obj = $(src:.c=.o)
-deps = $(src:.c=.d)
+obj   = $(src:.c=.o)
+deps  = $(src:.c=.d)
+TOTAL = $(words $(obj))
 
-all: 
-	$(MAKE) -C libft
-	$(MAKE) $(NAME)
+all:
+	@$(MAKE) --no-print-directory -C libft
+	@$(MAKE) --no-print-directory $(NAME)
 
-$(NAME):$(obj)
-	$(CC) $(CFLAGS) $^ $(Libraries) -o $@
+$(NAME): $(obj)
+	@printf "  \033[0;34m[LD]\033[0m  Linking %s\n" "$@"
+	@$(CC) $(CFLAGS) $^ $(Libraries) -o $@
+	@echo "╔══════════════════════════════════╗"
+	@echo "║         Build complete!          ║"
+	@echo "║          $(NAME) ready           ║"
+	@echo "╚══════════════════════════════════╝"
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	@N=$$(find $(src_dir) -name "*.o" 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 	@$(CC) -MM $(CFLAGS) $< -MF $(@:.o=.d) -MT $@
 
 -include $(deps)
 
 clean:
-	rm -f $(obj)
-	rm -f $(deps)
+	@rm -f $(obj) $(deps)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@$(MAKE) --no-print-directory -C libft fclean
 
 re: fclean all
-	make clean
 
 debug:
-	$(CC) $(CFLAGS) -g $(src) $(Libraries) -o $(NAME)
+	@$(CC) $(CFLAGS) -g $(src) $(Libraries) -o $(NAME)
 
 sanitize:
-	$(CC) $(CFLAGS) -g3 -fsanitize=address $(CFLAGS) $(Libraries) $(src) -o $(NAME)
+	@$(CC) $(CFLAGS) -g3 -fsanitize=address $(Libraries) $(src) -o $(NAME)
+
+.PHONY: all clean fclean re debug sanitize

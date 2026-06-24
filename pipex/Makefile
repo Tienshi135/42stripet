@@ -1,9 +1,11 @@
-Name = pipex
-CFLAGS = -Wall -Werror -Wextra
+Name      = pipex
+CC        = gcc
+CFLAGS    = -Wall -Werror -Wextra
 Libraries = -lft -L ./libft
 
-src_dir = ./source
+src_dir   = ./source
 bonus_dir = ./source/bonus
+
 src = $(src_dir)/errors.c\
       $(src_dir)/pipex.c\
       $(src_dir)/utils.c\
@@ -12,73 +14,53 @@ bonus_src = $(bonus_dir)/errors_bonus.c\
 			$(bonus_dir)/pipex_bonus.c\
 			$(bonus_dir)/utils_bonus.c\
 
-obj = $(src:.c=.o)
+obj       = $(src:.c=.o)
 bonus_obj = $(bonus_src:.c=.o)
+TOTAL     = $(words $(obj))
 
-.PHONY: all libft bonus clean fclean re bre debug bdebug sanitize bsanitize test
+.PHONY: all libft bonus clean fclean re bre debug bdebug sanitize bsanitize
 
 all: libft $(Name)
 
 libft:
-	make -C ./libft
+	@$(MAKE) --no-print-directory -C ./libft
 
-$(Name):$(obj)
-	gcc $^ $(Libraries) -o $@
+$(Name): $(obj)
+	@printf "  \033[0;34m[LD]\033[0m  Linking %s\n" "$@"
+	@$(CC) $(CFLAGS) $^ $(Libraries) -o $@
+	@echo "╔══════════════════════════════════╗"
+	@echo "║         Build complete!          ║"
+	@echo "║           $(Name) ready          ║"
+	@echo "╚══════════════════════════════════╝"
 
 bonus: libft $(bonus_obj)
-	gcc $(bonus_obj) $(Libraries) -o $(Name)
+	@$(CC) $(CFLAGS) $(bonus_obj) $(Libraries) -o $(Name)
+
+%.o: %.c
+	@N=$$(ls $(dir $<)*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(src_dir)/*.o
-	rm -f $(bonus_dir)/*.o
+	@rm -f $(src_dir)/*.o $(bonus_dir)/*.o
 
 fclean: clean
-	rm -f $(Name)
+	@rm -f $(Name)
+	@$(MAKE) --no-print-directory -C ./libft fclean
 
 re: fclean all
 
 bre: fclean bonus
 
 debug:
-	gcc -g $(CFLAGS) $(src) $(Libraries) -o $(Name)
+	@$(CC) -g $(CFLAGS) $(src) $(Libraries) -o $(Name)
 
 bdebug:
-	gcc -g $(CFLAGS) $(bonus_src) $(Libraries) -o $(Name)
+	@$(CC) -g $(CFLAGS) $(bonus_src) $(Libraries) -o $(Name)
 
 sanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(src) $(Libraries) -o $(Name)
+	@$(CC) -g -fsanitize=address $(CFLAGS) $(src) $(Libraries) -o $(Name)
 
 bsanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(bonus_src) $(Libraries) -o $(Name)
-test:
-	@make sanitize
-	@printf '\n'
-	-./$(Name)
-	@printf '\n'
-	-./$(Name) asdasd
-	@printf '\n'
-	-./$(Name) a s d a s d a s d
-
-	@printf '\n'
-	-./$(Name) "empty file" "cat" "hostname" "output.txt"
-	@printf '\n'
-	-./$(Name) "noperm.txt" "cat" "hostname" "noperm.txt"
-	@printf '\n'
-	-./$(Name) "input.txt" "cat" "wc -c" "output.txt"
-
-	@printf '\n\n\n\n\n\n\n\n\n'
-
-	@make re
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name)
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) asdasd
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) a s d a s d a s d
-
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "empty file" "cat" "hostname" "output.txt"
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "noperm" "cat" "hostname" "noperm.txt"
-	@printf '\n'
-	-Leaks --atExit --quiet -- ./$(Name) "input.txt" "cat" "wc -c" "output.txt"
+	@$(CC) -g -fsanitize=address $(CFLAGS) $(bonus_src) $(Libraries) -o $(Name)

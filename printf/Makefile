@@ -1,65 +1,49 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: stripet <stripet@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/18 10:21:12 by tienshi           #+#    #+#              #
-#    Updated: 2023/10/18 11:30:38 by stripet          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
+CC     = gcc
 CFLAGS = -Wall -Werror -Wextra
+NAME   = libftprintf.a
 
-NAME = libftprintf.a
+ConvDir = ./ConversationFunctions/
 
-src =	ft_printf.c\
-		./ConversationFunctions/printchar.c\
-		./ConversationFunctions/printdecimal.c\
-		./ConversationFunctions/printhexadecimall.c\
-		./ConversationFunctions/printhexadecimalu.c\
-		./ConversationFunctions/printinteger.c\
-		./ConversationFunctions/printpointer.c\
-		./ConversationFunctions/printstring.c\
-		./ConversationFunctions/printunsigneddecimal.c\
+src = ft_printf.c\
+	  $(ConvDir)printchar.c\
+	  $(ConvDir)printdecimal.c\
+	  $(ConvDir)printhexadecimall.c\
+	  $(ConvDir)printhexadecimalu.c\
+	  $(ConvDir)printinteger.c\
+	  $(ConvDir)printpointer.c\
+	  $(ConvDir)printstring.c\
+	  $(ConvDir)printunsigneddecimal.c\
 
-obj = $(src:%.c=%.o)
+obj   = $(src:%.c=%.o)
+TOTAL = $(words $(obj))
 
-all:$(NAME)
+all: $(NAME)
 
-$(NAME):$(obj)
-	make -C ./libft all
-	cp ./libft/libft.a $(NAME)
-	ar rcs	$(NAME) $(obj) 
-	
+$(NAME): $(obj)
+	@$(MAKE) --no-print-directory -C ./libft all
+	@cp ./libft/libft.a $(NAME)
+	@ar rcs $(NAME) $(obj)
+	@echo "╔══════════════════════════════════╗"
+	@echo "║         Build complete!          ║"
+	@echo "║          $(NAME) ready           ║"
+	@echo "╚══════════════════════════════════╝"
+
+%.o: %.c
+	@N=$$(ls $(dir $<)*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(obj)
+	@rm -f $(obj)
 
-fclean:
-	rm -f $(NAME)
-	make clean
+fclean: clean
+	@rm -f $(NAME)
+	@$(MAKE) --no-print-directory -C ./libft fclean
 
-libftclean:
-	make -C ./libft clean
-
-libftfclean:
-	make -C ./libft fclean
-
-allclean:
-	make clean
-	make libftclean
-
-allfclean:
-	make fclean
-	make libftfclean
-
-re:
-	make fclean
-	make all
-	
-debug:
-	gcc -g *.c ./ConversationFunctions/*.c -L. ./libft/libft.a
+re: fclean all
 
 executable:
-	gcc $(CFLAGS) main.c -L. libftprintf.a
+	@$(CC) $(CFLAGS) main.c -L. libftprintf.a
+
+.PHONY: all clean fclean re executable

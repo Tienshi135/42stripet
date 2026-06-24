@@ -1,22 +1,5 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: stripet <stripet@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/25 21:27:44 by tienshi           #+#    #+#              #
-#    Updated: 2025/01/07 10:22:14 by marcgodel        ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-Flags = -Wall -Werror -Wextra
-
-NAME = libft.a
-
-AllSrc = $(Base)\
-		$(Bonus)\
-		$(Extra)\
+FLAGS = -Wall -Werror -Wextra
+NAME  = libft.a
 
 Base =	ft_memset.c\
 		ft_bzero.c\
@@ -52,7 +35,6 @@ Base =	ft_memset.c\
 		ft_putstr_fd.c\
 		ft_putendl_fd.c\
 		ft_putnbr_fd.c\
-	
 
 Bonus = ft_lstnew.c\
 		ft_lstadd_front.c\
@@ -63,7 +45,7 @@ Bonus = ft_lstnew.c\
 		ft_lstclear.c\
 		ft_lstiter.c\
 		ft_lstmap.c\
-		
+
 Extra = ft_isspace.c\
 		ft_abs.c\
 		get_next_line.c\
@@ -80,44 +62,35 @@ Extra = ft_isspace.c\
 		ft_isint.c\
 		ft_argv_to_str.c\
 
-AllObj = $(BaseObj)\
-		$(BonusObj)\
-		$(ExtraObj)\
+AllSrc = $(Base) $(Bonus) $(Extra)
+AllObj = $(AllSrc:.c=.o)
+TOTAL  = $(words $(AllObj))
 
-BaseObj = $(Base:%.c=%.o)
+all: $(NAME)
 
-BonusObj = $(Bonus:%.c=%.o)
+$(NAME): $(AllObj)
+	@ar rcs $(NAME) $(AllObj)
+	@echo "╔══════════════════════════════════╗"
+	@echo "║            COMPILED!             ║"
+	@echo "║        $(NAME) is ready!         ║"
+	@echo "╚══════════════════════════════════╝"
 
-ExtraObj = $(Extra:%.c=%.o)
-
-all:$(NAME)
-
-$(NAME):$(AllObj)
-	ar rcs	$(NAME) $(AllObj)
-
-bonus:$(BonusObj)
-	ar rcs	$(NAME) $(BonusObj)
-
-$(AllObj):
-	gcc $(Flags) -c $(AllSrc)
-
-%: %.c
-	gcc $(Flags) -c $(^)
-	ar rcs $(NAME) $(^:%.c=%.o) 
+%.o: %.c
+	@N=$$(ls *.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
+	@gcc $(FLAGS) -c $< -o $@
 
 clean:
-	rm -f $(AllObj)
+	@rm -f $(AllObj)
 
-fclean:
-	rm -f $(NAME)
-	make clean
+fclean: clean
+	@rm -f $(NAME)
 
-re:
-	@make fclean
-	@make all
-	@echo "Recompiled everything"
+re: fclean all
 
-debug:
-	make fclean
-	gcc $(Flags) -g -c $(AllSrc)
-	make $(NAME)
+debug: fclean
+	@gcc $(FLAGS) -g -c $(AllSrc)
+	@$(MAKE) $(NAME)
+
+.PHONY: all clean fclean re debug

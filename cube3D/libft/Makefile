@@ -1,9 +1,5 @@
-#variables
-
-NAME = libft.a
-
+NAME   = libft.a
 SRCDIR = ./src/
-
 INCDIR = ../include/
 
 FILES = ft_isalpha\
@@ -56,26 +52,26 @@ FILES = ft_isalpha\
 		ft_lstdel_node\
 		ft_lstdel_nxtnode\
 
-SRC = $(addprefix $(SRCDIR), $(addsuffix .c, $(FILES)))
+SRC   = $(addprefix $(SRCDIR), $(addsuffix .c, $(FILES)))
+OBJ   = $(SRC:.c=.o)
+TOTAL = $(words $(OBJ))
 
-#INC = $(addprefix $(INCDIR), libft.h)
-INC = libft.h
-
-OBJ = $(SRC:.c=.o)
-
-CC = cc
-
+CC     = cc
 CFLAGS = -Wall -Wextra -Werror -g
-
-#rules
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
+	@echo "╔══════════════════════════════════╗"
+	@echo "║            COMPILED!             ║"
+	@echo "║        $(NAME) is ready!         ║"
+	@echo "╚══════════════════════════════════╝"
 
 %.o: %.c
-	@printf "Compiling: %s                                    \r" $<
+	@N=$$(ls $(SRCDIR)*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
 	@$(CC) -I$(INCDIR) $(CFLAGS) -c $< -o $@
 
 clean:
