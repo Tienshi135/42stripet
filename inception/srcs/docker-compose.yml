@@ -65,6 +65,15 @@ services:
      restart: always
 
 
+  adminer:
+    build: ./requirements/bonus/adminer
+    container_name: adminer
+    networks:
+      - inception
+    restart: always
+    depends_on:
+      - mariadb
+
 
 
 volumes:
