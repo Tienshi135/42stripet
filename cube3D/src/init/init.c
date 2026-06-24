@@ -68,6 +68,7 @@ t_positions), 1, __FILE__, __LINE__);
 			__FILE__, __LINE__);
 	data->player = (t_camera *)safe_calloc(sizeof(t_camera), 1,
 			__FILE__, __LINE__);
+	data->player->base_speed = WALK;
 	data->mouse = (t_mouse *)safe_calloc(sizeof(t_mouse), 1,
 			__FILE__, __LINE__);
 	data->dda = (t_dda *)safe_calloc(sizeof(t_dda), 1, __FILE__, __LINE__);

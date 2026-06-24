@@ -48,13 +48,13 @@ void	handle_sens(t_data *data, int keycode)
 {
 	if (keycode == UP_ARROW)
 	{
-		if (data->mouse->sens < 2)
-			data->mouse->sens += 0.1;
+		if (data->player->base_speed < 4.0f)
+			data->player->base_speed += 0.5f;
 	}
 	else if (keycode == DOWN_ARROW)
 	{
-		if (data->mouse->sens > 0.2)
-			data->mouse->sens -= 0.1;
+		if (data->player->base_speed > 0.5f)
+			data->player->base_speed -= 0.5f;
 	}
 }
 

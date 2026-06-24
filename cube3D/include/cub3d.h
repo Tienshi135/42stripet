@@ -155,6 +155,7 @@ typedef struct s_camera
 	bool		left_rotate;
 	bool		right_rotate;
 	bool		boost;
+	float		base_speed;
 }	t_camera;
 
 typedef struct s_mlx_img

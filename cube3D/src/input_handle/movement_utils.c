@@ -18,8 +18,8 @@ float	get_speed(void)
 
 	data = recover_data_address(NULL);
 	if (data->player->boost)
-		return (RUN);
-	return (WALK);
+		return (data->player->base_speed * RUN);
+	return (data->player->base_speed);
 }
 
 bool	point_valid(t_map *map, t_coords point)

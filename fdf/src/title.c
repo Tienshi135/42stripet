@@ -21,18 +21,18 @@ void	title_render(t_data *data)
 	mlx_put_image_to_window(data->tun_id, data->w_id,
 		data->title.img_id, 1920 / 4, (1080 / 4 - 80) / 2);
 	mlx_string_put(data->tun_id, data->w_id,
-		1920 / 4 + (1920 / 2 - 10 * 10) / 2, (1080 / 4 - 80) / 2,
+		1920 / 4 + (1920 / 2 - 10 * 10) / 2, (1080 / 4 - 80) / 2 + 20,
 		BLACK, "Fil De Fer");
 	if (data->camera.mode == ISOMETRIC)
 	{
 		mlx_string_put(data->tun_id, data->w_id,
-			1920 / 4 + (1920 / 2 - 10 * 23) / 2, (1080 / 4 - 80) / 2 + 40,
+			1920 / 4 + (1920 / 2 - 10 * 23) / 2, (1080 / 4 - 80) / 2 + 60,
 			BLACK, "In Isometric projection");
 	}
 	else if (data->camera.mode == CAVALIER)
 	{
 		mlx_string_put(data->tun_id, data->w_id,
-			1920 / 4 + (1920 / 2 - 10 * 22) / 2, (1080 / 4 - 80) / 2 + 40,
+			1920 / 4 + (1920 / 2 - 10 * 22) / 2, (1080 / 4 - 80) / 2 + 60,
 			BLACK, "In Cavalier projection");
 	}
 }
