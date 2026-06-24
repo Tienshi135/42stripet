@@ -5,8 +5,15 @@ Libraries = -lft -L ./libft $(Lib_readl)
 
 src_dir = ./source
 
-Lib_readl =  -L/Users/mgodel/.brew/opt/readline/lib -lreadline
-Inc_readl = -I/Users/mgodel/.brew/opt/readline/include
+UNAME = $(shell uname)
+
+ifeq ($(UNAME), Darwin)
+Lib_readl = -L$(shell brew --prefix readline 2>/dev/null)/lib -lreadline
+Inc_readl = -I$(shell brew --prefix readline 2>/dev/null)/include
+else
+Lib_readl = -lreadline
+Inc_readl =
+endif
 
 src = 	$(src_dir)/minishell.c\
 		$(src_dir)/errors.c\

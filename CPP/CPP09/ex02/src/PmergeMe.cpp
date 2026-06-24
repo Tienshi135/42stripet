@@ -47,11 +47,19 @@ void	PmergeMe::pMerge(char **input)
 		std::stringstream	stream;
 		int					num;
 		try {
+			std::vector<int>	seen;
+			std::queue<int>		copy(this->_input);
+
 			stream << input[i];
 			stream >> num;
 			if (stream.fail() || !stream.eof())
 				throw std::runtime_error("Invalid number");
-			if (std::find(this->_input.front(), this->_input.back(), num) != this->_input.back())
+			while (!copy.empty())
+			{
+				seen.push_back(copy.front());
+				copy.pop();
+			}
+			if (std::find(seen.begin(), seen.end(), num) != seen.end())
 				throw std::runtime_error("Duplicate number");
 			this->_input.push(num);
 		} catch (std::exception &e) {

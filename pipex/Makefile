@@ -15,13 +15,18 @@ bonus_src = $(bonus_dir)/errors_bonus.c\
 obj = $(src:.c=.o)
 bonus_obj = $(bonus_src:.c=.o)
 
-all: $(Name)
+.PHONY: all libft bonus clean fclean re bre debug bdebug sanitize bsanitize test
+
+all: libft $(Name)
+
+libft:
+	make -C ./libft
 
 $(Name):$(obj)
-	gcc $(Libraries) $^ -o $@
+	gcc $^ $(Libraries) -o $@
 
-bonus:$(bonus_obj)
-	gcc $(Libraries) $^ -o $(Name)
+bonus: libft $(bonus_obj)
+	gcc $(bonus_obj) $(Libraries) -o $(Name)
 
 clean:
 	rm -f $(src_dir)/*.o
@@ -35,16 +40,16 @@ re: fclean all
 bre: fclean bonus
 
 debug:
-	gcc -g $(CFLAGS) $(Libraries) $(src) -o $(Name)
+	gcc -g $(CFLAGS) $(src) $(Libraries) -o $(Name)
 
 bdebug:
-	gcc -g $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
+	gcc -g $(CFLAGS) $(bonus_src) $(Libraries) -o $(Name)
 
 sanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(src) -o $(Name)
+	gcc -g -fsanitize=address $(CFLAGS) $(src) $(Libraries) -o $(Name)
 
 bsanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(bonus_src) -o $(Name)
+	gcc -g -fsanitize=address $(CFLAGS) $(bonus_src) $(Libraries) -o $(Name)
 test:
 	@make sanitize
 	@printf '\n'

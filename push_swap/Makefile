@@ -31,13 +31,18 @@ bonus_src = $(bonus_dir)/push_swap_checker_bonus.c\
 obj = $(src:.c=.o)
 bonus_obj = $(bonus_src:.c=.o)
 
-all: $(NAME)
+.PHONY: all libft bonus clean fclean re bre debug bdebug sanitize bsanitize test
+
+all: libft $(NAME)
+
+libft:
+	make -C ./libft
 
 $(NAME):$(obj)
-	gcc $(Libraries) $^ -o $@
+	gcc $^ $(Libraries) -o $@
 
-bonus:$(bonus_obj)
-	gcc $(Libraries) $^ -o Checker_Mac_Stripet
+bonus: libft $(bonus_obj)
+	gcc $(bonus_obj) $(Libraries) -o Checker_Mac_Stripet
 
 clean:
 	rm -f $(src_dir)/*.o
@@ -52,16 +57,16 @@ re: fclean all
 bre: fclean bonus
 
 debug:
-	gcc -g $(CFLAGS) $(Libraries) $(src) -o $(NAME)
+	gcc -g $(CFLAGS) $(src) $(Libraries) -o $(NAME)
 
 bdebug:
-	gcc -g $(CFLAGS) $(Libraries) $(bonus_src) -o $(NAME)
+	gcc -g $(CFLAGS) $(bonus_src) $(Libraries) -o $(NAME)
 
 sanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(src) -o $(NAME)
+	gcc -g -fsanitize=address $(CFLAGS) $(src) $(Libraries) -o $(NAME)
 
 bsanitize:
-	gcc -g -fsanitize=address $(CFLAGS) $(Libraries) $(bonus_src) -o $(NAME)
+	gcc -g -fsanitize=address $(CFLAGS) $(bonus_src) $(Libraries) -o $(NAME)
 
 random_test:
 	@NUMBERS=$$(jot -r 1000 -300 300 | sort -n | uniq | awk 'BEGIN {srand()} {print rand(), $$0}' | sort -n | cut -d ' ' -f2- | head -5); \

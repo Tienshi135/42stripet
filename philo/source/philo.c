@@ -53,7 +53,9 @@ void	*death_monitor(void *arg)
 		if (get_time() - philo->last_meal > philo->data->t_die)
 		{
 			safe_set_int(&philo->data->run, 0, &philo->data->run_lock);
-			printf("%d Philo %d died\n", get_time(), philo->id);
+			printf("%ld Philo %d died\n", get_time() - philo->data->start,
+				philo->id);
+			fflush(stdout);
 			return (NULL);
 		}
 		sleep_time(10);
@@ -69,31 +71,31 @@ void	*philo_life(void *arg)
 	pthread_create(&philo->death_monitor, NULL, &death_monitor, philo);
 	while (1)
 	{
-		if (!safe_print(philo->data, "%d Philo %d is thinking\n", philo->id))
+		if (!safe_print(philo->data, "%ld Philo %d is thinking\n", philo->id))
 			return (NULL);
 		if (philo->id % 2 == 0)
 		{
 			pthread_mutex_lock(philo->left_fork);
-			if (!safe_print(philo->data, "%d Philo %d has taken a fork\n", philo->id))
+			if (!safe_print(philo->data, "%ld Philo %d has taken a fork\n", philo->id))
 				return (NULL);
 			pthread_mutex_lock(philo->right_fork);
 		}
 		else
 		{
 			pthread_mutex_lock(philo->right_fork);
-			if (!safe_print(philo->data, "%d Philo %d has taken a fork\n", philo->id))
+			if (!safe_print(philo->data, "%ld Philo %d has taken a fork\n", philo->id))
 				return (NULL);
 			pthread_mutex_lock(philo->left_fork);
 		}
-		if (!safe_print(philo->data, "%d Philo %d has taken a fork\n", philo->id))
+		if (!safe_print(philo->data, "%ld Philo %d has taken a fork\n", philo->id))
 			return (NULL);
-		if (!safe_print(philo->data, "%d Philo %d is eating\n", philo->id))
+		if (!safe_print(philo->data, "%ld Philo %d is eating\n", philo->id))
 			return (NULL);
 		philo->last_meal = get_time();
 		sleep_time(philo->data->t_eat);
 		pthread_mutex_unlock(philo->left_fork);
 		pthread_mutex_unlock(philo->right_fork);
-		if (!safe_print(philo->data, "%d Philo %d is sleeping\n", philo->id))
+		if (!safe_print(philo->data, "%ld Philo %d is sleeping\n", philo->id))
 			return (NULL);
 		sleep_time(philo->data->t_sleep);
 	}

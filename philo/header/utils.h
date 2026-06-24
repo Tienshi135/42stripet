@@ -19,7 +19,7 @@
 # include <stdio.h>
 
 int		p_atoi(const char *str);
-int		get_time(void);
+long	get_time(void);
 void	sleep_time(int time);
 int		safe_print(t_data *data, char *str, int id);
 int		safe_get_int(int *value, pthread_mutex_t *mutex);

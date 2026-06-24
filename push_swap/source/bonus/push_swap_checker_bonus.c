@@ -73,16 +73,19 @@ int	execute(t_data *data, char	*buffer)
 void	get_instructions(t_data *data)
 {
 	char	*buffer;
+	char	*trimmed;
 
 	buffer = get_next_line(STDIN_FILENO);
 	while (buffer)
 	{
-		if (execute(data, buffer) == -1)
+		trimmed = ft_strtrim(buffer, "\n");
+		free(buffer);
+		if (execute(data, trimmed) == -1)
 		{
-			free(buffer);
+			free(trimmed);
 			error(data);
 		}
-		free(buffer);
+		free(trimmed);
 		buffer = get_next_line(STDIN_FILENO);
 	}
 }
@@ -91,6 +94,9 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	data.a = NULL;
+	data.b = NULL;
+	data.list = NULL;
 	if (argc < 2)
 		error(&data);
 	data.list = ft_argv_to_str(argc, argv);

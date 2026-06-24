@@ -38,17 +38,17 @@ int	p_atoi(const char *str)
 	return (nb * sign);
 }
 
-int	get_time(void)
+long	get_time(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+	return ((long)time.tv_sec * 1000 + time.tv_usec / 1000);
 }
 
 void	sleep_time(int time)
 {
-	int	start;
+	long	start;
 
 	start = get_time();
 	while (get_time() - start < time)
@@ -66,6 +66,7 @@ int	safe_print(t_data *data, char *str, int id)
 		return (0);
 	}
 	printf(str, get_time() - data->start, id);
+	fflush(stdout);
 	pthread_mutex_unlock(&data->print);
 	if (data->run == 0)
 		return (0);
