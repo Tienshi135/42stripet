@@ -1,0 +1,15 @@
+.DS_Store
+*.o
+*.d
+*.a
+*.dSYM/
+
+# project binaries (42 exercise executables, not build artifacts to track)
+printf/ft_printf
+pipex/pipex
+push_swap/push_swap
+push_swap/checker
+philo/philo
+fdf/fdf
+minishell/minishell
+cube3D/cub3D

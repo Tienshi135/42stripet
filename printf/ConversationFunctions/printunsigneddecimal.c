@@ -19,8 +19,6 @@ static unsigned int	nb_len(unsigned int c)
 	returnvalue = 0;
 	if (c == 0)
 		return (1);
-	if (c < 0)
-		returnvalue++;
 	while (c != 0)
 	{
 		c /= 10;
