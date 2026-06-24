@@ -10,9 +10,9 @@ obj_dir = ./obj
 # compilator and compilation flags
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -g3
-INCLUDES = -I ./includes -I ./libft -I ./minilibx_linux
-LDFLAGS = -L ./libft -L ./minilibx_linux
-LDLIBS = -lmlx_Linux -lft -lXext -lX11 -lm -lz
+INCLUDES = -I ./includes -I ./libft -I ./mlx
+LDFLAGS = -L ./libft -L ./mlx
+LDLIBS = -lmlx -lft -lXext -lX11 -lm -lz -lXfixes
 
 # source files (recursively find all .c files)
 SRCS = $(shell find $(src_dir) -name "*.c")
@@ -24,7 +24,7 @@ all: $(NAME)
 debug: fclean
 	@$(MAKE) DEBUG=1
 
-$(NAME): libft/libft.a minilibx_linux/libmlx_Linux.a $(OBJS)
+$(NAME): libft/libft.a mlx/libmlx.a $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LDFLAGS) $(LDLIBS) -o $@
 
 # Create object files from source files
@@ -43,8 +43,8 @@ libft/libft.a:
 	$(MAKE) -C libft
 
 # Build mlx
-minilibx_linux/libmlx_Linux.a:
-	$(MAKE) -C minilibx_linux
+mlx/libmlx.a:
+	$(MAKE) -C mlx
 
 # Clean object files
 clean:
@@ -55,7 +55,7 @@ clean:
 fclean: clean
 	rm -f $(NAME)
 	$(MAKE) -C libft fclean
-	$(MAKE) -C minilibx_linux clean
+	$(MAKE) -C mlx clean
 
 # Rebuild everything
 re: fclean all

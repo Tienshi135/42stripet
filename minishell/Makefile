@@ -1,19 +1,9 @@
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Werror -Wextra $(Inc_readl)
-Libraries = -lft -L ./libft $(Lib_readl)
+CFLAGS = -Wall -Werror -Wextra
+Libraries = -lft -L ./libft -lreadline
 
 src_dir = ./source
-
-UNAME = $(shell uname)
-
-ifeq ($(UNAME), Darwin)
-Lib_readl = -L$(shell brew --prefix readline 2>/dev/null)/lib -lreadline
-Inc_readl = -I$(shell brew --prefix readline 2>/dev/null)/include
-else
-Lib_readl = -lreadline
-Inc_readl =
-endif
 
 src = 	$(src_dir)/minishell.c\
 		$(src_dir)/errors.c\
