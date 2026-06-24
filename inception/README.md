@@ -102,6 +102,10 @@ make re      # fclean then build then up
   ```bash
   docker compose -f srcs/docker-compose.yml ps
   ```
+- Compose config validation (requires local `srcs/.env` and `secrets/*`):
+  ```bash
+  docker compose -f srcs/docker-compose.yml config
+  ```
 - Logs:
   ```bash
   make logs

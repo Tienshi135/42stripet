@@ -50,6 +50,7 @@ Mounted as:
 ### Startup order
 
 - `nginx` depends on `wordpress`
+- `nginx` depends on `website`
 - `wordpress` depends on `mariadb`
 - `website` has no explicit dependency
 

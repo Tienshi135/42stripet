@@ -19,6 +19,7 @@ services:
       - inception
     depends_on:
       - wordpress
+      - website
     restart: always
 
   wordpress:
@@ -58,11 +59,11 @@ services:
 
     
   website:
-     build: ./requirements/bonus/website
-     container_name: website
-     networks:
-       - inception
-     restart: always
+    build: ./requirements/bonus/website
+    container_name: website
+    networks:
+      - inception
+    restart: always
 
 
 
