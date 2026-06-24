@@ -1,0 +1,407 @@
+#include "Response_headers/ResponsePost.hpp"
+#include "Request.hpp"
+#include "Configuration.hpp"
+
+/*============== constructor and destructor =============*/
+
+ResponsePost::ResponsePost(ServerCfg const& cfg, Request const& req)
+: Response(cfg, req), _contentType(UNKNOWNCT), _boundary("")
+{
+	std::string elements = this->_req.getHeader("Content-Type");
+	if (elements.empty())
+		return;
+	this->_contentTypeElements = parseHeaderParameters(elements);
+
+	this->_contentType = extractContentType();
+
+	this->_boundary = this->_contentTypeElements["boundary"];
+
+	// this->printContentTypeElements();
+}
+
+ResponsePost::~ResponsePost() {}
+
+/*============== private member functions =============*/
+
+void	ResponsePost::printContentTypeElements(void)
+{
+
+	static const std::string types[] = {"text/plain", "multipart/form-data", "application/json", "application/x-www-form-urlencoded"};
+
+	std::cout << "Content-type elements in POST request" << std::endl;
+	std::cout << "Content-type: " << types[this->_contentType] << std::endl;
+	std::cout << "Boundary: " << this->_boundary << std::endl;
+
+	std::map<std::string, std::string>::iterator it;
+	for (it = this->_contentTypeElements.begin(); it != this->_contentTypeElements.end(); it++)
+		std::cout << "Element: " << it->first << "; value = " << it->second << std::endl;
+}
+
+ResponsePost::e_contentType ResponsePost::extractContentType()
+{
+	static const std::string types[] = {"text/plain", "multipart/form-data", "application/json", "application/x-www-form-urlencoded"};
+	for (int i = 0; i < ARRAY_SIZE(types); i++)
+	{
+		if (this->_contentTypeElements.find(types[i]) != this->_contentTypeElements.end())
+			return static_cast<e_contentType>(i);
+	}
+	return UNKNOWNCT;
+}
+std::string	ResponsePost::normalizeFilename(std::string const& fileName)
+{
+	std::string baseName;
+	std::string type;
+
+	size_t	dotPos = fileName.find_last_of(".");//TODO make this a helper method "findExtension"
+	if (dotPos != std::string::npos && dotPos > 0)
+	{
+		baseName = fileName.substr(0, dotPos);
+		type = fileName.substr(dotPos + 1);
+		if (type.empty())
+			type = "dat";
+	}
+	else
+	{
+		baseName = fileName.empty() ? "uploaded_file" : fileName;
+		type = "dat";
+	}
+
+	this->makeUnicIde(baseName, type);
+
+	return baseName;
+}
+
+void	ResponsePost::makeUnicIde(std::string& fileName, std::string const& type)
+{
+	std::stringstream ss;
+	ss << fileName << "_" << time(NULL) << "." << type;
+	fileName = ss.str();
+}
+
+bool	ResponsePost::setOrCreatePath(std::string const& path)
+{
+	if (pathIsDirectory(path))
+		return true;
+
+	if (pathIsExecutable(path))
+	{
+		LOG_HIGH_WARNING_LINK("Path exists but is an executable, not a directory: [" + path + "]");
+	this->_responseIsErrorPage(INTERNAL_SERVER_ERROR);
+		return false;
+	}
+	if (pathIsRegFile(path))
+	{
+		LOG_HIGH_WARNING_LINK("Path exists but is a file, not a directory: [" + path + "]");
+	this->_responseIsErrorPage(INTERNAL_SERVER_ERROR);
+		return false;
+	}
+
+
+	if (mkdir(path.c_str(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0)
+	{
+		LOG_HIGH_WARNING_LINK("Failed to create direcory: [" + path + "]");
+	this->_responseIsErrorPage(INTERNAL_SERVER_ERROR);
+		return false;
+	}
+
+	return true;
+}
+
+e_errorcode ResponsePost::saveTextFile(void)
+{
+	std::string bodyFilePath = this->_req.getBodyFilePath();
+	if (bodyFilePath.empty())
+	{
+		LOG_HIGH_WARNING_LINK("No path found for tmp body");
+		return INTERNAL_SERVER_ERROR;
+	}
+
+	std::ifstream bodyFile(bodyFilePath.c_str(), std::ios::binary);
+	if (!bodyFile.is_open())
+	{
+		LOG_HIGH_WARNING_LINK("Failed to oppen temp body file");
+		return INTERNAL_SERVER_ERROR;
+	}
+
+	std::string name = "Text";
+	std::string ext = "txt";
+	this->makeUnicIde(name, ext);
+	this->_fileName = name;
+
+	std::string savePath = this->saveFilePath();
+	if (savePath.empty())
+	{
+		bodyFile.close();
+		return RESPONSEPOST_ERROR;
+	}
+
+	std::ofstream outFile(savePath.c_str(), std::ios::binary);
+	if (!outFile.is_open())
+	{
+		bodyFile.close();
+		LOG_HIGH_WARNING_LINK("Couldn't open path to save file [" + savePath + "]");
+		return INTERNAL_SERVER_ERROR;
+	}
+
+	char buffer[1024 * 8];
+	while (bodyFile.read(buffer, sizeof(buffer)) || bodyFile.gcount() > 0)
+	{
+		outFile.write(buffer, bodyFile.gcount());
+		if (bodyFile.gcount() < 0)
+		{
+			LOG_HIGH_WARNING_LINK("Writing process failed from file [" + bodyFilePath + "] to file [" + savePath + "]");
+			break;
+		}
+	}
+
+	bodyFile.close();
+	outFile.close();
+
+	if (outFile.fail())
+	{
+		std::remove(savePath.c_str());
+		LOG_HIGH_WARNING_LINK("Failed to write file [" + savePath + "]");
+		return INTERNAL_SERVER_ERROR;
+	}
+
+	return RESPONSEPOST_OK;
+}
+
+e_errorcode ResponsePost::buildFromPlainText(void)
+{
+	e_errorcode error = this->saveTextFile();
+	if (error)
+		return (error);
+
+	this->_addStandardHeaders();
+	std::string resourceUri = this->_normalizePath(this->_fileName, this->_req.getUri());
+
+	this->_addHeader("Location", resourceUri);
+	this->_bodyIsFile = false;
+	this->_setStatus(CREATED);
+
+	std::string responseBody = "<!DOCTYPE html><html><body><h1>Created</h1><p>Created file " + this->_fileName + "</p></body></html>";
+
+	this->_setBody(responseBody, "text/html");
+
+	LOG_INFO("Text file succesfully uploaded: [" + this->_fileName + "]");
+
+	return (error);
+}
+
+e_errorcode	ResponsePost::buildFromMultipart(void)
+{
+	if (this->_boundary.empty())
+	{
+		LOG_WARNING_LINK("request body has no boundaries");
+		return BAD_REQUEST;
+	}
+
+	std::string bodyFilePath = this->_req.getBodyFilePath();
+
+	if (bodyFilePath.empty())
+	{
+		LOG_HIGH_WARNING_LINK("No body file path available");
+		return BAD_REQUEST;
+	}
+
+	std::ifstream bodyFile(bodyFilePath.c_str(), std::ios::binary);
+	if (!bodyFile.is_open())
+	{
+		LOG_HIGH_WARNING_LINK("Failed to open body file: " + bodyFilePath);
+		return INTERNAL_SERVER_ERROR;
+	}
+
+	// Parse headers (same as above)
+	std::string boundaryStart = "--" + this->_boundary;
+	std::string boundaryEnd = boundaryStart + "--";
+	std::string line;
+	bool foundBoundary = false;
+
+	while (std::getline(bodyFile, line))
+	{
+		if (!line.empty() && line[line.size() - 1] == '\r')
+			line.erase(line.size() - 1);
+
+		if (line == boundaryStart)
+		{
+			foundBoundary = true;
+			break;
+		}
+	}
+
+	if (!foundBoundary)
+	{
+		bodyFile.close();
+		LOG_HIGH_WARNING_LINK("Open boundary not found on body file: " + bodyFilePath);
+		return BAD_REQUEST;
+	}
+
+	// Parse headers
+	while (std::getline(bodyFile, line))
+	{
+		if (!line.empty() && line[line.size() - 1] == '\r')
+			line.erase(line.size() - 1);
+
+		if (line.empty())
+			break;
+
+		if (line.find("Content-Disposition:") == 0)
+		{
+			std::string params = line.substr(20);
+			std::map<std::string, std::string> disposition = parseHeaderParameters(params);
+
+			std::map<std::string, std::string>::iterator it = disposition.find("filename");
+			if (it != disposition.end())
+				this->_fileName = this->normalizeFilename(it->second);
+		}
+
+		if (line.find("Content-Type:") == 0)
+		{
+			std::string params = line.substr(13);
+			std::map<std::string, std::string> contentType = parseHeaderParameters(params);
+
+			if (!contentType.empty())
+				this->_mime = contentType.begin()->first;
+		}
+	}
+
+	// Copy directly to final destination
+	std::string savePath = this->saveFilePath();
+	if (savePath.empty())
+	{
+		bodyFile.close();
+		return RESPONSEPOST_ERROR;//error already set in savefilepath
+	}
+
+	std::ofstream outFile(savePath.c_str(), std::ios::binary);
+	if (!outFile.is_open())
+	{
+		bodyFile.close();
+		LOG_HIGH_WARNING_LINK("Failed to create output file: " + savePath);
+		return INTERNAL_SERVER_ERROR;
+	}
+
+	// Stream copy content until boundary
+	char buffer[4096];
+	std::string leftover;
+
+	while (bodyFile.read(buffer, sizeof(buffer)) || bodyFile.gcount() > 0)
+	{
+		std::string chunk(buffer, bodyFile.gcount());
+		leftover += chunk;
+
+		// Check for closing boundary
+		size_t boundaryPos = leftover.find(boundaryEnd);
+		if (boundaryPos != std::string::npos)
+		{
+			// Write everything before boundary
+			if (boundaryPos >= 2 && leftover[boundaryPos - 2] == '\r')
+				boundaryPos -= 2;
+			else if (boundaryPos >= 1 && leftover[boundaryPos - 1] == '\n')
+				boundaryPos -= 1;
+
+			outFile.write(leftover.data(), boundaryPos);
+			break;
+		}
+
+		// Keep last few bytes in case boundary spans chunks
+		if (leftover.size() > boundaryEnd.size())
+		{
+			size_t writeSize = leftover.size() - boundaryEnd.size();
+			outFile.write(leftover.data(), writeSize);
+			leftover = leftover.substr(writeSize);
+		}
+	}
+
+	bodyFile.close();
+	outFile.close();
+
+	if (outFile.fail())
+	{
+		LOG_HIGH_WARNING_LINK("Failed to write file: " + savePath);
+		std::remove(savePath.c_str());
+		return INTERNAL_SERVER_ERROR;
+	}
+
+	std::string resourceUri = this->_req.getUri();
+	if (!resourceUri.empty() && resourceUri[resourceUri.size() - 1] != '/')
+		resourceUri += "/";
+	resourceUri += this->_fileName;
+
+	this->_addStandardHeaders();
+	this->_addHeader("Location", resourceUri);
+	this->_bodyIsFile = false;
+	this->_setStatus(CREATED);
+	this->_setBody("<html><body><h1>201 Created</h1></body></html>", "text/html");//TODO  this is a placeholder, delete this when implemented a response page for upload
+
+	return RESPONSEPOST_OK;
+}
+
+std::string	ResponsePost::saveFilePath(void)
+{
+	std::string savePath;
+
+	Location const* location = this->_cfg.getBestMatchLocation(this->_req.getUri());
+	if (!location)
+	{
+		savePath = _normalizePath(this->_cfg.getRoot(), "/tmp");
+		if (!this->setOrCreatePath(savePath))
+			return "";
+	}
+	else
+	{
+		savePath = location->getStore();
+		if (savePath.empty())
+		{
+			std::string uriPath = this->_req.getUri().substr(location->getLocationPath().size());
+			savePath = _normalizePath(location->getRoot(), uriPath);
+		}
+		if (!this->setOrCreatePath(savePath))
+			return "";
+	}
+
+	savePath = this->_normalizePath(savePath, this->_fileName);
+
+	if (!_isSecurePath(savePath))
+	{
+		LOG_WARNING_LINK("Response POST build insecure path: [" + savePath + "]");
+		_responseIsErrorPage(BAD_REQUEST);
+		return "";
+	}
+
+	return savePath;
+}
+
+/*===================================== member function ================================================*/
+
+void	ResponsePost::buildResponse(void)
+{
+	e_errorcode errorCode;
+
+	switch (this->_contentType)
+	{
+	case TEXT:
+		errorCode = this->buildFromPlainText();
+		if (errorCode > 0)
+			this->_responseIsErrorPage(errorCode);
+		return;
+	case MULTIPART:
+		errorCode = this->buildFromMultipart();
+		if (errorCode > 0)
+			this->_responseIsErrorPage(errorCode);
+		return;
+	case JSON:
+		LOG_WARNING_LINK("Content type [application/json] not supported yet");
+		this->_responseIsErrorPage(UNSUPPORTED_MEDIA_TYPE);
+		return;
+	case URLENCODED:
+		LOG_WARNING_LINK("Content type [application/x-www-form-urlencoded] not supported yet");
+		this->_responseIsErrorPage(UNSUPPORTED_MEDIA_TYPE);
+		return;
+	default:
+		LOG_WARNING_LINK("Content type not supported");
+		this->_responseIsErrorPage(UNSUPPORTED_MEDIA_TYPE);
+		return;
+	}
+}

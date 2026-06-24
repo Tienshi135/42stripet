@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DELETE Test</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        .container {
+            max-width: 600px;
+        }
+        button {
+            background-color: #dc3545;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+        #result {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DELETE Method Test</h1>
+        <p class="subtitle">Test DELETE HTTP method implementation</p>
+
+    <label for="filepath">File path to delete (e.g., /upload/test.txt):</label>
+    <input type="text" id="filepath" placeholder="/upload/filename.ext" />
+
+    <button onclick="deleteFile()">Delete File</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function deleteFile() {
+            const filepath = document.getElementById('filepath').value;
+            const resultDiv = document.getElementById('result');
+
+            if (!filepath) {
+                showResult('Please enter a file path', false);
+                return;
+            }
+
+            try {
+                const response = await fetch(filepath, {
+                    method: 'DELETE'
+                });
+
+                resultDiv.style.display = 'block';
+
+                if (response.ok) {
+                    const text = await response.text();
+                    showResult(`✅ Success! Status: ${response.status}\n\n${text}`, true);
+                } else {
+                    const text = await response.text();
+                    showResult(`❌ Error! Status: ${response.status}\n\n${text}`, false);
+                }
+            } catch (error) {
+                showResult(`❌ Network error: ${error.message}`, false);
+            }
+        }
+
+        function showResult(message, isSuccess) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = message;
+            resultDiv.className = isSuccess ? 'success' : 'error';
+            resultDiv.style.display = 'block';
+        }
+    </script>
+        <div class="back-link">
+            <a href="/">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

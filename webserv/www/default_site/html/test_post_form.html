@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST CGI Test Form</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .container {
+            max-width: 600px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        button {
+            font-size: 18px;
+        }
+        .info {
+            background: #f0f4ff;
+            padding: 15px;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+        .info p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>POST CGI Test Form</h1>
+
+        <div class="info">
+            <p><strong>Method:</strong> POST</p>
+            <p><strong>Action:</strong> /cgi-bin/test_POST.py</p>
+            <p><strong>Content-Type:</strong> application/x-www-form-urlencoded</p>
+        </div>
+
+        <form method="POST" action="/cgi-bin/test_POST.py">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" placeholder="25" min="1" max="120">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" placeholder="Type your message here..."></textarea>
+            </div>
+
+            <button type="submit">Send POST Request</button>
+        </form>
+
+        <div class="back-link">
+            <a href="/">← Back to Main Page</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Test - Webserv</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Page-specific styles */
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="emoji">🎯</span>Location Test Page</h1>
+        <p class="subtitle">Testing /location_web_test configuration</p>
+
+        <div class="success-badge">
+            ✅ Location Successfully Matched!
+        </div>
+
+        <div class="info-section">
+            <h2>Request Information</h2>
+            <div class="info-item">
+                <span class="info-label">Requested URI:</span>
+                <span class="info-value">/location_web_test/index.html</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Matched Location:</span>
+                <span class="info-value">/location_web_test</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Server:</span>
+                <span class="info-value">production_server</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Host:</span>
+                <span class="info-value">127.0.0.1:8080</span>
+            </div>
+        </div>
+
+        <div class="test-results">
+            <h3>✓ Configuration Tests Passed</h3>
+            <ul>
+                <li>Location block correctly matched</li>
+                <li>Allowed methods: GET only</li>
+                <li>Root directory: ./default_site/loc_web_test</li>
+                <li>Index file: index.html</li>
+                <li>Autoindex: ON</li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h2>Location Configuration</h2>
+            <div class="config-display">
+<span class="keyword">location</span> <span class="value">/location_web_test</span> {
+    <span class="keyword">allow_methods</span> <span class="value">GET</span>;
+    <span class="keyword">root</span> <span class="value">./default_site/loc_web_test</span>;
+    <span class="keyword">index</span> <span class="value">index.html</span>;
+    <span class="keyword">autoindex</span> <span class="value">on</span>;
+}
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Test Instructions</h2>
+            <div style="padding: 15px; background: #fff3cd; border-radius: 5px; border-left: 4px solid #ffc107;">
+                <p style="margin-bottom: 10px;"><strong>If you can see this page, the following tests have passed:</strong></p>
+                <ul style="padding-left: 20px;">
+                    <li>getBestMatchLocation() found the correct location block</li>
+                    <li>Root path was correctly applied (./default_site/loc_web_test)</li>
+                    <li>Index file was served (index.html)</li>
+                    <li>GET method was allowed (this is a GET request)</li>
+                </ul>
+                <p style="margin-top: 15px; font-weight: bold; color: #d32f2f;">
+                     Try POST/DELETE to test method restrictions (should return 405)
+                </p>
+
+                <div style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 5px; border: 1px solid #ddd;">
+                    <h4 style="margin-bottom: 10px; color: #333;">📋 Test Commands (Copy & Paste):</h4>
+
+                    <div class="command-container" style="margin-bottom: 15px;">
+                        <strong style="color: #555;">Test POST (should return 405):</strong>
+                        <pre id="cmd-post" style="background: #263238; color: #aed581; padding: 10px; border-radius: 5px; overflow-x: auto; margin-top: 5px; font-size: 0.9em;">curl -X POST -d "test=data" http://127.0.0.1:8080/location_web_test/</pre>
+                        <button class="copy-btn" onclick="copyCommand('cmd-post', this)">📋 Copy to Clipboard</button>
+                    </div>
+
+                    <div class="command-container">
+                        <strong style="color: #555;">Test DELETE (should return 405):</strong>
+                        <pre id="cmd-delete" style="background: #263238; color: #aed581; padding: 10px; border-radius: 5px; overflow-x: auto; margin-top: 5px; font-size: 0.9em;">curl -X DELETE http://127.0.0.1:8080/location_web_test/</pre>
+                        <button class="copy-btn" onclick="copyCommand('cmd-delete', this)">📋 Copy to Clipboard</button>
+                    </div>
+
+                    <p style="margin-top: 15px; font-size: 0.85em; color: #666;">
+                         <strong>Expected result:</strong> Both commands should return <code style="background: #fff; padding: 2px 5px; border-radius: 3px; color: #d32f2f;">405 Method Not Allowed</code>
+                    </p>
+                </div>
+            </div>
+            </div>
+                <div class="back-link">
+                <a href="/">← Back to Main Page</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function copyCommand(elementId, button) {
+            const commandText = document.getElementById(elementId).textContent;
+
+            navigator.clipboard.writeText(commandText).then(function() {
+                // Success
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+
+                // Reset button after 2 seconds
+                setTimeout(function() {
+                    button.textContent = '📋 Copy to Clipboard';
+                    button.classList.remove('copied');
+                }, 2000);
+            }, function(err) {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = commandText;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+
+                try {
+                    document.execCommand('copy');
+                    button.textContent = '✓ Copied!';
+                    button.classList.add('copied');
+
+                    setTimeout(function() {
+                        button.textContent = '📋 Copy to Clipboard';
+                        button.classList.remove('copied');
+                    }, 2000);
+                } catch (err) {
+                    button.textContent = '❌ Copy failed';
+                }
+
+                document.body.removeChild(textArea);
+            });
+        }
+    </script>
+</body>
+</html>
