@@ -73,24 +73,6 @@ static void	stack_init(t_data *data, char *list)
 	index_init(data->a, ps_lstsize(data->a));
 }
 
-static void	wait_prompt(t_data *data)
-{
-	char	*temp;
-
-	temp = NULL;
-	ft_printf("Enter a list of integers\n");
-	while (!temp)
-	{
-		temp = get_next_line(STDIN_FILENO);
-	}
-	data->list = ft_strtrim(temp, "\n");
-	free (temp);
-	temp = data->list;
-	data->list = ft_strtrim(temp, "\"");
-	free(temp);
-	stack_init(&(*data), data->list);
-}
-
 void	sort_big_stack(t_data *data)
 {
 	if (ps_lstsize(data->a) == 1 || is_sorted(data->a))
@@ -107,12 +89,12 @@ int	main(int argc, char **argv)
 
 	ft_bzero(&data, sizeof(data));
 	if (argc < 2)
-		wait_prompt(&data);
-	else
 	{
-		data.list = ft_argv_to_str(argc, argv);
-		stack_init(&data, data.list);
+		ft_printf("Usage: ./push_swap [list of integers]\n");
+		return (0);
 	}
+	data.list = ft_argv_to_str(argc, argv);
+	stack_init(&data, data.list);
 	if (ps_lstsize(data.a) < 5)
 		sort_small_stack(&data);
 	else
