@@ -2,10 +2,13 @@
 
 ## Access
 
-Open:
-- `https://stripet.42.fr`
+Available URLs:
+- WordPress: `https://stripet.42.fr`
+- Bonus website: `https://cv.stripet.42.fr`
 
 Because TLS is self-signed, your browser may show a warning. Accept it to continue.
+
+Make sure your local `/etc/hosts` includes both domains with the correct VM IP.
 
 ## First-time setup (WordPress wizard)
 
@@ -18,7 +21,7 @@ On first launch:
 Then log in at:
 - `https://stripet.42.fr/wp-admin`
 
-## Daily usage
+## Daily WordPress usage
 
 ### Create a post
 1. **Posts** → **Add New**
@@ -44,17 +47,20 @@ Then log in at:
 2. Update fields
 3. **Save Changes**
 
-## URLs
+## Useful URLs
 
 - Homepage: `https://stripet.42.fr`
 - Admin: `https://stripet.42.fr/wp-admin`
-- Login page: `https://stripet.42.fr/wp-login.php`
+- Login: `https://stripet.42.fr/wp-login.php`
+- Bonus website: `https://cv.stripet.42.fr`
 
 ## Troubleshooting
 
 ### Site does not open
 - Check with project owner that containers are running.
-- Confirm your `/etc/hosts` maps the correct VM IP to `stripet.42.fr`.
+- Confirm `/etc/hosts` maps the VM IP to:
+  - `stripet.42.fr`
+  - `cv.stripet.42.fr`
 
 ### Changes not visible
 - Ensure you clicked **Publish** or **Update**

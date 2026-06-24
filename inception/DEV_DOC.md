@@ -2,10 +2,11 @@
 
 ## Architecture
 
-Three-service stack on Docker Compose:
+Docker Compose stack with four services:
 - `nginx` (public HTTPS, `443:443`)
 - `wordpress` (PHP-FPM, internal `9000`)
 - `mariadb` (DB, internal `3306`)
+- `website` (bonus static site, internal `80`)
 
 All services are attached to bridge network `inception`.
 
@@ -24,55 +25,72 @@ All services are attached to bridge network `inception`.
   - `Dockerfile`
   - `conf/server.cnf`
   - `tools/entrypoint.sh`
+- `srcs/requirements/bonus/website/`
+  - `Dockerfile`
+  - `conf/nginx.conf`
+  - `html/`
 
 ## Compose details
 
 ### Secrets
-Defined from local files:
+
+Loaded from local files:
 - `../secrets/.db_password`
 - `../secrets/.db_root_password`
 
-Mounted in containers as:
+Mounted as:
 - `/run/secrets/db_password`
 - `/run/secrets/db_root_password`
 
 ### Volumes
-- `wordpress_volume` → `/home/stripet/data/wordpress`
-- `mariadb_volume` → `/home/stripet/data/mariadb`
+
+- `wordpress_volume` (bind): `/home/stripet/data/wordpress`
+- `mariadb_volume` (bind): `/home/stripet/data/mariadb`
 
 ### Startup order
-- nginx depends on wordpress
-- wordpress depends on mariadb
 
-Readiness checks are handled inside entrypoints (for example, WordPress waits for MariaDB ping).
+- `nginx` depends on `wordpress`
+- `nginx` depends on `website`
+- `wordpress` depends on `mariadb`
+- `website` has no explicit dependency
+
+Service readiness is handled inside entrypoints (for example, WordPress waits for MariaDB ping).
 
 ## Service behavior
 
 ### nginx
+
 - Alpine 3.19 + nginx + openssl
-- Generates self-signed cert at first start (`/etc/nginx/certs/server.crt`, `server.key`)
-- Uses:
-  - `listen 443 ssl http2;`
-  - `fastcgi_pass wordpress:9000;`
-  - `server_name stripet.42.fr;` (currently hardcoded)
+- Generates self-signed cert at startup (`/etc/nginx/certs/server.crt`, `server.key`)
+- Handles two HTTPS server blocks:
+  - `stripet.42.fr` → `fastcgi_pass wordpress:9000`
+  - `cv.stripet.42.fr` → `proxy_pass http://website:80`
 
 ### wordpress
+
 - Alpine 3.19 + PHP 8.3 FPM + MariaDB client
-- Downloads WordPress from `https://wordpress.org/latest.tar.gz` during image build
-- Entry point:
-  1. Reads DB secrets
+- Downloads WordPress (`latest.tar.gz`) during image build
+- Entrypoint workflow:
+  1. Reads DB passwords from Docker secrets
   2. Waits for MariaDB (`mysqladmin ping`)
-  3. Generates `wp-config.php` if missing
+  3. Creates `wp-config.php` when missing
   4. Starts `php-fpm83 -F`
 
 ### mariadb
+
 - Alpine 3.19 + MariaDB
-- Config copied to `/etc/my.cnf.d/mariadb-server.cnf`
-- Entry point:
-  1. Initializes DB if `/var/lib/mysql/mysql` absent
-  2. Creates DB/user with values from `.env` + secrets
+- Uses config at `/etc/my.cnf.d/mariadb-server.cnf`
+- Entrypoint workflow:
+  1. Initializes DB when `/var/lib/mysql/mysql` is absent
+  2. Creates WordPress DB/user from `.env` + secrets
   3. Sets root password and grants privileges
   4. Starts `mysqld --user=mysql`
+
+### website (bonus)
+
+- Alpine 3.19 + nginx
+- Serves static files from `/var/www/html`
+- Exposed only inside Compose network and reached through main nginx reverse proxy
 
 ## Local requirements
 
@@ -80,25 +98,25 @@ Before running:
 - create `secrets/.db_password`
 - create `secrets/.db_root_password`
 - create `srcs/.env` with at least:
-  - `DOMAIN_NAME`
   - `MYSQL_USER`
   - `MYSQL_DATABASE`
 
-## Commands
+## Make targets
 
 From `/inception`:
 
 ```bash
-make build   # mkdir bind dirs, build images, up -d
-make up
-make down
-make logs
-make clean
-make fclean
-make re
+make         # default target: build + up
+make build   # mkdir bind dirs + docker compose build
+make up      # docker compose up -d
+make down    # docker compose down
+make logs    # docker compose logs -f
+make clean   # docker image prune -af
+make fclean  # down + docker system prune -af --volumes
+make re      # fclean + build + up
 ```
 
-## Useful debug commands
+## Debug commands
 
 ```bash
 docker compose -f srcs/docker-compose.yml ps
@@ -106,9 +124,10 @@ docker compose -f srcs/docker-compose.yml logs -f
 docker exec -it nginx sh
 docker exec -it wordpress sh
 docker exec -it mariadb sh
+docker exec -it website sh
 ```
 
 ## Notes
 
 - `srcs/.env` and `secrets/` are intentionally git-ignored.
-- `make fclean` removes Docker resources and `/home/stripet/data/*`.
+- `docker system prune --volumes` does not remove host bind directories under `/home/stripet/data/`.

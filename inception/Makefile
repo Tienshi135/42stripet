@@ -1,5 +1,5 @@
 .DEFAULT_GOAL := inception
-.PHONY: up down build logs clean re fclean
+.PHONY: up down build logs clean re fclean inception
 
 up:
 	docker compose -f srcs/docker-compose.yml up -d
