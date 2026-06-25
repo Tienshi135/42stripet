@@ -103,5 +103,7 @@ int	loop_hook(t_data *data)
 		data->mlx->window, data->mlx->mlx_img->img, 0, 0);
 	draw_mini_map(data, data->mlx->mlx_img->img_w - \
 data->mini_map->img.img_w, 0);
+	update_fps(data->fps);
+	draw_fps(data);
 	return (0);
 }

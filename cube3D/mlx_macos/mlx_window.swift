@@ -247,7 +247,10 @@ public class MlxWin
 
   public init(device d:MTLDevice, width w:Int, height h:Int, title t:String)
   {
-    vrect = CGRect(x: 100, y: 100, width: w, height: h)
+    let screen = NSScreen.main?.frame ?? CGRect(x: 0, y: 0, width: CGFloat(1920), height: CGFloat(1080))
+    let originX = screen.origin.x + (screen.width  - CGFloat(w)) / CGFloat(2)
+    let originY = screen.origin.y + (screen.height - CGFloat(h)) / CGFloat(2)
+    vrect = CGRect(x: originX, y: originY, width: CGFloat(w), height: CGFloat(h))
     winE = WinEvent(frame: vrect)
 
     device = d

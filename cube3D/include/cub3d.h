@@ -6,7 +6,7 @@
 /*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:23:46 by odruke-s          #+#    #+#             */
-/*   Updated: 2026/06/24 22:58:44 by tienshi          ###   ########.fr       */
+/*   Updated: 2026/06/25 14:50:37 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@
 # define HALF_PI 1.5707963267948966f
 # define THREE_HALF_PI 4.7123889803846899f
 # define TWO_PI 6.2831853071795865f
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
-# define SQUARE 30
+# define WIN_WIDTH 1400
+# define WIN_HEIGHT 800
+# define SQUARE 20
 # define BUFFER_SIZE 50
 # ifdef __APPLE__
 #  define ESC_KEY    53
@@ -97,10 +97,10 @@ typedef struct s_dda
 
 typedef struct s_fps
 {
-	int			frame_count;
-	clock_t		last_time;
-	float		fps;
-	char		fps_text[32];
+	int				frame_count;
+	struct timespec	last_time;
+	float			fps;
+	char			fps_text[32];
 }	t_fps;
 
 typedef enum e_move

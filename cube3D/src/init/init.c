@@ -71,6 +71,7 @@ t_positions), 1, __FILE__, __LINE__);
 	data->player->base_speed = WALK;
 	data->mouse = (t_mouse *)safe_calloc(sizeof(t_mouse), 1,
 			__FILE__, __LINE__);
+	data->fps = (t_fps *)safe_calloc(sizeof(t_fps), 1, __FILE__, __LINE__);
 	data->dda = (t_dda *)safe_calloc(sizeof(t_dda), 1, __FILE__, __LINE__);
 }
 
@@ -81,6 +82,7 @@ void	init_data(t_data *data, char *filemap)
 	data->mlx->mlx_img->img_w = WIN_WIDTH;
 	data->mlx->mlx_img->img_h = WIN_HEIGHT;
 	data->mouse->sens = 0.5;
+	init_fps(data->fps);
 	data->mini_map->fov = 20;
 	data->mini_map->img.img_w = data->mlx->mlx_img->img_w / 6;
 	data->mini_map->img.img_h = data->mini_map->img.img_w;
@@ -100,11 +102,14 @@ void	init_data(t_data *data, char *filemap)
 
 void	mlx_hook_start(t_data *data)
 {
+	/* Mouse hiding temporarily disabled — cursor obscures debug/testing workflow.
+	   Re-enable before final submission:
 #ifdef __APPLE__
 	mlx_mouse_hide();
 #else
 	mlx_mouse_hide(data->mlx->mlx_tunnel, data->mlx->window);
 #endif
+	*/
 	mlx_hook(data->mlx->window, 2, (1L << 0), handle_keypress, data);
 	mlx_hook(data->mlx->window, 3, (1L << 1), handle_keyrelease, data);
 	mlx_hook(data->mlx->window, 6, (1L << 6), mouse_move, data);
