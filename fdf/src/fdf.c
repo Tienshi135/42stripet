@@ -38,10 +38,13 @@ t_data	init(void)
 
 	ft_memset(&buffer, 0, sizeof(t_data));
 	buffer.tun_id = mlx_init();
-	buffer.w_id = mlx_new_window(buffer.tun_id, 1920, 1080, "Fdf");
-	buffer.img.img_id = mlx_new_image(buffer.tun_id, 1920 / 2, 1080 / 2);
-	buffer.img.img_width = 1920 / 2;
-	buffer.img.img_height = 1080 / 2;
+	mlx_get_screen_size(buffer.tun_id, &buffer.win_w, &buffer.win_h);
+	buffer.w_id = mlx_new_window(buffer.tun_id, buffer.win_w, buffer.win_h,
+			"Fdf");
+	buffer.img.img_id = mlx_new_image(buffer.tun_id,
+			buffer.win_w / 2, buffer.win_h / 2);
+	buffer.img.img_width = buffer.win_w / 2;
+	buffer.img.img_height = buffer.win_h / 2;
 	buffer.img.addr = mlx_get_data_addr(buffer.img.img_id, &buffer.img.bpp,
 			&buffer.img.row_len, &buffer.img.endian);
 	buffer.camera.zoom = 15;

@@ -196,7 +196,8 @@ int	draw_to_img(t_data *data)
 		return (0);
 	data->dirty = 0;
 	cursor = data->map->coords;
-	render_background(data->img, 1920 / 2, 1080 / 2, GREY);
+	render_background(data->img, data->img.img_width, data->img.img_height,
+		GREY);
 	while (cursor)
 	{
 		project(data, cursor);
@@ -205,8 +206,8 @@ int	draw_to_img(t_data *data)
 		cursor = cursor->next;
 	}
 	mlx_put_image_to_window(data->tun_id, data->w_id,
-		data->img.img_id, 1920 / 4,
-		1080 / 4 + data->menu.yoffset);
+		data->img.img_id, data->win_w / 4,
+		data->win_h / 4 + data->menu.yoffset);
 	if (data->camera.mode != data->prev_mode)
 	{
 		title_render(data);

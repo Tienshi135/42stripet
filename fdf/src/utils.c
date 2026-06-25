@@ -115,8 +115,8 @@ void	project(t_data *data, t_coords *coords)
 		iso(coords, x1, y1, z1);
 	else if (data->camera.mode == CAVALIER)
 		cavalier(coords, x1, y1, z1);
-	coords->tx += 1920 / 4 + data->camera.offsetx;
-	coords->ty += 1080 / 4 + data->camera.offsety;
+	coords->tx += data->win_w / 4 + data->camera.offsetx;
+	coords->ty += data->win_h / 4 + data->camera.offsety;
 }
 
 void	draw(t_img *img, int x, int y, int color)

@@ -57,22 +57,33 @@ void	reset_button(t_data *data, int width, int height)
 
 void	menu_draw(t_data *data)
 {
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 10))
-		/ 2 + 1920 / 16, 150, WHITE, "How To Use");
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 16))
-		/ 2 + 1920 / 16, 190, WHITE, "Use WASD to move");
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 18))
-		/ 2 + 1920 / 16, 230, WHITE, "Use scroll to zoom");
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 19))
-		/ 2 + 1920 / 16, 270, WHITE, "Use arrows or click");
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 18))
-		/ 2 + 1920 / 16, 290, WHITE, "and drag to rotate");
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 14))
-		/ 2 + 1920 / 16, 330, WHITE, "use r to reset");
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 20))
-		/ 2 + 1920 / 16, 370, WHITE, "use i/c to swap view");
-	mlx_string_put(data->tun_id, data->w_id, (200 - (char_width * 5))
-		/ 2 + 1920 / 16, 1080 / 8 + 10 + 740, GREY, "Reset");
+	int	mx;
+	int	my;
+
+	mx = data->win_w / 16;
+	my = data->win_h / 8;
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 10)) / 2 + mx, my + 15, WHITE, "How To Use");
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 16)) / 2 + mx, my + 55, WHITE,
+		"Use WASD to move");
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 18)) / 2 + mx, my + 95, WHITE,
+		"Use scroll to zoom");
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 19)) / 2 + mx, my + 135, WHITE,
+		"Use arrows or click");
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 18)) / 2 + mx, my + 155, WHITE,
+		"and drag to rotate");
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 14)) / 2 + mx, my + 195, WHITE,
+		"use r to reset");
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 20)) / 2 + mx, my + 235, WHITE,
+		"use i/c to swap view");
+	mlx_string_put(data->tun_id, data->w_id,
+		(200 - (char_width * 5)) / 2 + mx, my + 750, GREY, "Reset");
 }
 
 void	menu_init(t_data *data)
@@ -89,6 +100,6 @@ void	menu_init(t_data *data)
 	line(data, 20, 180, 285);
 	reset_button(data, 60, 40);
 	mlx_put_image_to_window(data->tun_id, data->w_id,
-		data->menu.img.img_id, 1920 / 16, 1080 / 8);
+		data->menu.img.img_id, data->win_w / 16, data->win_h / 8);
 	menu_draw(data);
 }

@@ -16,31 +16,32 @@
 
 void	title_render(t_data *data)
 {
+	int	tx;
+	int	ty;
+
+	tx = data->win_w / 4;
+	ty = (data->win_h / 4 - 80) / 2;
 	render_background(data->title, data->title.img_width,
 		data->title.img_height, WHITE);
 	mlx_put_image_to_window(data->tun_id, data->w_id,
-		data->title.img_id, 1920 / 4, (1080 / 4 - 80) / 2);
+		data->title.img_id, tx, ty);
 	mlx_string_put(data->tun_id, data->w_id,
-		1920 / 4 + (1920 / 2 - 10 * 10) / 2, (1080 / 4 - 80) / 2 + 20,
+		tx + (data->win_w / 2 - 10 * 10) / 2, ty + 20,
 		BLACK, "Fil De Fer");
 	if (data->camera.mode == ISOMETRIC)
-	{
 		mlx_string_put(data->tun_id, data->w_id,
-			1920 / 4 + (1920 / 2 - 10 * 23) / 2, (1080 / 4 - 80) / 2 + 60,
+			tx + (data->win_w / 2 - 10 * 23) / 2, ty + 60,
 			BLACK, "In Isometric projection");
-	}
 	else if (data->camera.mode == CAVALIER)
-	{
 		mlx_string_put(data->tun_id, data->w_id,
-			1920 / 4 + (1920 / 2 - 10 * 22) / 2, (1080 / 4 - 80) / 2 + 60,
+			tx + (data->win_w / 2 - 10 * 22) / 2, ty + 60,
 			BLACK, "In Cavalier projection");
-	}
 }
 
 void	title_init(t_data *data)
 {
 	ft_memset(&(data->title), 0, sizeof(t_img));
-	data->title.img_width = 1920 / 2;
+	data->title.img_width = data->win_w / 2;
 	data->title.img_height = 80;
 	data->title.img_id = mlx_new_image(data->tun_id,
 			data->title.img_width, data->title.img_height);

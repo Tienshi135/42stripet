@@ -52,5 +52,5 @@ void	iso(t_coords *coords, int x, int y, int z)
 void	cavalier(t_coords *coords, int x, int y, int z)
 {
 	coords->tx = x + z * cos(torad(45));
-	coords->ty = y + z * sin(torad(45));
+	coords->ty = y - z * sin(torad(45));
 }

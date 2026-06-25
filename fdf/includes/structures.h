@@ -90,6 +90,8 @@ typedef struct s_data {
 	t_img		title;
 	int			dirty;
 	int			prev_mode;
+	int			win_w;
+	int			win_h;
 }	t_data;
 
 #endif

@@ -112,14 +112,14 @@ int	mouse_press(int button, int x, int y, t_data *data)
 	}
 	if (button == LEFT_CLICK)
 	{
-		if ((x > 70 + 1920 / 16 && y > 740 + 1080 / 8)
-			&& (x < 130 + 1920 / 16 && y < 780 + 1080 / 8))
+		if ((x > 70 + data->win_w / 16 && y > 740 + data->win_h / 8)
+			&& (x < 130 + data->win_w / 16 && y < 780 + data->win_h / 8))
 		{
 			reset(data);
 			data->dirty = 1;
 		}
-		else if ((x > 1920 / 4 && y > 1080 / 4)
-			&& (x < 3 * (1920 / 4) && y < 3 * (1080 / 4)))
+		else if ((x > data->win_w / 4 && y > data->win_h / 4)
+			&& (x < 3 * (data->win_w / 4) && y < 3 * (data->win_h / 4)))
 		{
 			data->mouse.x = x;
 			data->mouse.y = y;
