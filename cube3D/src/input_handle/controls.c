@@ -48,13 +48,13 @@ void	handle_sens(t_data *data, int keycode)
 {
 	if (keycode == UP_ARROW)
 	{
-		if (data->player->base_speed < 4.0f)
-			data->player->base_speed += 0.5f;
+		if (data->mouse->sens < 2.0f)
+			data->mouse->sens += 0.1f;
 	}
 	else if (keycode == DOWN_ARROW)
 	{
-		if (data->player->base_speed > 0.5f)
-			data->player->base_speed -= 0.5f;
+		if (data->mouse->sens > 0.1f)
+			data->mouse->sens -= 0.1f;
 	}
 }
 
@@ -74,7 +74,7 @@ int	handle_keypress(int keycode, t_data *data)
 		data->player->left_rotate = true;
 	else if (keycode == RIGHT_ARROW)
 		data->player->right_rotate = true;
-	else if (keycode == LEFT_SHIFT)
+	else if (IS_SHIFT_KEY(keycode))
 		data->player->boost = true;
 	handle_sens(data, keycode);
 	return (0);
@@ -94,7 +94,7 @@ int	handle_keyrelease(int keycode, t_data *data)
 		data->player->left_rotate = false;
 	else if (keycode == RIGHT_ARROW)
 		data->player->right_rotate = false;
-	else if (keycode == LEFT_SHIFT)
+	else if (IS_SHIFT_KEY(keycode))
 		data->player->boost = false;
 	return (0);
 }

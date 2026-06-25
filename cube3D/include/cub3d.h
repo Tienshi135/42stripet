@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: stripet <stripet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tienshi <tienshi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:23:46 by odruke-s          #+#    #+#             */
-/*   Updated: 2025/08/15 14:57:40 by stripet          ###   ########.fr       */
+/*   Updated: 2026/06/24 22:58:44 by tienshi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 # define HALF_PI 1.5707963267948966f
 # define THREE_HALF_PI 4.7123889803846899f
 # define TWO_PI 6.2831853071795865f
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 # define SQUARE 30
 # define BUFFER_SIZE 50
 # ifdef __APPLE__
@@ -48,7 +48,15 @@
 #  define DOWN_ARROW 125
 #  define LEFT_ARROW 123
 #  define RIGHT_ARROW 124
-#  define LEFT_SHIFT  56
+/* mlx_macos routes modifier keys through flagsChanged, which sends
+   (0xFF + 1-based-bit-position) of NSEvent.modifierFlags.rawValue — NOT
+   the hardware keyCode.  Shift occupies bit 17 (NSShiftKeyMask 0x20000,
+   keycode 273) on some builds and the NX device-specific bits 0x2 / 0x4
+   (keycodes 257 / 258) on others.  Accept all variants via a bitmask:
+   decode the encoded bit back from the keycode and test against the
+   union of all known shift-flag bits. */
+#  define IS_SHIFT_KEY(k) \
+     ((k) > 0xFF && ((1u << ((unsigned)(k) - 0x100u)) & (0x20000u | 0x6u)))
 # else
 #  define ESC_KEY    65307
 #  define UP_KEY_W   119
@@ -60,6 +68,7 @@
 #  define LEFT_ARROW 65361
 #  define RIGHT_ARROW 65363
 #  define LEFT_SHIFT  65505
+#  define IS_SHIFT_KEY(k) ((k) == LEFT_SHIFT)
 # endif
 # define CONTINUE 0
 # define RESET 1
