@@ -4,6 +4,7 @@ CFLAGS    = -Wall -Werror -Wextra
 Libraries = -lft -L ./libft -lreadline
 
 src_dir = ./source
+obj_dir = ./obj
 
 src = 	$(src_dir)/minishell.c\
 		$(src_dir)/errors.c\
@@ -52,8 +53,7 @@ src = 	$(src_dir)/minishell.c\
 		$(src_dir)/parsing/pars_token.c\
 		$(src_dir)/debug.c
 
-obj   = $(src:.c=.o)
-deps  = $(src:.c=.d)
+obj   = $(addprefix $(obj_dir)/,$(notdir $(src:.c=.o)))
 TOTAL = $(words $(obj))
 
 all:
@@ -61,24 +61,37 @@ all:
 	@$(MAKE) --no-print-directory $(NAME)
 
 $(NAME): $(obj)
-	@printf "  \033[0;34m[LD]\033[0m  Linking %s\n" "$@"
-	@$(CC) $(CFLAGS) $^ $(Libraries) -o $@
+	@printf "\033[2K\r  \033[0;34m[LD]\033[0m  Linking %s\n" "$@"
+	@$(CC) $(CFLAGS) $(obj) $(Libraries) -o $@
 	@echo "╔══════════════════════════════════╗"
 	@echo "║         Build complete!          ║"
 	@echo "║          $(NAME) ready           ║"
 	@echo "╚══════════════════════════════════╝"
 
-%.o: %.c
-	@N=$$(find $(src_dir) -name "*.o" 2>/dev/null | wc -l | tr -d '[:space:]'); \
-	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
-	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
+$(obj_dir)/%.o: $(src_dir)/%.c | $(obj_dir)
+	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
-	@$(CC) -MM $(CFLAGS) $< -MF $(@:.o=.d) -MT $@
 
--include $(deps)
+$(obj_dir)/%.o: $(src_dir)/*/%.c | $(obj_dir)
+	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(obj_dir)/%.o: $(src_dir)/*/*/%.c | $(obj_dir)
+	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(obj_dir):
+	@mkdir -p $(obj_dir)
 
 clean:
-	@rm -f $(obj) $(deps)
+	@rm -rf $(obj_dir)
+	@$(MAKE) --no-print-directory -C libft clean
 
 fclean: clean
 	@rm -f $(NAME)

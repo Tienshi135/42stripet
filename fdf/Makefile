@@ -32,7 +32,7 @@ debug: fclean
 	@$(MAKE) DEBUG=1
 
 $(NAME): libft/libft.a $(MLX_LIB) $(OBJS)
-	@printf "  \033[0;34m[LD]\033[0m  Linking %s\n" "$@"
+	@printf "\033[2K\r  \033[0;34m[LD]\033[0m  Linking %s\n" "$@"
 	@$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) $(LDFLAGS) $(LDLIBS) $(RPATH) -o $@
 	@echo "╔══════════════════════════════════╗"
 	@echo "║         Build complete!          ║"
@@ -41,8 +41,8 @@ $(NAME): libft/libft.a $(MLX_LIB) $(OBJS)
 
 $(obj_dir)/%.o: $(src_dir)/%.c | $(obj_dir)
 	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
-	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
-	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
+	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
 	@$(CC) $(CFLAGS) $(INCLUDES) $(DB) -c $< -o $@
 
 $(obj_dir):

@@ -1,46 +1,42 @@
-NAME     = libft.a
-CC       = gcc
-CFLAGS   = -Wall -Werror -Wextra
-INCLUDES = -I $(inc)
+NAME    = libft.a
+CC      = gcc
+CFLAGS  = -Wall -Wextra -Werror
+SRC_DIR = srcs
+OBJ_DIR = srcs/objs
 
-src_dir = .
-obj_dir = ./obj
-inc     = .
-
-SRCS  = $(shell find $(src_dir) -name "*.c")
-OBJS  = $(addprefix $(obj_dir)/,$(notdir $(SRCS:.c=.o)))
+SRCS  = $(shell find $(SRC_DIR) -name "*.c")
+OBJS  = $(addprefix $(OBJ_DIR)/,$(notdir $(SRCS:.c=.o)))
 TOTAL = $(words $(OBJS))
+VPATH = $(sort $(dir $(SRCS)))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@printf "\033[2K\r  \033[0;34m[AR]\033[0m  Archiving %s\n" "$@"
 	@ar rcs $(NAME) $(OBJS)
 	@echo "╔══════════════════════════════════╗"
 	@echo "║            COMPILED!             ║"
 	@echo "║        $(NAME) is ready!         ║"
 	@echo "╚══════════════════════════════════╝"
 
-$(obj_dir)/%.o: $(src_dir)/*/%.c | $(obj_dir)
-	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
-	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
-	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@N=$$(ls $(OBJ_DIR)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
+	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
-$(obj_dir)/%.o: $(src_dir)/%.c | $(obj_dir)
-	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
-	 printf "  \033[0;32m[%3d%%]\033[0m  Compiling %s\n" \
-	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$<"
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-$(obj_dir):
-	@mkdir -p $(obj_dir)
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 clean:
-	@rm -rf $(obj_dir)
+	@rm -rf $(OBJ_DIR)
 
 fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+debug: CFLAGS += -g
+debug: re
+
+.PHONY: all clean fclean re debug

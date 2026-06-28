@@ -3,24 +3,30 @@ GREEN=\033[0;32m
 BLUE=\033[0;34m
 NC=\033[0m
 
-NAME = GB_United
-CC = c++
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -I$(INCDIR)
-INCDIR = .
+NAME    = GB_United
+CC      = c++
+CFLAGS  = -Wall -Werror -Wextra -std=c++98 -I$(INCDIR)
+INCDIR  = .
 
 src =	Account.cpp\
 		tests.cpp\
 
-obj = $(src:.cpp=.o)
+obj_dir = ./obj
+OBJS    = $(addprefix $(obj_dir)/,$(notdir $(src:.cpp=.o)))
+TOTAL   = $(words $(OBJS))
 
 all: $(NAME)
 	@echo "${GREEN}$(NAME)${NC} is up to date"
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -c $< -o $@
+$(obj_dir)/%.o: %.cpp | $(obj_dir)
+	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
+	 printf "  \\033[0;32m[%3d%%]\\033[0m  %-50s\\r" \
+	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(obj)
-	$(CC) $(CFLAGS) $^ -o $@
+$(NAME): $(OBJS)
+	@printf "\\033[2K\\r  \\033[0;34m[LD]\\033[0m  Linking %s\\n" "$@"
+	@$(CC) $(CFLAGS) $(OBJS) -o $@
 	@echo "${GREEN}$(NAME)${NC} compiled successfully"
 
 debug: CFLAGS += -g
@@ -31,30 +37,13 @@ sanitize: CFLAGS += -fsanitize=address
 sanitize: re
 	@echo "${BLUE}Sanitize mode${NC}"
 
+$(obj_dir):
+	@mkdir -p $(obj_dir)
+
 clean:
-	@cleaned_obj=false; \
-	for file in $(obj); do \
-		if [ -f "$$file" ]; then rm -f $$file; cleaned_obj=true; fi; \
-	done; \
-	cleaned_dsym=false; \
-	if [ -d "$(NAME).dSYM" ]; then rm -rf $(NAME).dSYM; cleaned_dsym=true; fi; \
-	if $$cleaned_obj && $$cleaned_dsym; then \
-		echo "${BLUE}Cleaned$(NC) : ${RED}$(obj) $(NAME).dSYM${NC}"; \
-	elif $$cleaned_obj; then \
-		echo "${BLUE}Cleaned$(NC) : ${RED}$(obj)${NC}"; \
-	elif $$cleaned_dsym; then \
-		echo "${BLUE}Cleaned$(NC) : ${RED}$(NAME).dSYM${NC}"; \
-	else \
-		echo "${RED}Nothing to clean${NC}"; \
-	fi
+	@rm -rf $(obj_dir)
 
 fclean: clean
-	@cleaned_name=false; \
-	if [ -f "$(NAME)" ]; then rm -f $(NAME); cleaned_name=true; fi; \
-	if $$cleaned_name; then \
-		echo "${BLUE}Cleaned$(NC) : ${RED}$(NAME)${NC}"; \
-	else \
-		echo "${RED}$(NAME) does not exist${NC}"; \
-	fi
+	@rm -f $(NAME)
 
 re: fclean all
