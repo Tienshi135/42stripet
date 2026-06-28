@@ -3,29 +3,27 @@ CC      = gcc
 CFLAGS  = -Wall -Wextra -Werror
 SRC_DIR = srcs
 OBJ_DIR = srcs/objs
+GREEN   = \033[0;32m
+RED		= \033[0;31m
+RESET   = \033[0m
 
-# All .c files found recursively under srcs/ (including srcs/printf/)
 SRCS  = $(shell find $(SRC_DIR) -name "*.c")
-# Flat object names — all .o land in srcs/objs/ regardless of subdir.
-# Assumption: no two source files across subdirs share the same basename.
-OBJS  = $(addprefix $(OBJ_DIR)/,$(notdir $(SRCS:.c=.o)))
+OBJS  = $(addprefix $(OBJ_DIR)/, $(notdir $(SRCS:.c=.o)))
 TOTAL = $(words $(OBJS))
-# Let make find sources in every subdir discovered by find
 VPATH = $(sort $(dir $(SRCS)))
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@printf "\033[2K\r  \033[0;34m[AR]\033[0m  Archiving %s\n" "$@"
 	@ar rcs $(NAME) $(OBJS)
 	@echo "╔══════════════════════════════════╗"
-	@echo "║            COMPILED!             ║"
+	@echo "║            $(GREEN)COMPILED!$(RESET)             ║"
 	@echo "║        $(NAME) is ready!         ║"
 	@echo "╚══════════════════════════════════╝"
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
 	@N=$$(ls $(OBJ_DIR)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
-	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
+	 printf "  $(GREEN)[%3d%%]$(RESET)  %-50s\r" \
 	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
 	@$(CC) $(CFLAGS) -Iinclude -c $< -o $@
 
@@ -34,9 +32,11 @@ $(OBJ_DIR):
 
 clean:
 	@rm -rf $(OBJ_DIR)
+	@echo "Cleaned $(OBJ_DIR)"
 
 fclean: clean
 	@rm -f $(NAME)
+	@echo "$(RED)Removed $(NAME)$(RESET)"
 
 re: fclean all
 
