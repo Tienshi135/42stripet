@@ -13,7 +13,7 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 # include <stdlib.h>
-# include "../libft/libft.h"
+# include "libft.h"
 
 enum	e_bool
 {

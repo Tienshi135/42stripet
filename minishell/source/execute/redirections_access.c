@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/errors.h"
+#include "errors.h"
 #include <sys/stat.h>
 #include <stdio.h>
 #include <errno.h>

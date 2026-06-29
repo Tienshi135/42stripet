@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/builtins.h"
-#include "../../header/environ.h"
-#include "../../header/errors.h"
+#include "builtins.h"
+#include "environ.h"
+#include "errors.h"
 
 static int	new_tab_env(int i, char *new_var, t_data *data)
 {

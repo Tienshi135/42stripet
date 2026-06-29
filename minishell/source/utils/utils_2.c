@@ -9,8 +9,8 @@
 /*   Updated: 2024/12/11 09:03:20 by marcgodel        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../header/utils.h"
-#include "../../header/builtins.h"
+#include "utils.h"
+#include "builtins.h"
 #include <stdio.h>
 #include <termios.h>
 

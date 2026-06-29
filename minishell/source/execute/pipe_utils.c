@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/structures.h"
-#include "../../header/errors.h"
+#include "structures.h"
+#include "errors.h"
 #include <stdio.h>
 
 void	close_child_pipe(t_data *data, int current_cmd, t_bool prev_builtin)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/builtins.h"
+#include "builtins.h"
 
 /*some bash display an error if  there is argument, some other no*/
 int	ft_pwd(char **arguments)

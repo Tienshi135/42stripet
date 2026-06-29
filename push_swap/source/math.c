@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/math.h"
+#include "math.h"
 
 int	is_sorted(t_stack *stack)
 {

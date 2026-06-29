@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bonus/error_bonus.h"
-#include "../../libft/libft.h"
+#include "error_bonus.h"
+#include "libft.h"
 
 void	error(t_data *data)
 {

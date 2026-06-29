@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/utils.h"
+#include "utils.h"
 
 static void	free_io(t_io *io)
 {

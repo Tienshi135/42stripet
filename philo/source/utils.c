@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/utils.h"
+#include "utils.h"
 
 int	p_atoi(const char *str)
 {

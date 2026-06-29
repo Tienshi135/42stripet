@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <stdio.h>
 #include <errno.h>
-#include "../libft/libft.h"
+#include "libft.h"
 
 void	err_mess_export(char *str)
 {

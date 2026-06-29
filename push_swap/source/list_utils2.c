@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/list_utils2.h"
+#include "list_utils2.h"
 
 void	set_position(t_stack *stack)
 {

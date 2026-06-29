@@ -12,7 +12,7 @@
 
 #ifndef ERRORS_H
 # define ERRORS_H
-# include "../includes/structures.h"
+# include "structures.h"
 
 enum	e_error{
 	bad_args = 1,

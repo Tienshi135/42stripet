@@ -13,7 +13,7 @@
 #ifndef PUSH_H
 # define PUSH_H
 
-# include "../includes/structures.h"
+# include "structures.h"
 
 int	pa(t_stack **a, t_stack **b, int print);
 int	pb(t_stack **a, t_stack **b, int print);

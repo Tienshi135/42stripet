@@ -9,7 +9,7 @@
 /*   Updated: 2024/11/29 14:30:26 by marcgodel        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../header/utils.h"
+#include "utils.h"
 #include <stdio.h>
 
 static void	display_now(char *str)

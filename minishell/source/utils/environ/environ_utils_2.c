@@ -9,8 +9,8 @@
 /*   Updated: 2025/02/03 13:34:20 by marcgodel        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../../header/utils.h"
-#include "../../../header/environ.h"
+#include "utils.h"
+#include "environ.h"
 #include <stdio.h>
 
 static void	create_shlvl(int i, char *new_var, t_data *data)

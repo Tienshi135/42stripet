@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/utils.h"
-#include "../header/structures.h"
+#include "utils.h"
+#include "structures.h"
 #include <stdio.h>
 
 int	err_mess(char *str)

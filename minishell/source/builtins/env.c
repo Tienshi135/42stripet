@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/builtins.h"
+#include "builtins.h"
 #include <stdio.h>
 
 int	ft_env(t_data *data)

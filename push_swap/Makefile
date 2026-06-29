@@ -1,6 +1,7 @@
 NAME      = push_swap
 CC        = gcc
 CFLAGS    = -Wall -Werror -Wextra
+INCLUDES  = -Iincludes -Iincludes/bonus -Ilibft/include
 Libraries = -lft -L ./libft
 
 src_dir   = ./source
@@ -57,13 +58,13 @@ $(obj_dir)/%.o: $(src_dir)/%.c | $(obj_dir)
 	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
 	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
 	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(obj_dir)/%.o: $(bonus_dir)/%.c | $(obj_dir)
 	@N=$$(ls $(obj_dir)/*.o 2>/dev/null | wc -l | tr -d '[:space:]'); \
 	 printf "  \033[0;32m[%3d%%]\033[0m  %-50s\r" \
 	        "$$(( (N + 1) * 100 / $(TOTAL) ))" "$(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(obj_dir):
 	@mkdir -p $(obj_dir)

@@ -14,10 +14,10 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <errno.h>
-#include "../../header/ft_signal.h"
-#include "../../header/structures.h"
-#include "../../header/errors.h"
-#include "../../header/execute.h"
+#include "ft_signal.h"
+#include "structures.h"
+#include "errors.h"
+#include "execute.h"
 #include <stdio.h>
 
 static int	close_builtin_pipes(t_data *data, int i)

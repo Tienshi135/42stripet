@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/environ.h"
-#include "../../../header/builtins.h"
-#include "../../../header/errors.h"
+#include "environ.h"
+#include "builtins.h"
+#include "errors.h"
 
 void	delete_env_last_command(t_data *data)
 {

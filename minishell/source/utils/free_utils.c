@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/utils.h"
+#include "utils.h"
 #include <stdio.h>
 #include <readline/history.h>
 

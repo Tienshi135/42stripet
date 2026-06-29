@@ -9,12 +9,12 @@
 /*   Updated: 2025/01/08 10:39:35 by marcgodel        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../header/segment.h"
-#include "../header/errors.h"
-#include "../header/utils.h"
-#include "../header/heredoc.h"
-#include "../header/builtins.h"
-#include "../header/ft_signal.h"
+#include "segment.h"
+#include "errors.h"
+#include "utils.h"
+#include "heredoc.h"
+#include "builtins.h"
+#include "ft_signal.h"
 
 static t_segment	*init_segment(t_data *data)
 {

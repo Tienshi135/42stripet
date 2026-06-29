@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bonus/push_swap_checker_bonus.h"
-#include "../../includes/utils.h"
+#include "push_swap_checker_bonus.h"
+#include "utils.h"
 
 static void	stack_init(t_data *data, char *list)
 {

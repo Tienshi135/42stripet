@@ -12,12 +12,12 @@
 
 #ifndef LIST_UTILS2_H
 # define LIST_UTILS2_H
-# include "../includes/structures.h"
-# include "../includes/swap.h"
-# include "../includes/rotate.h"
-# include "../includes/reverse.h"
-# include "../includes/push.h"
-# include "../includes/math.h"
+# include "structures.h"
+# include "swap.h"
+# include "rotate.h"
+# include "reverse.h"
+# include "push.h"
+# include "math.h"
 
 void	set_position(t_stack *stack);
 int		set_target(t_data *data, int index_b);

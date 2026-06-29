@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/expansions.h"
-#include "../header/errors.h"
-#include "../header/tokenize.h"
-#include "../header/environ.h"
-#include "../header/word_splitting.h"
-#include "../header/structures.h"
-#include "../header/utils.h"
+#include "expansions.h"
+#include "errors.h"
+#include "tokenize.h"
+#include "environ.h"
+#include "word_splitting.h"
+#include "structures.h"
+#include "utils.h"
 
 static void	get_exit_status(t_token *buff, int cursor, t_data *data)
 {

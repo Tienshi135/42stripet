@@ -12,8 +12,8 @@
 
 #ifndef MATH_H
 # define MATH_H
-# include "../includes/structures.h"
-# include "../includes/utils.h"
+# include "structures.h"
+# include "utils.h"
 # include "limits.h"
 
 int		is_sorted(t_stack *stack);

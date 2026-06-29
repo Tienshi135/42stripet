@@ -18,7 +18,7 @@ endif
 
 CC       = gcc
 CFLAGS   = -Wall -Werror -Wextra -g3
-INCLUDES = -I ./includes -I ./libft -I ./$(MLX_DIR)
+INCLUDES = -Iincludes -Ilibft/include -I ./$(MLX_DIR)
 LDFLAGS  = -L ./libft -L ./$(MLX_DIR)
 LDLIBS   = -lmlx -lft $(MLX_FLAGS)
 

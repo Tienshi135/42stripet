@@ -12,9 +12,9 @@
 
 #ifndef UTILS_H
 # define UTILS_H
-# include "../includes/structures.h"
-# include "../includes/list_utils.h"
-# include "../includes/sort_utils.h"
+# include "structures.h"
+# include "list_utils.h"
+# include "sort_utils.h"
 
 void	ps_lst_free(t_stack *tofree);
 int		is_valid(t_data *data, char *str);

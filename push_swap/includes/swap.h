@@ -12,7 +12,7 @@
 
 #ifndef SWAP_H
 # define SWAP_H
-# include "../includes/structures.h"
+# include "structures.h"
 
 int	sa(t_stack **a, int print);
 int	sb(t_stack **b, int print);

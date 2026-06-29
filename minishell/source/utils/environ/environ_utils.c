@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/environ.h"
-#include "../../../header/errors.h"
-#include "../../../header/utils.h"
+#include "environ.h"
+#include "errors.h"
+#include "utils.h"
 
 static int	find_var_end(char *str)
 {

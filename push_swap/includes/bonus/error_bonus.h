@@ -13,7 +13,7 @@
 #ifndef ERROR_BONUS_H
 # define ERROR_BONUS_H
 
-# include "../structures.h"
+# include "structures.h"
 
 void	error(t_data *data);
 

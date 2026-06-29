@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/word_splitting.h"
-#include "../../../header/environ.h"
+#include "word_splitting.h"
+#include "environ.h"
 
 t_list	*do_split_w_s(t_list *current, t_index ind)
 {

@@ -13,7 +13,7 @@
 #ifndef PUSH_SWAP_CHECKER_BONUS_H
 # define PUSH_SWAP_CHECKER_BONUS_H
 
-# include "../structures.h"
-# include "../bonus/error_bonus.h"
+# include "structures.h"
+# include "error_bonus.h"
 
 #endif

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bonus/utils_bonus.h"
-#include "../../includes/bonus/errors_bonus.h"
+#include "utils_bonus.h"
+#include "errors_bonus.h"
 
 static char	*findpath(t_data data, char *cmd)
 {

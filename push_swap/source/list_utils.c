@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/list_utils.h"
+#include "list_utils.h"
 
 int	ps_lstsize(t_stack *stack)
 {

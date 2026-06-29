@@ -9,17 +9,17 @@
 /*   Updated: 2025/01/07 13:59:41 by mgodel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../header/minishell.h"
-#include "../header/tokenize.h"
-#include "../header/ft_signal.h"
-#include "../header/expansions.h"
-#include "../header/structures.h"
-#include "../header/utils.h"
-#include "../header/environ.h"
-#include "../header/execute.h"
-#include "../header/history.h"
-#include "../header/segment.h"
-#include "../header/parsing.h"
+#include "minishell.h"
+#include "tokenize.h"
+#include "ft_signal.h"
+#include "expansions.h"
+#include "structures.h"
+#include "utils.h"
+#include "environ.h"
+#include "execute.h"
+#include "history.h"
+#include "segment.h"
+#include "parsing.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>

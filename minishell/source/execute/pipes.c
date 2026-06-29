@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/execute.h"
-#include "../../header/errors.h"
-#include "../../header/utils.h"
+#include "execute.h"
+#include "errors.h"
+#include "utils.h"
 
 void	creat_pipe(t_data *data, t_pipeline *pipeline)
 {

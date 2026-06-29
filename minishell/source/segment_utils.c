@@ -9,9 +9,9 @@
 /*   Updated: 2025/01/08 10:39:26 by marcgodel        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../header/structures.h"
-#include "../header/execute.h"
-#include "../header/errors.h"
+#include "structures.h"
+#include "execute.h"
+#include "errors.h"
 #include <fcntl.h>
 
 static void	update_string(t_data *data, char **str, char *tmp)

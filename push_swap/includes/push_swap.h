@@ -12,8 +12,8 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include "../includes/structures.h"
-# include "../includes/utils.h"
+# include "structures.h"
+# include "utils.h"
 
 void	print_list(t_data *data);
 

@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/algorythm.h"
-#include "../includes/utils.h"
-#include "../includes/math.h"
+#include "algorythm.h"
+#include "utils.h"
+#include "math.h"
 
 void	set_target_position(t_data *data)
 {

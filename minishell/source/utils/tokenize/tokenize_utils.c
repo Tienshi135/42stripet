@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/utils.h"
+#include "utils.h"
 
 void	get_status(t_status *status, char c)
 {

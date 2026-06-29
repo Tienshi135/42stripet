@@ -10,14 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/minishell.h"
-#include "../../header/builtins.h"
-#include "../../header/utils.h"
-#include "../../header/environ.h"
-#include "../../header/execute.h"
-#include "../../header/errors.h"
-#include "../../header/ft_signal.h"
-#include "../../libft/libft.h"
+#include "minishell.h"
+#include "builtins.h"
+#include "utils.h"
+#include "environ.h"
+#include "execute.h"
+#include "errors.h"
+#include "ft_signal.h"
+#include "libft.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <string.h>

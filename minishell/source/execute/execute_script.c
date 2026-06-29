@@ -15,9 +15,9 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
-#include "../../header/structures.h"
-#include "../../header/errors.h"
-#include "../../header/utils.h"
+#include "structures.h"
+#include "errors.h"
+#include "utils.h"
 
 #define INTERPRETER "/bin/bash"
 

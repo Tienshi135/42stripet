@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/errors.h"
-#include "../header/structures.h"
+#include "errors.h"
+#include "structures.h"
 #include <stdlib.h>
 
 static char	quote_3(t_status status)

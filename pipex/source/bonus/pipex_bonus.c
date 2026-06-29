@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/bonus/pipex_bonus.h"
-#include "../../includes/bonus/utils_bonus.h"
-#include "../../includes/bonus/structures_bonus.h"
-#include "../../libft/libft.h"
-#include "../../includes/bonus/errors_bonus.h"
+#include "pipex_bonus.h"
+#include "utils_bonus.h"
+#include "structures_bonus.h"
+#include "libft.h"
+#include "errors_bonus.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/word_splitting.h"
+#include "word_splitting.h"
 
 static int	is_whitespace(char c)
 {

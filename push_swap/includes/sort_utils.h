@@ -12,7 +12,7 @@
 
 #ifndef SORT_UTILS_H
 # define SORT_UTILS_H
-# include "../includes/structures.h"
+# include "structures.h"
 
 void	sort_3(t_stack **stack);
 void	sort_small_stack(t_data *data);

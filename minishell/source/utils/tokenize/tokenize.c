@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../header/tokenize.h"
-#include "../../../header/utils.h"
-#include "../../../header/errors.h"
+#include "tokenize.h"
+#include "utils.h"
+#include "errors.h"
 
 static void	check_type(t_type type, int *end)
 {

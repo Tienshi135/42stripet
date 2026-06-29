@@ -12,10 +12,10 @@
 
 #ifndef UTILS_BONUS_H
 # define UTILS_BONUS_H
-# include "../../includes/bonus/structures_bonus.h"
+# include "structures_bonus.h"
 # include <unistd.h>
 # include <sys/wait.h>
-# include "../../libft/libft.h"
+# include "libft.h"
 # include <stdio.h>
 
 void	child_proccess(t_data data, char *cmd);

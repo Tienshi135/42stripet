@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
-#include "../includes/utils.h"
-#include "../includes/structures.h"
-#include "../libft/libft.h"
-#include "../includes/errors.h"
+#include "pipex.h"
+#include "utils.h"
+#include "structures.h"
+#include "libft.h"
+#include "errors.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>

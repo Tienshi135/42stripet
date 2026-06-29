@@ -9,9 +9,9 @@
 /*   Updated: 2025/01/07 14:00:48 by mgodel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../header/structures.h"
-#include "../../header/utils.h"
-#include "../../header/ft_signal.h"
+#include "structures.h"
+#include "utils.h"
+#include "ft_signal.h"
 #include <unistd.h>
 #include <stdio.h>
 

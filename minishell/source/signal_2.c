@@ -15,8 +15,8 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <readline/readline.h>
-#include "../header/ft_signal.h"
-#include "../libft/libft.h"
+#include "ft_signal.h"
+#include "libft.h"
 
 void	inc_cmd_sig_handle(int sig)
 {

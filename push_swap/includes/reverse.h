@@ -12,7 +12,7 @@
 
 #ifndef REVERSE_H
 # define REVERSE_H
-# include "../includes/structures.h"
+# include "structures.h"
 
 int		rra(t_stack **a, int print);
 int		rrb(t_stack **b, int print);

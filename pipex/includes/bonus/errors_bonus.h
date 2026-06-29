@@ -14,7 +14,7 @@
 # define ERRORS_BONUS_H
 
 # include <stdio.h>
-# include "../../includes/bonus/structures_bonus.h"
+# include "structures_bonus.h"
 
 enum	e_errors{
 	badargs_err = -1,

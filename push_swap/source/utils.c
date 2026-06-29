@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/utils.h"
-#include "../includes/math.h"
+#include "utils.h"
+#include "math.h"
 
 void	data_cleanup(t_data *data)
 {

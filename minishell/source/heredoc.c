@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/heredoc.h"
-#include "../header/errors.h"
-#include "../header/ft_signal.h"
-#include "../header/execute.h"
+#include "heredoc.h"
+#include "errors.h"
+#include "ft_signal.h"
+#include "execute.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>

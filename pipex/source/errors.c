@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/errors.h"
-#include "../libft/libft.h"
+#include "errors.h"
+#include "libft.h"
 #include <stdlib.h>
 
 int	msg(t_data data, int err)

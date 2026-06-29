@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/execute.h"
-#include "../../header/errors.h"
-#include "../../header/structures.h"
+#include "execute.h"
+#include "errors.h"
+#include "structures.h"
 #include <fcntl.h>
 #include <stdio.h>
 #include <readline/readline.h>

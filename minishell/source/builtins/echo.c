@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/builtins.h"
+#include "builtins.h"
 #include <stdio.h>
 
 static int	print_args(char **arguments, int i)

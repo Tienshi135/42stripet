@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "../header/structures.h"
+#include "structures.h"
 #include <unistd.h>
 #include <stdlib.h>
 

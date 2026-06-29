@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/parsing.h"
-#include "../../header/errors.h"
-#include "../../header/utils.h"
+#include "parsing.h"
+#include "errors.h"
+#include "utils.h"
 
 static int	pars_pipe_at_end(t_token *prev)
 {

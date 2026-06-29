@@ -13,8 +13,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
-#include "../header/ft_signal.h"
-#include "../header/minishell.h"
+#include "ft_signal.h"
+#include "minishell.h"
 
 volatile sig_atomic_t	g_sig = 0;
 

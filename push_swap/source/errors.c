@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/errors.h"
+#include "errors.h"
 
 void	msg(int code)
 {

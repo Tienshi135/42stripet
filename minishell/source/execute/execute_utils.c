@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/utils.h"
-#include "../../header/environ.h"
-#include "../../header/execute.h"
-#include "../../header/errors.h"
+#include "utils.h"
+#include "environ.h"
+#include "execute.h"
+#include "errors.h"
 #include <sys/stat.h>
 #include <unistd.h>
 #include <errno.h>

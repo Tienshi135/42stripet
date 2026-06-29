@@ -12,10 +12,10 @@
 
 #ifndef UTILS_H
 # define UTILS_H
-# include "../includes/structures.h"
+# include "structures.h"
 # include <unistd.h>
 # include <sys/wait.h>
-# include "../libft/libft.h"
+# include "libft.h"
 # include <stdio.h>
 
 void	childpipexlast(t_data data, char *cmd);

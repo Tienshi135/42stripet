@@ -9,9 +9,9 @@
 /*   Updated: 2025/01/07 14:03:24 by mgodel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../header/minishell.h"
-#include "../header/ft_signal.h"
-#include "../header/utils.h"
+#include "minishell.h"
+#include "ft_signal.h"
+#include "utils.h"
 #include <stdio.h>
 #include <readline/readline.h>
 #include <readline/history.h>

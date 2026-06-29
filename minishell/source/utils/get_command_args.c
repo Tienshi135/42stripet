@@ -9,8 +9,8 @@
 /*   Updated: 2025/01/07 11:24:04 by marcgodel        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../../header/utils.h"
-#include "../../header/errors.h"
+#include "utils.h"
+#include "errors.h"
 #include <unistd.h>
 
 static int	parse_empty_tok(t_token *token)

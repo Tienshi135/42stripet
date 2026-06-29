@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap.h"
-#include "../includes/errors.h"
-#include "../includes/algorythm.h"
-#include "../includes/math.h"
+#include "push_swap.h"
+#include "errors.h"
+#include "algorythm.h"
+#include "math.h"
 
 void	index_init(t_stack *a, int stack_size)
 {

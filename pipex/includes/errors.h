@@ -14,7 +14,7 @@
 # define ERRORS_H
 
 # include <stdio.h>
-# include "../includes/structures.h"
+# include "structures.h"
 
 enum	e_errors{
 	opencreat_err = -1,

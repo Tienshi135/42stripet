@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/builtins.h"
-#include "../../header/environ.h"
-#include "../../header/errors.h"
+#include "builtins.h"
+#include "environ.h"
+#include "errors.h"
 
 void	clean_var_env(t_data *data, size_t i)
 {

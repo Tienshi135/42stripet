@@ -9,10 +9,10 @@
 /*   Updated: 2025/01/07 11:44:39 by marcgodel        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "../header/structures.h"
-#include "../header/minishell.h"
-#include "../header/environ.h"
-#include "../header/utils.h"
+#include "structures.h"
+#include "minishell.h"
+#include "environ.h"
+#include "utils.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/types.h>

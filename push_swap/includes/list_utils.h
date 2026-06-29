@@ -12,8 +12,8 @@
 
 #ifndef LIST_UTILS_H
 # define LIST_UTILS_H
-# include "../includes/structures.h"
-# include "../includes/list_utils2.h"
+# include "structures.h"
+# include "list_utils2.h"
 
 int		ps_lstsize(t_stack *stack);
 t_stack	*ps_lstlast(t_stack *lst);

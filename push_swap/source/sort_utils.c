@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sort_utils.h"
-#include "../includes/utils.h"
-#include "../includes/math.h"
-#include "../includes/algorythm.h"
+#include "sort_utils.h"
+#include "utils.h"
+#include "math.h"
+#include "algorythm.h"
 
 void	sort_3(t_stack **stack)
 {

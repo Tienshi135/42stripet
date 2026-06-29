@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/actions.h"
+#include "actions.h"
 
 static void	take_forks(t_philo *philo)
 {

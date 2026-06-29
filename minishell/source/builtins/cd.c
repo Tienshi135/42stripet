@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/builtins.h"
-#include "../../header/errors.h"
-#include "../../header/environ.h"
+#include "builtins.h"
+#include "errors.h"
+#include "environ.h"
 
 static int	is_this_in_env(char *varname, char **envp)
 {

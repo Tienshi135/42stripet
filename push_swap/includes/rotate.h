@@ -12,7 +12,7 @@
 
 #ifndef ROTATE_H
 # define ROTATE_H
-# include "../includes/structures.h"
+# include "structures.h"
 
 int		ra(t_stack **a, int print);
 int		rb(t_stack **b, int print);

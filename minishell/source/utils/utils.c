@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../header/utils.h"
-#include "../../header/errors.h"
+#include "utils.h"
+#include "errors.h"
 
 int	is_metachara(char c)
 {
