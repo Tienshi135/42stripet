@@ -1,2 +1,4 @@
 10 300 280 10 stuck sometimes xD
 ignores args after
+
+check fflush added and philo.c line 56 57 58 reference to commit 123dc47
