@@ -1,4 +1,5 @@
 .DEFAULT_GOAL := inception
+
 .PHONY: up down build logs clean re fclean inception
 
 up:
@@ -20,6 +21,7 @@ clean:
 
 fclean: down
 	docker system prune -af --volumes
+	sudo rm -rf /home/stripet/data
 
 re: fclean build up
 

@@ -2,6 +2,8 @@
 
 MYSQL_PASSWORD=$(cat /run/secrets/db_password)
 MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+WP_ADMIN_PASSWORD=$(cat /run/secrets/wp_admin_password)
+WP_USER_PASSWORD=$(cat /run/secrets/wp_user_password)
 
 
 until mysqladmin ping -h mariadb -u root -p${MYSQL_ROOT_PASSWORD} --silent; do
@@ -33,6 +35,27 @@ if (!defined('ABSPATH'))
 	define('ABSPATH', dirname(__FILE__) . '/');
 require_once(ABSPATH . 'wp-settings.php');
 EOF
+fi
+
+
+if ! wp core is-installed --path=/var/www/html --allow-root; then
+	wp core install \
+		--path=/var/www/html \
+		--url="https://${DOMAIN_NAME}:8443/" \
+		--title="My first Wordpress page" \
+		--admin_user="${WP_ADMIN}" \
+		--admin_password=${WP_ADMIN_PASSWORD} \
+		--admin_email="${WP_ADMIN_EMAIL}" \
+		--allow-root \
+		--skip-email
+
+	wp user create "${WP_USER}" "${WP_USER_EMAIL}" \
+		--role=author \
+		--user_pass=${WP_USER_PASSWORD} \
+		--path=/var/www/html \
+		--allow-root
+
+	chown -R nobody:nobody /var/www/html
 fi
 
 

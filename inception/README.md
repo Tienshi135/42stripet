@@ -1,116 +1,67 @@
-# Inception
+*This project has been created as partof the 42 curriculum by stripet.*
 
-42 infrastructure project using Docker Compose with Alpine-based services:
-- **nginx** (public HTTPS reverse proxy, `443:443`)
-- **wordpress** (PHP-FPM, internal `9000`)
-- **mariadb** (database, internal `3306`)
-- **website** (bonus static site, internal `80`)
+# Description
+Inception is a 42-school Docker project that builds a small multi-service stack for learning containerized infrastructure. The stack includes:
+- nginx (reverse-proxy, HTTPS)
+- WordPress (PHP-FPM)
+- MariaDB (database)
+- Static website (PHP)
+- Adminer for DB management
 
-## Documentation files
+Everything is defined under `srcs/` so the repository acts as a builder for the Compose stack and images.
 
-- `README.md`: project overview and setup
-- `USER_DOC.md`: user-facing usage guide
-- `DEV_DOC.md`: technical/runtime details
+# Quick overview / features
+- Services: `nginx` (443), `wordpress` (php-fpm, internal 9000), `mariadb` (internal 3306), `website`, `adminer`
+- Secrets handled via Docker Compose secrets (files in `srcs/secrets/`)
+- Host bind volumes for persistent data: `/home/stripet/data/wordpress` and `/home/stripet/data/mariadb`
+- Entrypoint scripts perform service readiness checks and initial setup (DB init, WordPress config)
 
-## Prerequisites
+# Prerequisites
+- Docker
+- Docker Compose
+- Make
+- .env
+- secrets/
 
-- Docker Engine + Docker Compose plugin
-- `make`
-- Permission to create directories under:
-  - `/home/stripet/data/wordpress`
-  - `/home/stripet/data/mariadb`
-
-## Required local files (not committed)
-
-Create these before starting services:
-
-1) `secrets/.db_password`
-2) `secrets/.db_root_password`
-3) `srcs/.env`
-
-Example `srcs/.env`:
-
-```env
-MYSQL_USER=stripet_user
-MYSQL_DATABASE=wordpress_db
-```
-
-## Quick start
-
-1. Add host mappings on your machine:
-   ```bash
-   sudo sh -c 'echo "<VM_IP> stripet.42.fr cv.stripet.42.fr" >> /etc/hosts'
-   ```
-2. Build images and start all services:
-   ```bash
-   make
-   ```
-   (`make` uses the default `inception` target, which runs `build` then `up`.)
-3. Open:
-   - WordPress: `https://stripet.42.fr`
-   - Bonus website: `https://cv.stripet.42.fr`
-
-## Make targets
+# Instructions
+1. From the repository root create the required host directories and ensure secrets exist (the Makefile already does directory creation during `make build`):
 
 ```bash
-make         # default target: build then up
-make up      # docker compose up -d
-make down    # docker compose down
-make build   # create bind dirs and build images
-make logs    # follow compose logs
-make clean   # docker image prune -af
-make fclean  # down + docker system prune -af --volumes
-make re      # fclean then build then up
+# ensure secret files exist under srcs/secrets/:
+# srcs/secrets/.db_password
+# srcs/secrets/.db_root_password
+# srcs/secrets/.wp_user_password
+# srcs/secrets/.wp_admin_password
 ```
 
-## Service summary
+2. Build and start the stack via `make`:
 
-- **nginx**
-  - Dockerfile: `srcs/requirements/nginx/Dockerfile`
-  - Config: `srcs/requirements/nginx/conf/nginx.conf`
-  - TLS cert generation: `srcs/requirements/nginx/tools/entrypoint.sh`
-  - Routes:
-    - `stripet.42.fr` → `wordpress:9000`
-    - `cv.stripet.42.fr` → `website:80`
+```bash
+make         # runs `make build make up`
+make build   # builds images
+make up      # start the stack
+make down    # stop and remove containers
+make logs    # follow logs
+```
 
-- **wordpress**
-  - Dockerfile: `srcs/requirements/wordpress/Dockerfile`
-  - PHP-FPM config: `srcs/requirements/wordpress/conf/www.conf`
-  - Runtime config generation: `srcs/requirements/wordpress/tools/entrypoint.sh`
+# Ressources Used
+- https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/
+- Claude (used mainly to scout the web for documentation with some code generated and reviewed / modified)
 
-- **mariadb**
-  - Dockerfile: `srcs/requirements/mariadb/Dockerfile`
-  - DB config: `srcs/requirements/mariadb/conf/server.cnf`
-  - DB init/startup: `srcs/requirements/mariadb/tools/entrypoint.sh`
+# Domains / hosts
+This project expects the following domain names (used by nginx configuration):
+- `stripet.42.fr` -> WordPress site
+- `cv.stripet.42.fr` -> bonus static website
+- `adminer.stripet.42.fr` -> manager for the DB
 
-- **website** (bonus)
-  - Dockerfile: `srcs/requirements/bonus/website/Dockerfile`
-  - Nginx config: `srcs/requirements/bonus/website/conf/nginx.conf`
-  - Static content: `srcs/requirements/bonus/website/html/`
+Add all three names to your `/etc/hosts` pointing to the machine or VM where you run the stack.
 
-## Data and networking
+# Usage example
+After `make`, open your browser at:
 
-- Volumes:
-  - `wordpress_volume` → `/home/stripet/data/wordpress`
-  - `mariadb_volume` → `/home/stripet/data/mariadb`
-- Internal network: `inception` (bridge)
-- Only nginx is exposed to host (`443`)
+- https://stripet.42.fr  (WordPress)
+- https://cv.stripet.42.fr (bonus website — served through the nginx reverse proxy)
+- https://adminer.stripet.42.fr (bonus - manager for the DB)
 
-## Troubleshooting
+Because the TLS certificate is self-signed, your browser will warn about the certificate — accept the warning to proceed.
 
-- Container status:
-  ```bash
-  docker compose -f srcs/docker-compose.yml ps
-  ```
-- Compose config validation (requires local `srcs/.env` and `secrets/*`):
-  ```bash
-  docker compose -f srcs/docker-compose.yml config
-  ```
-- Logs:
-  ```bash
-  make logs
-  ```
-- Full reset:
-  ```bash
-  make re
-  ```
