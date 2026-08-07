@@ -41,7 +41,7 @@ fi
 if ! wp core is-installed --path=/var/www/html --allow-root; then
 	wp core install \
 		--path=/var/www/html \
-		--url="https://${DOMAIN_NAME}:8443/" \
+		--url="https://${DOMAIN_NAME}/" \
 		--title="My first Wordpress page" \
 		--admin_user="${WP_ADMIN}" \
 		--admin_password=${WP_ADMIN_PASSWORD} \
